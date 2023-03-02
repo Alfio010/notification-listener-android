@@ -31,10 +31,16 @@ class SettingsActivity : AppCompatActivity() {
         val tvVersion = findViewById<MaterialTextView>(R.id.tvVersion)
         val settingsRatingBar = findViewById<RatingBar>(R.id.settingsRatingBar)
 
-        tvCountNotification.text = "${getString(R.string.notification_count)} ${DBUtils.countNotifications()}"
+        tvCountNotification.text =
+            "${getString(R.string.notification_count)} ${DBUtils.countNotifications()}"
         tvVersion.text = "${getString(R.string.version)} ${BuildConfig.VERSION_NAME}"
 
-        settingsRatingBar.setOnRatingBarChangeListener { _, _, _ -> SomeUtils.openPlayStore(this, packageName) }
+        settingsRatingBar.setOnRatingBarChangeListener { _, _, _ ->
+            SomeUtils.openPlayStore(
+                this,
+                packageName
+            )
+        }
 
         swBlacklistAuto.isChecked = MySharedPref.isAutoBlacklistOn()
         swEnableNotification.isChecked = MySharedPref.isNotificationEnabled()

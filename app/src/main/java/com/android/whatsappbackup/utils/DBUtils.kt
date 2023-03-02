@@ -133,7 +133,11 @@ object DBUtils {
             .find()
     }
 
-    fun advancedNotificationSearch(string: String, pkgName: String, isDeleted: Boolean): MutableList<Notifications> {
+    fun advancedNotificationSearch(
+        string: String,
+        pkgName: String,
+        isDeleted: Boolean
+    ): MutableList<Notifications> {
         if (pkgName == MyApplication.defaultSwValue) {
             return notifications
                 .query()
@@ -161,7 +165,10 @@ object DBUtils {
             .find()
     }
 
-    fun advancedNotificationSearchWithoutText(pkgName: String, isDeleted: Boolean): MutableList<Notifications> {
+    fun advancedNotificationSearchWithoutText(
+        pkgName: String,
+        isDeleted: Boolean
+    ): MutableList<Notifications> {
         if (pkgName == MyApplication.defaultSwValue) {
             return notifications
                 .query()

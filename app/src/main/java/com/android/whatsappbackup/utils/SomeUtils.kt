@@ -80,7 +80,12 @@ object SomeUtils {
         try {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg")))
         } catch (e: ActivityNotFoundException) {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$pkg")))
+            context.startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$pkg")
+                )
+            )
         }
     }
 
@@ -88,7 +93,8 @@ object SomeUtils {
     fun getAppName(pkgName: String, context: Context): String {
         val packageManagers = context.packageManager
         return try {
-            packageManagers.getApplicationLabel(packageManagers.getApplicationInfo(pkgName, 0)).toString()
+            packageManagers.getApplicationLabel(packageManagers.getApplicationInfo(pkgName, 0))
+                .toString()
         } catch (e: java.lang.Exception) {
             ""
         }

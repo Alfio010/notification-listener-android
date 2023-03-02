@@ -39,7 +39,11 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (MySharedPref.isAutoBlacklistOn() && SomeLists.blackListedNotificationKeys.any { sbn.packageName.contains(it) }) {
+        if (MySharedPref.isAutoBlacklistOn() && SomeLists.blackListedNotificationKeys.any {
+                sbn.packageName.contains(
+                    it
+                )
+            }) {
             createBlackListPackageName(sbn.packageName, this)
             return
         }
@@ -150,7 +154,9 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         }
 
         if (sbn != null) {
-            if (DBUtils.allPackageNameFromTable().any { it.pkg == sbn.packageName && it.isBlackList }) {
+            if (DBUtils.allPackageNameFromTable()
+                    .any { it.pkg == sbn.packageName && it.isBlackList }
+            ) {
                 return
             }
 
