@@ -56,52 +56,52 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         var peopleList = ""
         var titleBig = ""
 
-        val entityNotifications = lastNotification(sbn.packageName)
+        val lastNotifications = lastNotification(sbn.packageName)
 
         LOGGER.doLog("key: $key")
 
-        sbn.notification.extras.getString(Notification.EXTRA_TITLE)?.let {
+        val notificationExtras = sbn.notification.extras ?: return
+
+        notificationExtras.getString(Notification.EXTRA_TITLE)?.let {
             LOGGER.doLog("extra-title: $it")
             title = it
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            sbn.notification.extras.getString(Notification.EXTRA_CONVERSATION_TITLE)?.let {
+            notificationExtras.getString(Notification.EXTRA_CONVERSATION_TITLE)?.let {
                 LOGGER.doLog("conversation-title: $it")
                 conversationTitle = it
             }
         }
 
-        sbn.notification.extras.getString(Notification.EXTRA_TEXT)?.let {
+        notificationExtras.getString(Notification.EXTRA_TEXT)?.let {
             LOGGER.doLog("extra-text: $it")
             text = it
         }
 
-        sbn.notification.extras.getString(Notification.EXTRA_BIG_TEXT)?.let {
+        notificationExtras.getString(Notification.EXTRA_BIG_TEXT)?.let {
             LOGGER.doLog("big-text: $it")
             bigText = it
         }
 
-        sbn.notification.extras.getString(Notification.EXTRA_INFO_TEXT)?.let {
+        notificationExtras.getString(Notification.EXTRA_INFO_TEXT)?.let {
             LOGGER.doLog("info-text: $it")
             infoText = it
         }
 
-        sbn.notification.extras.getString(Notification.EXTRA_TITLE_BIG)?.let {
+        notificationExtras.getString(Notification.EXTRA_TITLE_BIG)?.let {
             LOGGER.doLog("title big: $it")
             titleBig = it
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            sbn.notification.extras.getString(Notification.EXTRA_PEOPLE_LIST)?.let {
+            notificationExtras.getString(Notification.EXTRA_PEOPLE_LIST)?.let {
                 LOGGER.doLog("people list: $it")
                 peopleList = it
             }
         }
 
-        val entity = searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
-
-        if (entity != null) {
+        if (searchOneNot(sbn.packageName, title, sbn.notification.`when`, text) != null) {
             return
         }
 
@@ -120,7 +120,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
 
         val save = {
             if (title.isNotEmpty() || text.isNotEmpty()) {
-                val entitySave = createNotification(
+                val notification = createNotification(
                     sbn.packageName,
                     title,
                     sbn.notification.`when`,
@@ -131,7 +131,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     peopleList,
                     titleBig
                 )
-                MyApplication.notifications.put(entitySave)
+                MyApplication.notifications.put(notification)
 
                 if (packageNameExists(sbn.packageName) == null) {
                     MyApplication.packagenames.put(createPackageName(sbn.packageName, this))
@@ -139,8 +139,8 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
         }
 
-        if (entityNotifications != null) {
-            if (entityNotifications.title != title || entityNotifications.text != text) {
+        if (lastNotifications != null) {
+            if (lastNotifications.title != title || lastNotifications.text != text) {
                 save()
             }
         } else {
@@ -176,60 +176,60 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         var peopleList = ""
         var titleBig = ""
 
-        sbn?.notification?.extras?.getString(Notification.EXTRA_TITLE)?.let {
+        val notificationExtras = sbn?.notification?.extras ?: return
+
+        notificationExtras.getString(Notification.EXTRA_TITLE)?.let {
             LOGGER.doLog("extra-title: $it")
             title = it
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            sbn?.notification?.extras?.getString(Notification.EXTRA_CONVERSATION_TITLE)?.let {
+            notificationExtras.getString(Notification.EXTRA_CONVERSATION_TITLE)?.let {
                 LOGGER.doLog("conversation-title: $it")
                 conversationTitle = it
             }
         }
 
-        sbn?.notification?.extras?.getString(Notification.EXTRA_TEXT)?.let {
+        notificationExtras.getString(Notification.EXTRA_TEXT)?.let {
             LOGGER.doLog("extra-text: $it")
             text = it
         }
 
-        sbn?.notification?.extras?.getString(Notification.EXTRA_BIG_TEXT)?.let {
+        notificationExtras.getString(Notification.EXTRA_BIG_TEXT)?.let {
             LOGGER.doLog("big-text: $it")
             bigText = it
         }
 
-        sbn?.notification?.extras?.getString(Notification.EXTRA_INFO_TEXT)?.let {
+        notificationExtras.getString(Notification.EXTRA_INFO_TEXT)?.let {
             LOGGER.doLog("info-text: $it")
             infoText = it
         }
 
-        sbn?.notification?.extras?.getString(Notification.EXTRA_TITLE_BIG)?.let {
+        notificationExtras.getString(Notification.EXTRA_TITLE_BIG)?.let {
             LOGGER.doLog("title big: $it")
             titleBig = it
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            sbn?.notification?.extras?.getString(Notification.EXTRA_PEOPLE_LIST)?.let {
+            notificationExtras.getString(Notification.EXTRA_PEOPLE_LIST)?.let {
                 LOGGER.doLog("people list: $it")
                 peopleList = it
             }
         }
 
-        val entity = sbn?.let { searchOneNot(it.packageName, title, it.notification.`when`, text) }
+        val entity = sbn.let { searchOneNot(it.packageName, title, it.notification.`when`, text) }
 
         if (entity != null) {
             return
         }
 
-        if (sbn != null) {
-            if (isDiscordAndBlank(sbn.packageName, text)) {
-                return
-            }
+        if (isDiscordAndBlank(sbn.packageName, text)) {
+            return
         }
 
         if (title.isNotEmpty() || text.isNotEmpty()) {
-            val entity2 =
-                sbn?.let {
+            val deletedNotification =
+                sbn.let {
                     createNotificationDeleted(
                         it.packageName,
                         title,
@@ -242,10 +242,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                         titleBig
                     )
                 }
-            if (entity2 != null) {
-                MyApplication.notifications.put(entity2)
-            }
-            entity2?.let { sendNotification(this, it.title, entity2.text) }
+
+            MyApplication.notifications.put(deletedNotification)
+
+            sendNotification(this, deletedNotification.title, deletedNotification.text)
         }
     }
 }

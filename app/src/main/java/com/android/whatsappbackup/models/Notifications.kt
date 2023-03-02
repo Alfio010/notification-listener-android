@@ -9,26 +9,16 @@ import java.util.*
 data class Notifications(
     @Id
     var entityId: Long,
-
     @Index
     var packageName: String,
-
     var title: String,
-
     var time: Date,
-
     var text: String,
-
     var bigText: String? = null,
-
     var conversationTitle: String? = null,
-
     var infoText: String? = null,
-
     var peopleList: String? = null,
-
     var titleBig: String? = null,
-
     var isDeleted: Boolean = false
 ) {
     override fun toString(): String {

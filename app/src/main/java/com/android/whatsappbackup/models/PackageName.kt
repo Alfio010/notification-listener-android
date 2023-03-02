@@ -9,13 +9,10 @@ import io.objectbox.annotation.Unique
 data class PackageName(
     @Id
     var entityId: Long,
-
     var name: String?,
-
     @Index
     @Unique
     var pkg: String?,
-
     var isBlackList: Boolean = false
 ) {
     override fun toString(): String {
