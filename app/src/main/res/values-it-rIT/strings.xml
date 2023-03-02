@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="show_chat">Mostra chat</string>
+    <string name="all_notification">Tutte le notifiche</string>
+    <string name="deleted_notification">Notifiche eliminate</string>
+    <string name="advanced_search">Ricerca avanzata</string>
+    <string name="title_text">Titolo/Testo</string>
+    <string name="deleted">Eliminato</string>
+    <string name="search">Cerca</string>
+    <string name="defaultSwitchValue">Tutte le applicazioni</string>
+    <string name="settings">Impostazioni</string>
+    <string name="blacklist_package">Blacklist predefinita</string>
+    <string name="yes">Si</string>
+    <string name="blacklist_reset_confirm">Sei sicuro di voler resettare la blacklist?</string>
+    <string name="blacklist_info">Tutte le app attivate nella blacklist verranno escluse dal notification listener</string>
+    <string name="blacklist_auto">Blacklist app di sistema</string>
+    <string name="ask_not_permission">È necessario concedere il permesso di lettura notifiche</string>
+    <string name="notification_name">Avvertimento cancellazione notifiche</string>
+    <string name="notification_title">Notifica eliminata</string>
+    <string name="enable_notification">Attiva notifiche</string>
+    <string name="notification_count">Notifiche:</string>
+    <string name="back">Indietro</string>
+    <string name="version">Versione</string>
+    <string name="rating">Valuta l\'app:</string>
+    <string name="grouped_chat">Chat raggruppate</string>
+</resources>

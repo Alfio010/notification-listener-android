@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.26992753623188404" />
+        <entry key="..\:/fulmi/Desktop/AppAndroid/notificationlistener/app/src/main/res/layout/activity_all.xml" value="0.3625" />
+        <entry key="..\:/fulmi/Desktop/AppAndroid/notificationlistener/app/src/main/res/layout/activity_main.xml" value="0.3625" />
+        <entry key="..\:/fulmi/Desktop/AppAndroid/notificationlistener/app/src/main/res/layout/activity_search.xml" value="0.3625" />
+        <entry key="..\:/fulmi/Desktop/AppAndroid/notificationlistener/app/src/main/res/layout/activity_stories.xml" value="0.3625" />
+        <entry key="..\:/fulmi/Desktop/AppAndroid/notificationlistener/app/src/main/res/layout/activity_whatsactivity.xml" value="0.3625" />
+        <entry key="..\:/fulmi/Desktop/AppAndroid/notificationlistener/app/src/main/res/layout/rowcustom.xml" value="0.3625" />
+        <entry key="app/src/main/res/drawable/button_shape.xml" value="0.342" />
+        <entry key="app/src/main/res/drawable/button_style.xml" value="0.342" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.3235" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.29243266353142366" />
+        <entry key="app/src/main/res/layout/activity_notification_list.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_search.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_stories.xml" value="0.34057971014492755" />
+        <entry key="app/src/main/res/layout/activity_whatsactivity.xml" value="0.29483695652173914" />
+        <entry key="app/src/main/res/layout/blacklist_activity.xml" value="0.29243266353142366" />
+        <entry key="app/src/main/res/layout/custom_blacklist_layout.xml" value="0.29243266353142366" />
+        <entry key="app/src/main/res/layout/custom_notification_layout.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/custom_settings_layout.xml" value="0.35520833333333335" />
+        <entry key="app/src/main/res/layout/rowcustom.xml" value="0.3129528985507246" />
+        <entry key="app/src/main/res/layout/scrollable_popup.xml" value="0.29243266353142366" />
+        <entry key="app/src/main/res/layout/settings_activity.xml" value="0.33" />
+        <entry key="app/src/main/res/xml/root_preferences.xml" value="0.35625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

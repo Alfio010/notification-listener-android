@@ -1,0 +1,121 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:8878416491191500552",
+      "lastPropertyId": "12:4844897236612062692",
+      "name": "Notifications",
+      "properties": [
+        {
+          "id": "1:4178769263191525514",
+          "name": "entityId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7578771571798602254",
+          "name": "packageName",
+          "indexId": "1:4389553471949414081",
+          "type": 9,
+          "flags": 2048
+        },
+        {
+          "id": "3:5655920637806019471",
+          "name": "title",
+          "type": 9
+        },
+        {
+          "id": "4:3545197558998968382",
+          "name": "text",
+          "type": 9
+        },
+        {
+          "id": "6:959997022637505227",
+          "name": "time",
+          "type": 10
+        },
+        {
+          "id": "7:6236953046485469984",
+          "name": "isDeleted",
+          "type": 1
+        },
+        {
+          "id": "8:3962197055343946383",
+          "name": "bigText",
+          "type": 9
+        },
+        {
+          "id": "9:5143052823628435448",
+          "name": "conversationTitle",
+          "type": 9
+        },
+        {
+          "id": "10:885280371238047530",
+          "name": "infoText",
+          "type": 9
+        },
+        {
+          "id": "11:8916652372636126180",
+          "name": "peopleList",
+          "type": 9
+        },
+        {
+          "id": "12:4844897236612062692",
+          "name": "titleBig",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:8902696152457388726",
+      "lastPropertyId": "5:4932822926775162609",
+      "name": "PackageName",
+      "properties": [
+        {
+          "id": "1:468350798052735345",
+          "name": "entityId",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7576385204431998148",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:628724409447462114",
+          "name": "isBlackList",
+          "type": 1
+        },
+        {
+          "id": "5:4932822926775162609",
+          "name": "pkg",
+          "indexId": "4:7019211843836792229",
+          "type": 9,
+          "flags": 2080
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:8902696152457388726",
+  "lastIndexId": "4:7019211843836792229",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [
+    3330202211979634288,
+    4302151992235938428
+  ],
+  "retiredPropertyUids": [
+    8176653000475857659,
+    6358400184592931790
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
