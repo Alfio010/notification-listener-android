@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DatabaseFactory
+import com.google.android.material.color.DynamicColors
 import io.objectbox.Box
 import io.objectbox.BoxStore
 
@@ -22,6 +23,8 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        DynamicColors.applyToActivitiesIfAvailable(this)
+
         database = DatabaseFactory.createDatabase(this)
         notifications = database.boxFor(Notifications::class.java)
         packagenames = database.boxFor(PackageName::class.java)

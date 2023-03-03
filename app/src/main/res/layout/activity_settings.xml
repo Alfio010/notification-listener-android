@@ -42,8 +42,8 @@
                         android:id="@+id/bBlacklistSettings"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:backgroundTint="?colorSecondary"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/blue"
                         android:text="@string/blacklist" />
 
                     <com.google.android.material.materialswitch.MaterialSwitch
@@ -59,7 +59,7 @@
                     android:id="@+id/bResetBlackList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/blue"
+                    android:backgroundTint="?colorSecondary"
                     android:text="@string/reset_blacklist" />
 
             </LinearLayout>

@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="?colorSecondary"
         android:text="@string/search" />
 
 </LinearLayout>

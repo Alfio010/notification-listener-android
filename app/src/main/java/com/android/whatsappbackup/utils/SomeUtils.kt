@@ -64,8 +64,6 @@ object SomeUtils {
     fun uiDefaultSettings(activity: AppCompatActivity) {
         activity.supportActionBar?.hide()
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        activity.window.statusBarColor = ContextCompat.getColor(activity, R.color.blue_dark)
-        activity.window.navigationBarColor = ContextCompat.getColor(activity, R.color.blue_white)
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 
