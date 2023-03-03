@@ -35,7 +35,7 @@ object DBUtils {
             .findFirst()
     }
 
-    fun deletedNotification(): MutableList<Notifications> {
+    fun deletedNotification(): List<Notifications> {
         return notifications
             .query()
             .equal(Notifications_.isDeleted, true)
@@ -44,7 +44,7 @@ object DBUtils {
             .find()
     }
 
-    fun perAppAllNotifications(pkgName: String): MutableList<Notifications> {
+    fun perAppAllNotifications(pkgName: String): List<Notifications> {
         return notifications
             .query()
             .equal(
@@ -57,7 +57,7 @@ object DBUtils {
             .find()
     }
 
-    fun searchChat(pkgName: String, title: String): MutableList<Notifications> {
+    fun searchChat(pkgName: String, title: String): List<Notifications> {
         return notifications
             .query()
             .equal(
@@ -75,7 +75,7 @@ object DBUtils {
             .find()
     }
 
-    fun allNotification(): MutableList<Notifications> {
+    fun allNotification(): List<Notifications> {
         return notifications
             .query()
             .notEqual(
@@ -88,7 +88,7 @@ object DBUtils {
             .find()
     }
 
-    fun whatsappNotification(): MutableList<Notifications> {
+    fun whatsappNotification(): List<Notifications> {
         return notifications
             .query()
             .equal(
@@ -101,7 +101,7 @@ object DBUtils {
             .find()
     }
 
-    fun allNotificationSearch(string: String): MutableList<Notifications> {
+    fun allNotificationSearch(string: String): List<Notifications> {
         return notifications
             .query()
             .notEqual(
@@ -117,7 +117,7 @@ object DBUtils {
             .find()
     }
 
-    fun perPackageNotificationSearch(string: String, pkgName: String): MutableList<Notifications> {
+    fun perPackageNotificationSearch(string: String, pkgName: String): List<Notifications> {
         return notifications
             .query()
             .equal(
@@ -137,7 +137,7 @@ object DBUtils {
         string: String,
         pkgName: String,
         isDeleted: Boolean
-    ): MutableList<Notifications> {
+    ): List<Notifications> {
         if (pkgName == MyApplication.defaultSwValue) {
             return notifications
                 .query()
@@ -168,7 +168,7 @@ object DBUtils {
     fun advancedNotificationSearchWithoutText(
         pkgName: String,
         isDeleted: Boolean
-    ): MutableList<Notifications> {
+    ): List<Notifications> {
         if (pkgName == MyApplication.defaultSwValue) {
             return notifications
                 .query()
@@ -190,7 +190,7 @@ object DBUtils {
             .find()
     }
 
-    fun allPackageName(): MutableList<Notifications> {
+    fun allPackageName(): List<Notifications> {
         return notifications
             .query()
             .orderDesc(Notifications_.time)
@@ -198,7 +198,7 @@ object DBUtils {
             .find()
     }
 
-    fun deletedNotificationSearch(string: String): MutableList<Notifications> {
+    fun deletedNotificationSearch(string: String): List<Notifications> {
         return notifications
             .query()
             .equal(Notifications_.isDeleted, true)
@@ -316,7 +316,7 @@ object DBUtils {
             .findFirst()
     }
 
-    fun allPackageNameFromTable(): MutableList<PackageName> {
+    fun allPackageNameFromTable(): List<PackageName> {
         return packagenames
             .query()
             .orderDesc(PackageName_.entityId)
@@ -324,7 +324,7 @@ object DBUtils {
             .find()
     }
 
-    fun packageNameSearch(string: String): MutableList<PackageName> {
+    fun packageNameSearch(string: String): List<PackageName> {
         return packagenames
             .query()
             .contains(PackageName_.name, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)

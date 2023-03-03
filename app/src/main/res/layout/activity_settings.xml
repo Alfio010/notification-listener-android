@@ -29,6 +29,8 @@
                     android:id="@+id/tvBlacklistInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:text="@string/blacklist_info"
                     android:textSize="18sp" />
 
@@ -59,6 +61,7 @@
                     android:id="@+id/bResetBlackList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:backgroundTint="?colorSecondary"
                     android:text="@string/reset_blacklist" />
 

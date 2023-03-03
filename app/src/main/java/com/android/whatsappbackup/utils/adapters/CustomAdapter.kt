@@ -12,14 +12,16 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
+import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.SpecificChatActivity
+import com.android.whatsappbackup.models.NotificationJsonSerializer
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.CustomLog
 import com.android.whatsappbackup.utils.SomeUtils.dateFormatter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import org.json.JSONObject
 
 class CustomAdapter(
@@ -42,7 +44,10 @@ class CustomAdapter(
         convertView2 = inflater.inflate(R.layout.custom_notification_layout, null)
 
         val spacesToIndentEachLevel = 2
-        val gson = Gson()
+        val gson = GsonBuilder().registerTypeAdapter(
+            Notifications::class.java,
+            NotificationJsonSerializer()
+        ).create()
 
         val tvName = convertView2!!.findViewById<View>(R.id.tvNome) as MaterialTextView
         val tvDescription = convertView2.findViewById<View>(R.id.tvDescrizione) as MaterialTextView
@@ -76,9 +81,8 @@ class CustomAdapter(
         if (text.isNullOrBlank()) {
             tvDescription.visibility = View.GONE
         } else {
-            val length = 35
-            if (text.length > length) {
-                text = text.subSequence(0, length).toString() + "..."
+            if (text.length > MyApplication.maxLength) {
+                text = text.subSequence(0, MyApplication.maxLength).toString() + "..."
             }
             tvDescription.text = text
         }

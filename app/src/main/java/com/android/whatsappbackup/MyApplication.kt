@@ -8,6 +8,7 @@ import com.android.whatsappbackup.utils.DatabaseFactory
 import com.google.android.material.color.DynamicColors
 import io.objectbox.Box
 import io.objectbox.BoxStore
+import kotlin.properties.Delegates
 
 class MyApplication : Application() {
     companion object {
@@ -19,6 +20,8 @@ class MyApplication : Application() {
 
         lateinit var pkgWhatsApp: String
         lateinit var defaultSwValue: String
+
+        var maxLength by Delegates.notNull<Int>()
     }
 
     override fun onCreate() {
@@ -31,6 +34,8 @@ class MyApplication : Application() {
 
         pkgWhatsApp = "com.whatsapp"
         defaultSwValue = getString(R.string.defaultSwitchValue)
+
+        maxLength = 35
 
         sharedPref = getSharedPreferences("NotInfo", MODE_PRIVATE)
     }
