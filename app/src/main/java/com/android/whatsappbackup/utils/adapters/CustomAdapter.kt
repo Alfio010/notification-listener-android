@@ -10,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
-import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.SpecificChatActivity
 import com.android.whatsappbackup.models.NotificationJsonSerializer
@@ -32,18 +30,15 @@ class CustomAdapter(
     ArrayAdapter<Notifications?>(context, idRowCustom, list) {
     companion object {
         val LOGGER = CustomLog("custom-adapter")
+        const val spacesToIndentEachLevel = 2
+        const val maxLength = 35
     }
-
-    private var notificationItem: Notifications? = null
 
     @SuppressLint("SetTextI18n", "ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val convertView2: View?
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val convertView2 = inflater.inflate(R.layout.custom_notification_layout, null)
 
-        convertView2 = inflater.inflate(R.layout.custom_notification_layout, null)
-
-        val spacesToIndentEachLevel = 2
         val gson = GsonBuilder().registerTypeAdapter(
             Notifications::class.java,
             NotificationJsonSerializer()
@@ -54,7 +49,7 @@ class CustomAdapter(
         val tvDate = convertView2.findViewById<View>(R.id.tvDate) as MaterialTextView
         val ivIcon = convertView2.findViewById<View>(R.id.ivIcon) as ImageView
 
-        notificationItem = getItem(position)
+        var notificationItem = getItem(position)
         val title = notificationItem?.title
         var text = notificationItem?.text
         val date = notificationItem?.time
@@ -81,15 +76,15 @@ class CustomAdapter(
         if (text.isNullOrBlank()) {
             tvDescription.visibility = View.GONE
         } else {
-            if (text.length > MyApplication.maxLength) {
-                text = text.subSequence(0, MyApplication.maxLength).toString() + "..."
+            if (text.length > maxLength) {
+                text = text.subSequence(0, maxLength).toString() + "..."
             }
             tvDescription.text = text
         }
 
         tvDate.text = date?.let { dateFormatter(it) }
 
-        fun customAdapterButtonListener(textView: TextView) {
+        fun customAdapterButtonListener(textView: MaterialTextView) {
             textView.setOnClickListener {
                 notificationItem = getItem(position)
                 val gJson = gson.toJson(notificationItem)
