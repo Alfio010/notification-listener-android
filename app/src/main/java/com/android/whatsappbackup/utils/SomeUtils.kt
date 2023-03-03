@@ -9,10 +9,8 @@ import android.service.notification.StatusBarNotification
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
-import com.android.whatsappbackup.R
 import java.text.SimpleDateFormat
 import java.util.*
 

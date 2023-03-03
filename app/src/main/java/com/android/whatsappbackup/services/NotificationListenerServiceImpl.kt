@@ -29,8 +29,6 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         super.onNotificationPosted(sbn)
 
-        val key = sbn.key.toString()
-
         if (isBlacklistedNotification(sbn)) {
             return
         }
@@ -48,57 +46,30 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        var title = ""
-        var text = ""
-        var bigText = ""
-        var conversationTitle = ""
-        var infoText = ""
-        var peopleList = ""
-        var titleBig = ""
-
         val lastNotifications = lastNotification(sbn.packageName)
-
-        LOGGER.doLog("key: $key")
 
         val notificationExtras = sbn.notification.extras ?: return
 
-        notificationExtras.getString(Notification.EXTRA_TITLE)?.let {
-            LOGGER.doLog("extra-title: $it")
-            title = it
+        val title = notificationExtras.getString(Notification.EXTRA_TITLE) ?: return
+
+        val conversationTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            notificationExtras.getString(Notification.EXTRA_CONVERSATION_TITLE) ?: String()
+        } else {
+            String()
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            notificationExtras.getString(Notification.EXTRA_CONVERSATION_TITLE)?.let {
-                LOGGER.doLog("conversation-title: $it")
-                conversationTitle = it
-            }
-        }
+        val text = notificationExtras.getString(Notification.EXTRA_TEXT) ?: String()
 
-        notificationExtras.getString(Notification.EXTRA_TEXT)?.let {
-            LOGGER.doLog("extra-text: $it")
-            text = it
-        }
+        val bigText = notificationExtras.getString(Notification.EXTRA_BIG_TEXT) ?: String()
 
-        notificationExtras.getString(Notification.EXTRA_BIG_TEXT)?.let {
-            LOGGER.doLog("big-text: $it")
-            bigText = it
-        }
+        val infoText = notificationExtras.getString(Notification.EXTRA_INFO_TEXT) ?: String()
 
-        notificationExtras.getString(Notification.EXTRA_INFO_TEXT)?.let {
-            LOGGER.doLog("info-text: $it")
-            infoText = it
-        }
+        val titleBig = notificationExtras.getString(Notification.EXTRA_TITLE_BIG) ?: String()
 
-        notificationExtras.getString(Notification.EXTRA_TITLE_BIG)?.let {
-            LOGGER.doLog("title big: $it")
-            titleBig = it
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            notificationExtras.getString(Notification.EXTRA_PEOPLE_LIST)?.let {
-                LOGGER.doLog("people list: $it")
-                peopleList = it
-            }
+        val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            notificationExtras.getString(Notification.EXTRA_PEOPLE_LIST) ?: String()
+        } else {
+            String()
         }
 
         if (searchOneNot(sbn.packageName, title, sbn.notification.`when`, text) != null) {
@@ -131,6 +102,9 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     peopleList,
                     titleBig
                 )
+
+                LOGGER.doLog("NOTIFICATION: $notification")
+
                 MyApplication.notifications.put(notification)
 
                 if (packageNameExists(sbn.packageName) == null) {
@@ -168,56 +142,31 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
         }
 
-        var title = ""
-        var text = ""
-        var bigText = ""
-        var conversationTitle = ""
-        var infoText = ""
-        var peopleList = ""
-        var titleBig = ""
-
         val notificationExtras = sbn?.notification?.extras ?: return
 
-        notificationExtras.getString(Notification.EXTRA_TITLE)?.let {
-            LOGGER.doLog("extra-title: $it")
-            title = it
+        val title = notificationExtras.getString(Notification.EXTRA_TITLE) ?: return
+
+        val conversationTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            notificationExtras.getString(Notification.EXTRA_CONVERSATION_TITLE) ?: String()
+        } else {
+            String()
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            notificationExtras.getString(Notification.EXTRA_CONVERSATION_TITLE)?.let {
-                LOGGER.doLog("conversation-title: $it")
-                conversationTitle = it
-            }
+        val text = notificationExtras.getString(Notification.EXTRA_TEXT) ?: String()
+
+        val bigText = notificationExtras.getString(Notification.EXTRA_BIG_TEXT) ?: String()
+
+        val infoText = notificationExtras.getString(Notification.EXTRA_INFO_TEXT) ?: String()
+
+        val titleBig = notificationExtras.getString(Notification.EXTRA_TITLE_BIG) ?: String()
+
+        val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            notificationExtras.getString(Notification.EXTRA_PEOPLE_LIST) ?: String()
+        } else {
+            String()
         }
 
-        notificationExtras.getString(Notification.EXTRA_TEXT)?.let {
-            LOGGER.doLog("extra-text: $it")
-            text = it
-        }
-
-        notificationExtras.getString(Notification.EXTRA_BIG_TEXT)?.let {
-            LOGGER.doLog("big-text: $it")
-            bigText = it
-        }
-
-        notificationExtras.getString(Notification.EXTRA_INFO_TEXT)?.let {
-            LOGGER.doLog("info-text: $it")
-            infoText = it
-        }
-
-        notificationExtras.getString(Notification.EXTRA_TITLE_BIG)?.let {
-            LOGGER.doLog("title big: $it")
-            titleBig = it
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            notificationExtras.getString(Notification.EXTRA_PEOPLE_LIST)?.let {
-                LOGGER.doLog("people list: $it")
-                peopleList = it
-            }
-        }
-
-        val entity = sbn.let { searchOneNot(it.packageName, title, it.notification.`when`, text) }
+        val entity = searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
 
         if (entity != null) {
             return
