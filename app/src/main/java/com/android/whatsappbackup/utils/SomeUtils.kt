@@ -6,9 +6,11 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
+import android.util.TypedValue
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
 import java.text.SimpleDateFormat
@@ -63,6 +65,15 @@ object SomeUtils {
         activity.supportActionBar?.hide()
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        val typedValue = TypedValue()
+        activity.theme.resolveAttribute(
+            com.google.android.material.R.attr.colorSecondary,
+            typedValue,
+            true
+        )
+        val color = ContextCompat.getColor(activity, typedValue.resourceId)
+        activity.window.statusBarColor = color
+        activity.window.navigationBarColor = color
     }
 
     fun isDiscordAndBlank(pkgName: String, text: String): Boolean {
