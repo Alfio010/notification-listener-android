@@ -12,7 +12,7 @@ data class PackageName(
     var name: String?,
     @Index
     @Unique
-    var pkg: String?,
+    var pkg: String,
     var isBlackList: Boolean = false
 ) {
     override fun toString(): String {

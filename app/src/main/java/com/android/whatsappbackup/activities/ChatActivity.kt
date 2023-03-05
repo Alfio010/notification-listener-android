@@ -7,7 +7,11 @@ import com.android.whatsappbackup.utils.DBUtils.whatsappNotification
 class ChatActivity : NotificationListViewerBaseActivity() {
     override fun getNotifications(): List<Notifications> {
         return whatsappNotification().onEach {
-            it.conversationTitle = it.conversationTitle?.substringBeforeLast("(")
+            if (it.conversationTitle.isNullOrBlank()) {
+                it.conversationTitle = it.title
+            } else {
+                it.conversationTitle = it.conversationTitle?.substringBeforeLast("(")
+            }
         }.distinctBy { it.conversationTitle }
     }
 

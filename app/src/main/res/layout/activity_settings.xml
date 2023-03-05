@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
+    android:background="?backgroundColor"
     android:orientation="vertical"
     tools:context=".activities.SettingsActivity">
 
@@ -45,7 +46,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:backgroundTint="?colorSecondary"
+                        android:backgroundTint="?colorPrimary"
                         android:text="@string/blacklist" />
 
                     <com.google.android.material.materialswitch.MaterialSwitch
@@ -62,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:backgroundTint="?colorSecondary"
+                    android:backgroundTint="?colorPrimary"
                     android:text="@string/reset_blacklist" />
 
             </LinearLayout>

@@ -34,27 +34,31 @@ object SomeUtils {
     }
 
     fun isBlacklistedNotification(sbn: StatusBarNotification?): Boolean {
-        if (sbn?.packageName == MyApplication.pkgWhatsApp && sbn.key!!.contains("null")) {
+        if (sbn == null) {
             return true
         }
 
-        if (sbn?.packageName == "com.sec.android.app.clock.package") {
+        if (sbn.packageName == MyApplication.pkgWhatsApp && sbn.key!!.contains("null")) {
             return true
         }
 
-        if (sbn?.packageName == BuildConfig.APPLICATION_ID) {
+        if (sbn.packageName == "com.sec.android.app.clock.package") {
             return true
         }
 
-        if (sbn?.key == "-1|android|27|null|1000") {
+        if (sbn.packageName == BuildConfig.APPLICATION_ID) {
             return true
         }
 
-        if (sbn?.key == "charging_state") {
+        if (sbn.key == "-1|android|27|null|1000") {
             return true
         }
 
-        if (sbn?.key == "com.sec.android.app.samsungapps|121314|null|10091") {
+        if (sbn.key == "charging_state") {
+            return true
+        }
+
+        if (sbn.key == "com.sec.android.app.samsungapps|121314|null|10091") {
             return true
         }
 
@@ -67,7 +71,7 @@ object SomeUtils {
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         val typedValue = TypedValue()
         activity.theme.resolveAttribute(
-            com.google.android.material.R.attr.colorSecondary,
+            com.google.android.material.R.attr.colorPrimary,
             typedValue,
             true
         )

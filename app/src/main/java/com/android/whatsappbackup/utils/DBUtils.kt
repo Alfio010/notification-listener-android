@@ -88,7 +88,7 @@ object DBUtils {
             .find()
     }
 
-    fun whatsappNotification(): List<Notifications> {
+    fun whatsappNotification(): MutableList<Notifications> {
         return notifications
             .query()
             .equal(
@@ -190,10 +190,9 @@ object DBUtils {
             .find()
     }
 
-    fun allPackageName(): List<Notifications> {
-        return notifications
+    fun allPackageName(): List<PackageName> {
+        return packagenames
             .query()
-            .orderDesc(Notifications_.time)
             .build()
             .find()
     }
@@ -322,6 +321,29 @@ object DBUtils {
             .orderDesc(PackageName_.entityId)
             .build()
             .find()
+    }
+
+    fun nameToPackageName(name: String): String {
+        val packageName = packagenames
+            .query()
+            .equal(
+                PackageName_.name,
+                name,
+                QueryBuilder.StringOrder.CASE_SENSITIVE
+            )
+            .build()
+            .findFirst()
+
+        return packageName?.pkg
+            ?: (packagenames
+                .query()
+                .equal(
+                    PackageName_.pkg,
+                    name,
+                    QueryBuilder.StringOrder.CASE_SENSITIVE
+                )
+                .build()
+                .findFirst()?.pkg ?: "")
     }
 
     fun packageNameSearch(string: String): List<PackageName> {

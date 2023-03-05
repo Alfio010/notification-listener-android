@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
+    android:background="?backgroundColor"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.SearchActivity">
@@ -68,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:backgroundTint="?colorSecondary"
+        android:backgroundTint="?colorPrimary"
         android:text="@string/search" />
 
 </LinearLayout>

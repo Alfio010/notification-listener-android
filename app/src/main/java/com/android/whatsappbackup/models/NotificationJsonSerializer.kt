@@ -28,5 +28,4 @@ class NotificationJsonSerializer : JsonSerializer<Notifications> {
 
         return jsonObject
     }
-
 }

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils.allPackageName
+import com.android.whatsappbackup.utils.DBUtils.nameToPackageName
 import com.android.whatsappbackup.utils.SomeUtils
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -31,14 +32,19 @@ class SearchActivity : AppCompatActivity() {
             mutableListOf<String>()
         ).also { adapter ->
             adapter.add(MyApplication.defaultSwValue)
-            adapter.addAll(allPackageName().distinctBy { it.packageName }.map { it.packageName })
+            adapter.addAll(allPackageName().onEach {
+                if (it.name.isNullOrBlank()) {
+                    it.name = it.pkg
+                }
+            }.map { it.name })
+
             adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice)
             spinnerSearch.adapter = adapter
         }
 
         bSearch.setOnClickListener {
             val text = etAdvancedSearch.text.toString()
-            val pkgName = spinnerSearch.selectedItem.toString()
+            val pkgName = nameToPackageName(spinnerSearch.selectedItem.toString())
             val isDeleted = swSearch.isChecked
             val intent = Intent(this, ListSearchActivity::class.java)
 

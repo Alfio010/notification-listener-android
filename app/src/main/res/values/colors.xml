@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="background">#eff0fa</color>
+    <color name="background_dark">#191b23</color>
+
     <color name="cyan_light">#baddf9</color>
     <color name="cyan_white">#edffff</color>
     <color name="cyan_dark">#89abc6</color>
