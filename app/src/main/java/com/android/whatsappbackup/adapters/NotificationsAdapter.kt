@@ -20,10 +20,13 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.json.JSONObject
 
-class NotificationsAdapter(private val notifications: List<Notifications>, private val context: Context) :
+class NotificationsAdapter(
+    private val notifications: List<Notifications>,
+    private val context: Context
+) :
     RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
 
-    companion object{
+    companion object {
         private const val spacesToIndentEachLevel = 2
         private const val maxLength = 35
         private val gson: Gson = GsonBuilder().registerTypeAdapter(
@@ -31,7 +34,12 @@ class NotificationsAdapter(private val notifications: List<Notifications>, priva
             NotificationJsonSerializer()
         ).create()
 
-        fun customAdapterButtonListener(textView: MaterialTextView, notificationItem: Notifications, icon: Drawable?, context: Context) {
+        fun customAdapterButtonListener(
+            textView: MaterialTextView,
+            notificationItem: Notifications,
+            icon: Drawable?,
+            context: Context
+        ) {
             textView.setOnClickListener {
                 val gJson = gson.toJson(notificationItem)
 
@@ -101,7 +109,7 @@ class NotificationsAdapter(private val notifications: List<Notifications>, priva
 
         if (icon != null) {
             viewHolder.ivIcon.setImageDrawable(icon)
-        }else{
+        } else {
             viewHolder.ivIcon.visibility = View.GONE
         }
 

@@ -108,7 +108,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 MyApplication.notifications.put(notification)
 
                 if (packageNameExists(sbn.packageName) == null) {
-                    MyApplication.packagenames.put(createPackageName(sbn.packageName, this))
+                    MyApplication.packageNames.put(createPackageName(sbn.packageName, this))
                 }
             }
         }

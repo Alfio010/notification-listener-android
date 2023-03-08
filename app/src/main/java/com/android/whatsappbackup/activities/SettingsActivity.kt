@@ -52,9 +52,9 @@ class SettingsActivity : AppCompatActivity() {
                 getString(R.string.yes)
             ) { _, _ ->
 
-                MyApplication.packagenames.all.forEach {
+                MyApplication.packageNames.all.forEach {
                     it.isBlackList = false
-                    MyApplication.packagenames.put(it)
+                    MyApplication.packageNames.put(it)
                 }
 
             }

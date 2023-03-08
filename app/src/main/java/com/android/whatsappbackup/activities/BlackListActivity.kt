@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.adapters.SettingsAdapter
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.Utils
-import com.android.whatsappbackup.adapters.SettingsAdapter
 
 class BlackListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView

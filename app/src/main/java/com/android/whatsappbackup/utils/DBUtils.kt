@@ -3,7 +3,7 @@ package com.android.whatsappbackup.utils
 import android.content.Context
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.notifications
-import com.android.whatsappbackup.MyApplication.Companion.packagenames
+import com.android.whatsappbackup.MyApplication.Companion.packageNames
 import com.android.whatsappbackup.MyApplication.Companion.pkgWhatsApp
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.Notifications_
@@ -191,7 +191,7 @@ object DBUtils {
     }
 
     fun allPackageName(): List<PackageName> {
-        return packagenames
+        return packageNames
             .query()
             .build()
             .find()
@@ -304,7 +304,7 @@ object DBUtils {
     }
 
     fun packageNameExists(pkgName: String): PackageName? {
-        return packagenames
+        return packageNames
             .query()
             .equal(
                 PackageName_.pkg,
@@ -316,7 +316,7 @@ object DBUtils {
     }
 
     fun allPackageNameFromTable(): List<PackageName> {
-        return packagenames
+        return packageNames
             .query()
             .orderDesc(PackageName_.entityId)
             .build()
@@ -324,7 +324,7 @@ object DBUtils {
     }
 
     fun nameToPackageName(name: String): String {
-        val packageName = packagenames
+        val packageName = packageNames
             .query()
             .equal(
                 PackageName_.name,
@@ -335,7 +335,7 @@ object DBUtils {
             .findFirst()
 
         return packageName?.pkg
-            ?: (packagenames
+            ?: (packageNames
                 .query()
                 .equal(
                     PackageName_.pkg,
@@ -347,7 +347,7 @@ object DBUtils {
     }
 
     fun packageNameSearch(string: String): List<PackageName> {
-        return packagenames
+        return packageNames
             .query()
             .contains(PackageName_.name, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
             .orderDesc(PackageName_.entityId)

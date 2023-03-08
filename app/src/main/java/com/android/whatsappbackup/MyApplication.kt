@@ -1,7 +1,6 @@
 package com.android.whatsappbackup
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import com.android.whatsappbackup.models.Notifications
@@ -15,7 +14,7 @@ class MyApplication : Application() {
     companion object {
         lateinit var database: BoxStore
         lateinit var notifications: Box<Notifications>
-        lateinit var packagenames: Box<PackageName>
+        lateinit var packageNames: Box<PackageName>
 
         lateinit var sharedPref: SharedPreferences
 
@@ -33,7 +32,7 @@ class MyApplication : Application() {
 
         database = DatabaseFactory.createDatabase(this)
         notifications = database.boxFor(Notifications::class.java)
-        packagenames = database.boxFor(PackageName::class.java)
+        packageNames = database.boxFor(PackageName::class.java)
 
         pkgWhatsApp = "com.whatsapp"
         defaultSwValue = getString(R.string.defaultSwitchValue)

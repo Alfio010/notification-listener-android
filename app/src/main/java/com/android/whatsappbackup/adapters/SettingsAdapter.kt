@@ -14,7 +14,7 @@ import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.textview.MaterialTextView
 
-class SettingsAdapter (private val packageNames: List<PackageName>) :
+class SettingsAdapter(private val packageNames: List<PackageName>) :
     RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -51,7 +51,7 @@ class SettingsAdapter (private val packageNames: List<PackageName>) :
             val entity = DBUtils.packageNameExists(packageName.pkg)
             if (entity != null) {
                 entity.isBlackList = isChecked
-                MyApplication.packagenames.put(entity)
+                MyApplication.packageNames.put(entity)
             }
         }
 
@@ -59,7 +59,7 @@ class SettingsAdapter (private val packageNames: List<PackageName>) :
 
         if (icon != null) {
             viewHolder.ivBlacklist.setImageDrawable(icon)
-        }else{
+        } else {
             viewHolder.ivBlacklist.setImageDrawable(R.drawable.default_icon.toDrawable()) //todo fix with system apps or custom drawable
         }
     }
