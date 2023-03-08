@@ -4,23 +4,26 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.models.Notifications
-import com.android.whatsappbackup.utils.SomeUtils.uiDefaultSettings
-import com.android.whatsappbackup.adapters.CustomAdapter
+import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
+import com.android.whatsappbackup.adapters.NotificationsAdapter
 
 abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
-    open lateinit var list: ListView
+    open lateinit var recycleView: RecyclerView
     open lateinit var etSearch: EditText
-    private lateinit var adapter: CustomAdapter
+    private lateinit var adapter: NotificationsAdapter
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     abstract fun getNotifications(): List<Notifications>
     abstract fun getNotificationsBySearch(filter: String): List<Notifications>
 
     open fun refreshList(notifications: List<Notifications>) {
-        adapter = CustomAdapter(this, R.layout.custom_notification_layout, notifications)
-        list.adapter = adapter
+        adapter = NotificationsAdapter(notifications, this)
+        recycleView.layoutManager = linearLayoutManager
+        recycleView.adapter = adapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +33,8 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notification_list)
 
         etSearch = findViewById(R.id.etSearch)
-        list = findViewById(R.id.lvAll)
+        recycleView = findViewById(R.id.lvAll)
+        linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) = Unit

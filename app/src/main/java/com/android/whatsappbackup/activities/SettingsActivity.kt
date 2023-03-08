@@ -10,7 +10,7 @@ import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
-import com.android.whatsappbackup.utils.SomeUtils
+import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -21,7 +21,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        SomeUtils.uiDefaultSettings(this)
+        Utils.uiDefaultSettings(this)
 
         val bResetBlackList = findViewById<MaterialButton>(R.id.bResetBlackList)
         val bBlacklistSettings = findViewById<MaterialButton>(R.id.bBlacklistSettings)
@@ -36,7 +36,7 @@ class SettingsActivity : AppCompatActivity() {
         tvVersion.text = "${getString(R.string.version)} ${BuildConfig.VERSION_NAME}"
 
         settingsRatingBar.setOnRatingBarChangeListener { _, _, _ ->
-            SomeUtils.openPlayStore(
+            Utils.openPlayStore(
                 this,
                 packageName
             )

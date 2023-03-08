@@ -41,7 +41,7 @@ object DBUtils {
             .equal(Notifications_.isDeleted, true)
             .orderDesc(Notifications_.time)
             .build()
-            .find()
+            .findLazy()
     }
 
     fun perAppAllNotifications(pkgName: String): List<Notifications> {
@@ -54,7 +54,7 @@ object DBUtils {
             )
             .orderDesc(Notifications_.time)
             .build()
-            .find()
+            .findLazy()
     }
 
     fun searchChat(pkgName: String, title: String): List<Notifications> {
@@ -72,7 +72,7 @@ object DBUtils {
             )
             .orderDesc(Notifications_.time)
             .build()
-            .find()
+            .findLazy()
     }
 
     fun allNotification(): List<Notifications> {
@@ -85,7 +85,7 @@ object DBUtils {
             )
             .orderDesc(Notifications_.time)
             .build()
-            .find()
+            .findLazy()
     }
 
     fun whatsappNotification(): MutableList<Notifications> {
@@ -98,7 +98,7 @@ object DBUtils {
             )
             .orderDesc(Notifications_.time)
             .build()
-            .find()
+            .findLazy()
     }
 
     fun allNotificationSearch(string: String): List<Notifications> {
@@ -286,7 +286,7 @@ object DBUtils {
     ): PackageName {
         return PackageName(
             0,
-            SomeUtils.getAppName(pkgName, context),
+            Utils.getAppName(pkgName, context),
             pkgName
         )
     }
@@ -297,7 +297,7 @@ object DBUtils {
     ): PackageName {
         return PackageName(
             0,
-            SomeUtils.getAppName(pkgName, context),
+            Utils.getAppName(pkgName, context),
             pkgName,
             true
         )

@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.utils.SomeUtils.isNotificationServiceEnabled
-import com.android.whatsappbackup.utils.SomeUtils.showToast
-import com.android.whatsappbackup.utils.SomeUtils.uiDefaultSettings
+import com.android.whatsappbackup.utils.Utils.isNotificationServiceEnabled
+import com.android.whatsappbackup.utils.Utils.showToast
+import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 

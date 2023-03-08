@@ -18,8 +18,8 @@ import com.android.whatsappbackup.utils.DBUtils.searchOneNot
 import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.NotificationsUtils.sendNotification
 import com.android.whatsappbackup.utils.SomeLists
-import com.android.whatsappbackup.utils.SomeUtils.isBlacklistedNotification
-import com.android.whatsappbackup.utils.SomeUtils.isDiscordAndBlank
+import com.android.whatsappbackup.utils.Utils.isBlacklistedNotification
+import com.android.whatsappbackup.utils.Utils.isDiscordAndBlank
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
     companion object {

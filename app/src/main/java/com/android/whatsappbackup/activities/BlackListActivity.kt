@@ -4,31 +4,35 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DBUtils
-import com.android.whatsappbackup.utils.SomeUtils
-import com.android.whatsappbackup.adapters.CustomSettingsAdapter
+import com.android.whatsappbackup.utils.Utils
+import com.android.whatsappbackup.adapters.SettingsAdapter
 
 class BlackListActivity : AppCompatActivity() {
-    private lateinit var lvSettings: ListView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var etSearchSettings: EditText
-    private lateinit var adapter: CustomSettingsAdapter
+    private lateinit var adapter: SettingsAdapter
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     private fun refreshList(packagesName: List<PackageName>) {
-        adapter = CustomSettingsAdapter(this, R.layout.custom_blacklist_layout, packagesName)
-        lvSettings.adapter = adapter
+        adapter = SettingsAdapter(packagesName)
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = adapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.blacklist_activity)
-        SomeUtils.uiDefaultSettings(this)
+        Utils.uiDefaultSettings(this)
 
         etSearchSettings = findViewById(R.id.etSearchSettings)
-        lvSettings = findViewById(R.id.lvSettings)
+        recyclerView = findViewById(R.id.lvSettings)
+        linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         refreshList(DBUtils.allPackageNameFromTable())
 

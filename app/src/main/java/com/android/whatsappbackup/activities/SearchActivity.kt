@@ -10,7 +10,7 @@ import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils.allPackageName
 import com.android.whatsappbackup.utils.DBUtils.nameToPackageName
-import com.android.whatsappbackup.utils.SomeUtils
+import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 
@@ -18,7 +18,7 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-        SomeUtils.uiDefaultSettings(this)
+        Utils.uiDefaultSettings(this)
 
         val bSearch = findViewById<MaterialButton>(R.id.bSearch)
         val etAdvancedSearch = findViewById<EditText>(R.id.etAdvancedSearch)

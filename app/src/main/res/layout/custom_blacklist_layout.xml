@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rowcustom"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,7 +29,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvNamePackage"
+                android:id="@+id/tvPackageName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/textview"
