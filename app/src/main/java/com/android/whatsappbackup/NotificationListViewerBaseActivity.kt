@@ -8,7 +8,7 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.SomeUtils.uiDefaultSettings
-import com.android.whatsappbackup.utils.adapters.CustomAdapter
+import com.android.whatsappbackup.adapters.CustomAdapter
 
 abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
     open lateinit var list: ListView

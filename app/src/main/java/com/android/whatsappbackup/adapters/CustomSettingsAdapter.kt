@@ -1,4 +1,4 @@
-package com.android.whatsappbackup.utils.adapters
+package com.android.whatsappbackup.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context

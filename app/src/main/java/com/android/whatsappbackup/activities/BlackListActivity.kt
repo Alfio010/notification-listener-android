@@ -10,7 +10,7 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.SomeUtils
-import com.android.whatsappbackup.utils.adapters.CustomSettingsAdapter
+import com.android.whatsappbackup.adapters.CustomSettingsAdapter
 
 class BlackListActivity : AppCompatActivity() {
     private lateinit var lvSettings: ListView
