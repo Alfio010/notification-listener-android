@@ -3,8 +3,6 @@ package com.android.whatsappbackup.utils
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
@@ -16,7 +14,6 @@ import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.pm
-import com.android.whatsappbackup.services.NotificationListenerServiceImpl.Companion.LOGGER
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -105,22 +102,12 @@ object Utils {
     }
 
     @Suppress("DEPRECATION")
-    fun getAppName(pkgName: String, context: Context): String {
-        val packageManagers = context.packageManager
+    fun getAppName(pkgName: String): String {
         return try {
-            packageManagers.getApplicationLabel(packageManagers.getApplicationInfo(pkgName, 0))
+            pm.getApplicationLabel(pm.getApplicationInfo(pkgName, 0))
                 .toString()
         } catch (e: java.lang.Exception) {
-            ""
-        }
-    }
-
-    fun getIconFromPackageName(packageName: String): Drawable? {
-        return try {
-            pm.getApplicationIcon(packageName)
-        } catch (e: PackageManager.NameNotFoundException) {
-            LOGGER.doLog(e.toString())
-            null
+            String()
         }
     }
 }

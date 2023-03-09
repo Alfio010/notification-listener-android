@@ -13,6 +13,7 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.SpecificChatActivity
 import com.android.whatsappbackup.models.NotificationJsonSerializer
 import com.android.whatsappbackup.models.Notifications
+import com.android.whatsappbackup.utils.computables.AppIcon
 import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
@@ -105,7 +106,7 @@ class NotificationsAdapter(
 
         viewHolder.tvDate.text = Utils.dateFormatter(notifications.time)
 
-        val icon = Utils.getIconFromPackageName(notifications.packageName)
+        val icon = AppIcon.compute(notifications.packageName)
 
         if (icon != null) {
             viewHolder.ivIcon.setImageDrawable(icon)
