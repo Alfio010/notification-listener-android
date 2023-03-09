@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.models.PackageName
-import com.android.whatsappbackup.utils.computables.AppIcon
 import com.android.whatsappbackup.utils.DBUtils
+import com.android.whatsappbackup.utils.computables.AppIcon
 import com.google.android.material.textview.MaterialTextView
 
 class SettingsAdapter(private val packageNames: List<PackageName>) :

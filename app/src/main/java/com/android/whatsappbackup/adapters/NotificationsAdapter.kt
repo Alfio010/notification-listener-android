@@ -13,8 +13,8 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.SpecificChatActivity
 import com.android.whatsappbackup.models.NotificationJsonSerializer
 import com.android.whatsappbackup.models.Notifications
-import com.android.whatsappbackup.utils.computables.AppIcon
 import com.android.whatsappbackup.utils.Utils
+import com.android.whatsappbackup.utils.computables.AppIcon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
 import com.google.gson.Gson
