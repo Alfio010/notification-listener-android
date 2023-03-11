@@ -23,4 +23,5 @@
     <string name="version">Versione</string>
     <string name="rating">Valuta l\'app:</string>
     <string name="grouped_chat">Chat raggruppate</string>
+    <string name="open_app">Apri app</string>
 </resources>

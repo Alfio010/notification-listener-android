@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/blue_white</item>
         <item name="colorOnSecondary">@color/blue_dark</item>
 
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/background_dark_cardview</item>
 
         <item name="backgroundColor">@color/background_dark</item>
 

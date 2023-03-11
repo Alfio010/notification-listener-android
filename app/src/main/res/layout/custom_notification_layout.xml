@@ -1,60 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rowcustom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivIcon"
-            android:layout_width="100sp"
-            android:layout_height="100sp"
-            android:layout_marginLeft="4sp"
-            android:layout_marginRight="4sp"
-            android:layout_weight="1"
-            android:contentDescription="@string/icon"
-            android:visibility="visible"
-            tools:srcCompat="@tools:sample/avatars" />
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        app:cardBackgroundColor="?android:statusBarColor"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvDate"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:layout_marginLeft="4sp"
+                android:layout_marginRight="4sp"
+                android:layout_weight="1"
+                android:contentDescription="@string/icon"
+                android:visibility="visible"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="7sp"
-                android:gravity="end"
-                android:text="@string/textview" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvNome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48sp"
-                android:text="@string/textview"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="7sp"
+                    android:gravity="end"
+                    android:text="@string/textview"
+                    android:textColor="@color/cyan_white" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvDescrizione"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48sp"
-                android:text="@string/textview"
-                android:textIsSelectable="true"
-                android:textSize="16sp" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48sp"
+                    android:text="@string/textview"
+                    android:textColor="@color/cyan_white"
+                    android:textIsSelectable="true"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDescrizione"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48sp"
+                    android:text="@string/textview"
+                    android:textColor="@color/cyan_white"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
 
 </LinearLayout>

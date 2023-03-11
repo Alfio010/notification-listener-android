@@ -64,6 +64,9 @@ class NotificationsAdapter(
                     ContextCompat.startActivity(context, intentChat, null)
                 }
                 builder.setNegativeButton(R.string.back) { _, _ -> }
+                builder.setNeutralButton(context.getString(R.string.open_app)) { _, _ ->
+                    Utils.openApp(notificationItem.packageName, context)
+                }
                 builder.create()
                 builder.show()
             }

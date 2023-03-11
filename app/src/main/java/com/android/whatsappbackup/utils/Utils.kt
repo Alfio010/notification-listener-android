@@ -105,6 +105,13 @@ object Utils {
         }
     }
 
+    fun openApp(pkgName: String, context: Context) {
+        val launchIntent = pm.getLaunchIntentForPackage(pkgName)
+        if (launchIntent != null) {
+            context.startActivity(launchIntent)
+        }
+    }
+
     @Suppress("DEPRECATION")
     fun getAppName(pkgName: String): String {
         return try {
@@ -116,11 +123,11 @@ object Utils {
     }
 
     fun checkPostNotificationPermission(context: Context, activity: AppCompatActivity) {
-        if (ActivityCompat.checkSelfPermission(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ActivityCompat.checkSelfPermission(
                 context,
                 POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED &&
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU
+            ) != PackageManager.PERMISSION_GRANTED
         ) {
             if (ContextCompat.checkSelfPermission(
                     context,
