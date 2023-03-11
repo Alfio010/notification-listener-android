@@ -1,15 +1,19 @@
 package com.android.whatsappbackup.utils
 
+import android.Manifest.permission.POST_NOTIFICATIONS
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
 import android.util.TypedValue
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
@@ -25,7 +29,7 @@ object Utils {
     }
 
     fun showToast(text: String, context: AppCompatActivity) {
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+        context.runOnUiThread { Toast.makeText(context, text, Toast.LENGTH_LONG).show() }
     }
 
     fun dateFormatter(date: Date): String {
@@ -108,6 +112,24 @@ object Utils {
                 .toString()
         } catch (e: java.lang.Exception) {
             String()
+        }
+    }
+
+    fun checkPostNotificationPermission(context: Context, activity: AppCompatActivity) {
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED &&
+            Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU
+        ) {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_DENIED
+            ) {
+                ActivityCompat.requestPermissions(activity, arrayOf(POST_NOTIFICATIONS), 1)
+            }
+            return
         }
     }
 }

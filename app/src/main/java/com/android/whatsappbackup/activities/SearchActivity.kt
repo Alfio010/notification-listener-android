@@ -17,8 +17,11 @@ import com.google.android.material.materialswitch.MaterialSwitch
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
-        Utils.uiDefaultSettings(this)
+
+        runOnUiThread {
+            setContentView(R.layout.activity_search)
+            Utils.uiDefaultSettings(this)
+        }
 
         val bSearch = findViewById<MaterialButton>(R.id.bSearch)
         val etAdvancedSearch = findViewById<EditText>(R.id.etAdvancedSearch)
@@ -26,20 +29,22 @@ class SearchActivity : AppCompatActivity() {
 
         val spinnerSearch: Spinner = findViewById(R.id.spinnerSearch)
 
-        ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            mutableListOf<String>()
-        ).also { adapter ->
-            adapter.add(MyApplication.defaultSwValue)
-            adapter.addAll(allPackageName().onEach {
-                if (it.name.isNullOrBlank()) {
-                    it.name = it.pkg
-                }
-            }.map { it.name })
+        runOnUiThread {
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                mutableListOf<String>()
+            ).also { adapter ->
+                adapter.add(MyApplication.defaultSwValue)
+                adapter.addAll(allPackageName().onEach {
+                    if (it.name.isNullOrBlank()) {
+                        it.name = it.pkg
+                    }
+                }.map { it.name })
 
-            adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice)
-            spinnerSearch.adapter = adapter
+                adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice)
+                spinnerSearch.adapter = adapter
+            }
         }
 
         bSearch.setOnClickListener {

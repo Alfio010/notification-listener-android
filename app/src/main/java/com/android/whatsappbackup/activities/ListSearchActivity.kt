@@ -20,6 +20,7 @@ class ListSearchActivity : NotificationListViewerBaseActivity() {
         pkgName = intent.extras!!.getString("pkgName", defaultSwValue)
         isDeleted = intent.extras!!.getBoolean("isDeleted", false)
         text = intent.extras!!.getString("text", "")
+
         super.onCreate(savedInstanceState)
         findViewById<LinearLayout>(R.id.llNotiList).visibility = View.GONE
     }

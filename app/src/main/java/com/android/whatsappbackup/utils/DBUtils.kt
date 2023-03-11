@@ -9,6 +9,7 @@ import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.Notifications_
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.models.PackageName_
+import io.objectbox.query.LazyList
 import io.objectbox.query.QueryBuilder
 import java.util.*
 
@@ -35,7 +36,7 @@ object DBUtils {
             .findFirst()
     }
 
-    fun deletedNotification(): List<Notifications> {
+    fun deletedNotification(): LazyList<Notifications> {
         return notifications
             .query()
             .equal(Notifications_.isDeleted, true)
@@ -44,7 +45,7 @@ object DBUtils {
             .findLazy()
     }
 
-    fun perAppAllNotifications(pkgName: String): List<Notifications> {
+    fun perAppAllNotifications(pkgName: String): LazyList<Notifications> {
         return notifications
             .query()
             .equal(
@@ -57,7 +58,7 @@ object DBUtils {
             .findLazy()
     }
 
-    fun searchChat(pkgName: String, title: String): List<Notifications> {
+    fun searchChat(pkgName: String, title: String): LazyList<Notifications> {
         return notifications
             .query()
             .equal(
@@ -75,7 +76,7 @@ object DBUtils {
             .findLazy()
     }
 
-    fun allNotification(): List<Notifications> {
+    fun allNotification(): LazyList<Notifications> {
         return notifications
             .query()
             .notEqual(
@@ -98,7 +99,7 @@ object DBUtils {
             )
             .orderDesc(Notifications_.time)
             .build()
-            .findLazy()
+            .find()
     }
 
     fun allNotificationSearch(string: String): List<Notifications> {
@@ -149,6 +150,7 @@ object DBUtils {
                 .build()
                 .find()
         }
+
         return notifications
             .query()
             .equal(
@@ -177,6 +179,7 @@ object DBUtils {
                 .build()
                 .find()
         }
+
         return notifications
             .query()
             .equal(
@@ -315,12 +318,12 @@ object DBUtils {
             .findFirst()
     }
 
-    fun allPackageNameFromTable(): List<PackageName> {
+    fun allPackageNameFromTable(): LazyList<PackageName> {
         return packageNames
             .query()
             .orderDesc(PackageName_.entityId)
             .build()
-            .find()
+            .findLazy()
     }
 
     fun nameToPackageName(name: String): String {
@@ -346,13 +349,13 @@ object DBUtils {
                 .findFirst()?.pkg ?: "")
     }
 
-    fun packageNameSearch(string: String): List<PackageName> {
+    fun packageNameSearch(string: String): LazyList<PackageName> {
         return packageNames
             .query()
             .contains(PackageName_.name, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
             .orderDesc(PackageName_.entityId)
             .build()
-            .find()
+            .findLazy()
     }
 }
 

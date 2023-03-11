@@ -8,22 +8,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginRight="5sp"
         android:layout_weight="13"
         android:gravity="center"
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearchSettings"
-            android:layout_width="0dp"
+            android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/search"
             android:inputType="textPersonName"
-            android:minHeight="52dp"
+            android:minHeight="52sp"
             tools:ignore="NestedWeights" />
     </LinearLayout>
 

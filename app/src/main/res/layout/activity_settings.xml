@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="10sp"
     android:background="?backgroundColor"
     android:orientation="vertical"
     tools:context=".activities.SettingsActivity">
@@ -30,8 +30,8 @@
                     android:id="@+id/tvBlacklistInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4sp"
+                    android:layout_marginBottom="4sp"
                     android:text="@string/blacklist_info"
                     android:textSize="18sp" />
 
@@ -45,7 +45,7 @@
                         android:id="@+id/bBlacklistSettings"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="2dp"
+                        android:layout_marginRight="2sp"
                         android:layout_weight="1"
                         android:backgroundTint="?colorPrimary"
                         android:text="@string/blacklist" />
@@ -63,7 +63,7 @@
                     android:id="@+id/bResetBlackList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="4sp"
                     android:backgroundTint="?colorPrimary"
                     android:text="@string/reset_blacklist" />
 
@@ -77,8 +77,8 @@
                 android:id="@+id/swEnableNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:layout_marginBottom="1dp"
+                android:layout_marginTop="1sp"
+                android:layout_marginBottom="1sp"
                 android:text="@string/enable_notification" />
 
             <com.google.android.material.divider.MaterialDivider
@@ -89,8 +89,8 @@
                 android:id="@+id/tvCountNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
                 android:text="@string/notification_count"
                 android:textAlignment="center" />
 
@@ -128,8 +128,8 @@
                 android:id="@+id/tvVersion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5sp"
+                android:layout_marginBottom="5sp"
                 android:text="@string/version"
                 android:textAlignment="center" />
 

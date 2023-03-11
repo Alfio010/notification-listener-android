@@ -20,8 +20,11 @@ class SettingsActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        Utils.uiDefaultSettings(this)
+
+        runOnUiThread {
+            setContentView(R.layout.activity_settings)
+            Utils.uiDefaultSettings(this)
+        }
 
         val bResetBlackList = findViewById<MaterialButton>(R.id.bResetBlackList)
         val bBlacklistSettings = findViewById<MaterialButton>(R.id.bBlacklistSettings)

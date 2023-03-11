@@ -93,6 +93,7 @@ class NotificationsAdapter(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val notifications = notifications[position]
+
         val title = notifications.title
         val text = if (notifications.text.length > maxLength) {
             notifications.text.subSequence(0, maxLength).toString() + "..."
@@ -109,6 +110,7 @@ class NotificationsAdapter(
         val icon = AppIcon.compute(notifications.packageName)
 
         if (icon != null) {
+            viewHolder.ivIcon.visibility = View.VISIBLE
             viewHolder.ivIcon.setImageDrawable(icon)
         } else {
             viewHolder.ivIcon.visibility = View.GONE

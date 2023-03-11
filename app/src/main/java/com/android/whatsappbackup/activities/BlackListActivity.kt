@@ -7,6 +7,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.SettingsAdapter
 import com.android.whatsappbackup.models.PackageName
@@ -20,21 +21,26 @@ class BlackListActivity : AppCompatActivity() {
     private lateinit var linearLayoutManager: LinearLayoutManager
 
     private fun refreshList(packagesName: List<PackageName>) {
-        adapter = SettingsAdapter(packagesName)
-        recyclerView.layoutManager = linearLayoutManager
-        recyclerView.adapter = adapter
+        runOnUiThread {
+            adapter = SettingsAdapter(packagesName)
+            recyclerView.layoutManager = linearLayoutManager
+            recyclerView.adapter = adapter
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.blacklist_activity)
-        Utils.uiDefaultSettings(this)
+
+        runOnUiThread {
+            setContentView(R.layout.blacklist_activity)
+            Utils.uiDefaultSettings(this)
+        }
 
         etSearchSettings = findViewById(R.id.etSearchSettings)
         recyclerView = findViewById(R.id.lvSettings)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        refreshList(DBUtils.allPackageNameFromTable())
+        MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
 
         etSearchSettings.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) = Unit
@@ -42,7 +48,7 @@ class BlackListActivity : AppCompatActivity() {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                refreshList(DBUtils.packageNameSearch(s.toString()))
+                MyApplication.executor.submit { refreshList(DBUtils.packageNameSearch(s.toString())) }
             }
         })
     }

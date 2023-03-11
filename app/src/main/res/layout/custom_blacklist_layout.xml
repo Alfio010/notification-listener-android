@@ -12,10 +12,10 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivBlacklist"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
+            android:layout_width="70sp"
+            android:layout_height="70sp"
+            android:layout_marginLeft="4sp"
+            android:layout_marginRight="4sp"
             android:layout_weight="0.27"
             android:contentDescription="@string/icon"
             android:visibility="visible"
@@ -49,7 +49,7 @@
                 android:id="@+id/swIsBlackListed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minHeight="48dp"
+                android:minHeight="48sp"
                 android:textAlignment="textStart"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </LinearLayout>

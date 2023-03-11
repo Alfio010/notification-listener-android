@@ -9,6 +9,8 @@ import com.android.whatsappbackup.utils.DatabaseFactory
 import com.google.android.material.color.DynamicColors
 import io.objectbox.Box
 import io.objectbox.BoxStore
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class MyApplication : Application() {
     companion object {
@@ -22,6 +24,8 @@ class MyApplication : Application() {
         lateinit var defaultSwValue: String
 
         lateinit var pm: PackageManager
+
+        lateinit var executor: ExecutorService
     }
 
     override fun onCreate() {
@@ -29,6 +33,7 @@ class MyApplication : Application() {
         DynamicColors.applyToActivitiesIfAvailable(this)
 
         pm = applicationContext.packageManager
+        executor = Executors.newCachedThreadPool()
 
         database = DatabaseFactory.createDatabase(this)
         notifications = database.boxFor(Notifications::class.java)

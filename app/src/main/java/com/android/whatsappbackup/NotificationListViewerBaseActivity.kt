@@ -21,16 +21,20 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
     abstract fun getNotificationsBySearch(filter: String): List<Notifications>
 
     open fun refreshList(notifications: List<Notifications>) {
-        adapter = NotificationsAdapter(notifications, this)
-        recycleView.layoutManager = linearLayoutManager
-        recycleView.adapter = adapter
+        runOnUiThread {
+            adapter = NotificationsAdapter(notifications, this)
+            recycleView.layoutManager = linearLayoutManager
+            recycleView.adapter = adapter
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        uiDefaultSettings(this)
 
-        setContentView(R.layout.activity_notification_list)
+        runOnUiThread {
+            uiDefaultSettings(this)
+            setContentView(R.layout.activity_notification_list)
+        }
 
         etSearch = findViewById(R.id.etSearch)
         recycleView = findViewById(R.id.lvAll)
@@ -42,9 +46,10 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                refreshList(getNotificationsBySearch(s.toString()))
+                MyApplication.executor.submit { refreshList(getNotificationsBySearch(s.toString())) }
             }
         })
-        refreshList(getNotifications())
+
+        MyApplication.executor.submit { refreshList(getNotifications()) }
     }
 }
