@@ -1,6 +1,7 @@
 package com.android.whatsappbackup.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.android.whatsappbackup.MyApplication.Companion.defaultSwValue
@@ -20,6 +21,8 @@ class ListSearchActivity : NotificationListViewerBaseActivity() {
         pkgName = intent.extras!!.getString("pkgName", defaultSwValue)
         isDeleted = intent.extras!!.getBoolean("isDeleted", false)
         text = intent.extras!!.getString("text", "")
+
+        Log.d("aaa-test", "pkg $pkgName deleted $isDeleted text $text")
 
         super.onCreate(savedInstanceState)
         findViewById<LinearLayout>(R.id.llNotiList).visibility = View.GONE

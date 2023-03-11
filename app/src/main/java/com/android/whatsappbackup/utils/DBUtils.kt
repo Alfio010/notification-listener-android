@@ -139,7 +139,7 @@ object DBUtils {
         pkgName: String,
         isDeleted: Boolean
     ): List<Notifications> {
-        if (pkgName == MyApplication.defaultSwValue) {
+        if (pkgName == MyApplication.defaultSwValue || pkgName.isBlank()) {
             return notifications
                 .query()
                 .equal(Notifications_.isDeleted, isDeleted)
@@ -171,7 +171,7 @@ object DBUtils {
         pkgName: String,
         isDeleted: Boolean
     ): List<Notifications> {
-        if (pkgName == MyApplication.defaultSwValue) {
+        if (pkgName == MyApplication.defaultSwValue || pkgName.isBlank()) {
             return notifications
                 .query()
                 .equal(Notifications_.isDeleted, isDeleted)
