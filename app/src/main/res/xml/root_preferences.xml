@@ -5,11 +5,11 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:key="@string/isAutoBlacklistOn"
-            app:summary="@string/blacklist_info"
             app:title="@string/blacklist_auto" />
 
         <Preference
             app:key="open_blacklist"
+            app:summary="@string/blacklist_info"
             app:title="@string/open_blacklist">
 
         </Preference>
