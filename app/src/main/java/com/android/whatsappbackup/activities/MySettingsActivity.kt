@@ -91,7 +91,8 @@ class MySettingsActivity : AppCompatActivity() {
 
             val notificationCount = findPreference<Preference>("notification_count")
             if (notificationCount != null) {
-                notificationCount.title = "${notificationCount.title} ${DBUtils.countNotifications()}"
+                notificationCount.title =
+                    "${notificationCount.title} ${DBUtils.countNotifications()}"
             }
 
             val rateApp = findPreference<Preference>("rate_app")

@@ -3,20 +3,20 @@
     <PreferenceCategory app:title="@string/blacklist">
 
         <SwitchPreferenceCompat
-            app:key="@string/isAutoBlacklistOn"
-            app:title="@string/blacklist_auto"
             app:defaultValue="false"
-            app:summary="@string/blacklist_info"/>
+            app:key="@string/isAutoBlacklistOn"
+            app:summary="@string/blacklist_info"
+            app:title="@string/blacklist_auto" />
 
         <Preference
-            app:title="@string/open_blacklist"
-            app:key="open_blacklist">
+            app:key="open_blacklist"
+            app:title="@string/open_blacklist">
 
         </Preference>
 
         <Preference
-            app:title="@string/reset_blacklist"
-            app:key="reset_blacklist">
+            app:key="reset_blacklist"
+            app:title="@string/reset_blacklist">
 
         </Preference>
 
@@ -25,9 +25,9 @@
     <PreferenceCategory app:title="@string/notifications">
 
         <SwitchPreferenceCompat
+            app:defaultValue="false"
             app:key="@string/isNotificationEnabled"
-            app:title="@string/enable_notification"
-            app:defaultValue="false"/>
+            app:title="@string/enable_notification" />
 
     </PreferenceCategory>
 

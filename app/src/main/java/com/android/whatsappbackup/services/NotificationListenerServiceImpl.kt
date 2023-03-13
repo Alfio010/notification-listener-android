@@ -50,24 +50,29 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
 
         val notificationExtras = sbn.notification.extras ?: return
 
-        val title = notificationExtras.getCharSequence(Notification.EXTRA_TITLE).toString()
+        val title =
+            notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
         val conversationTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE).toString()
+            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
+                .orEmpty()
         } else {
             String()
         }
 
-        val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT).toString()
+        val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
-        val bigText = notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString()
+        val bigText =
+            notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
 
-        val infoText = notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT).toString()
+        val infoText =
+            notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
 
-        val titleBig = notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG).toString()
+        val titleBig =
+            notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
 
         val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            notificationExtras.getCharSequence(Notification.EXTRA_PEOPLE_LIST).toString()
+            notificationExtras.getCharSequence(Notification.EXTRA_PEOPLE_LIST)?.toString().orEmpty()
         } else {
             String()
         }
@@ -144,24 +149,29 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
 
         val notificationExtras = sbn?.notification?.extras ?: return
 
-        val title = notificationExtras.getCharSequence(Notification.EXTRA_TITLE).toString()
+        val title =
+            notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
         val conversationTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE).toString()
+            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
+                .orEmpty()
         } else {
             String()
         }
 
-        val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT).toString()
+        val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
-        val bigText = notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT).toString()
+        val bigText =
+            notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
 
-        val infoText = notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT).toString()
+        val infoText =
+            notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
 
-        val titleBig = notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG).toString()
+        val titleBig =
+            notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
 
         val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            notificationExtras.getCharSequence(Notification.EXTRA_PEOPLE_LIST).toString()
+            notificationExtras.getCharSequence(Notification.EXTRA_PEOPLE_LIST)?.toString().orEmpty()
         } else {
             String()
         }
