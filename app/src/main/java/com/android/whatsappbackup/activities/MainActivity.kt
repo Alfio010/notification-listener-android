@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fbSettings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
+            val intent = Intent(this, MySettingsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }

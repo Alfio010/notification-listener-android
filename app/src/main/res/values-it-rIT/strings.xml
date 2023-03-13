@@ -21,7 +21,9 @@
     <string name="notification_count">Notifiche:</string>
     <string name="back">Indietro</string>
     <string name="version">Versione</string>
-    <string name="rating">Valuta l\'app:</string>
+    <string name="rating">Valuta l\'app</string>
     <string name="grouped_chat">Chat raggruppate</string>
     <string name="open_app">Apri app</string>
+    <string name="open_blacklist">Visualizza blacklist</string>
+    <string name="info">Info</string>
 </resources>

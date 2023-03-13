@@ -16,7 +16,7 @@ const val channelID = "MY_SUPP_NOT"
 
 object NotificationsUtils {
     fun sendNotification(context: Context, title: String, text: String) {
-        if (MySharedPref.isNotificationEnabled()) {
+        if (MySharedPref.getNotificationEnabled()) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val name = context.getString(R.string.notification_name)
                 val importance = NotificationManager.IMPORTANCE_DEFAULT

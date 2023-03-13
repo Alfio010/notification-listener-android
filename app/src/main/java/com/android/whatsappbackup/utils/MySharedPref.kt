@@ -10,7 +10,7 @@ object MySharedPref {
         MyApplication.sharedPref.edit().putBoolean(autoBlacklistEnabled, value).apply()
     }
 
-    fun isAutoBlacklistOn(): Boolean {
+    fun getAutoBlacklistOn(): Boolean {
         return MyApplication.sharedPref.getBoolean(autoBlacklistEnabled, true)
     }
 
@@ -18,7 +18,7 @@ object MySharedPref {
         MyApplication.sharedPref.edit().putBoolean(notificationEnabled, value).apply()
     }
 
-    fun isNotificationEnabled(): Boolean {
+    fun getNotificationEnabled(): Boolean {
         return MyApplication.sharedPref.getBoolean(notificationEnabled, true)
     }
 }

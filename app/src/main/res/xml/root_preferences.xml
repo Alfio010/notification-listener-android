@@ -1,0 +1,56 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/blacklist">
+
+        <SwitchPreferenceCompat
+            app:key="@string/isAutoBlacklistOn"
+            app:title="@string/blacklist_auto"
+            app:defaultValue="false"
+            app:summary="@string/blacklist_info"/>
+
+        <Preference
+            app:title="@string/open_blacklist"
+            app:key="open_blacklist">
+
+        </Preference>
+
+        <Preference
+            app:title="@string/reset_blacklist"
+            app:key="reset_blacklist">
+
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/notifications">
+
+        <SwitchPreferenceCompat
+            app:key="@string/isNotificationEnabled"
+            app:title="@string/enable_notification"
+            app:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/info">
+
+        <Preference
+            app:key="notification_count"
+            app:title="@string/notification_count">
+
+        </Preference>
+
+        <Preference
+            app:key="rate_app"
+            app:title="@string/rating">
+
+        </Preference>
+
+        <Preference
+            app:key="version"
+            app:title="@string/version">
+
+        </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -8,6 +8,8 @@
     <string name="back">Back</string>
     <string name="blacklist_reset_confirm">Are you sure you want to reset the blacklist?</string>
 
+    <string name="isAutoBlacklistOn" translatable="false">isAutoBlacklistOn</string>
+    <string name="isNotificationEnabled" translatable="false">isNotificationEnabled</string>
 
     <string name="all_notification">All notification</string>
     <string name="deleted_notification">Deleted notification</string>
@@ -35,6 +37,11 @@
     <string name="enable_notification">Enable notifications</string>
     <string name="notification_count">Notifications:</string>
     <string name="version">Version</string>
-    <string name="rating">Rate the app:</string>
+    <string name="rating">Rate the app</string>
     <string name="open_app">Open app</string>
+    <string name="title_activity_my_settings" translatable="false">MySettingsActivity</string>
+    <string name="open_blacklist">Open blacklist</string>
+
+    <string name="notifications" translatable="false">Notifications</string>
+    <string name="info">About</string>
 </resources>

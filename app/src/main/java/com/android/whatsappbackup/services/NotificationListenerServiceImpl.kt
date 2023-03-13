@@ -37,7 +37,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (MySharedPref.isAutoBlacklistOn() && SomeLists.blackListedNotificationKeys.any {
+        if (MySharedPref.getAutoBlacklistOn() && SomeLists.blackListedNotificationKeys.any {
                 sbn.packageName.contains(
                     it
                 )
@@ -134,7 +134,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 return
             }
 
-            if (MySharedPref.isAutoBlacklistOn() &&
+            if (MySharedPref.getAutoBlacklistOn() &&
                 SomeLists.blackListedNotificationKeys.any { sbn.packageName.contains(it) }
             ) {
                 createBlackListPackageName(sbn.packageName, this)

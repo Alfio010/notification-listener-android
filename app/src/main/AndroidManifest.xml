@@ -22,8 +22,9 @@
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".activities.SettingsActivity"
-            android:exported="false" />
+            android:name=".activities.MySettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_my_settings" />
         <activity
             android:name=".activities.BlackListActivity"
             android:exported="false"
