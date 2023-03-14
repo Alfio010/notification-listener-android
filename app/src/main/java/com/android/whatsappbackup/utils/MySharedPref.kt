@@ -27,7 +27,7 @@ object MySharedPref {
 
     fun setDynamicColors(value: Boolean) {
         MyApplication.sharedPref.edit().putBoolean(dynamicColorsEnabled, value).apply()
-        if (value){
+        if (value) {
             DynamicColors.applyToActivitiesIfAvailable(application)
         }
     }

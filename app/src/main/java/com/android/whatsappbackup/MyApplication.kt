@@ -48,7 +48,7 @@ class MyApplication : Application() {
 
         sharedPref = getSharedPreferences("NotInfo", MODE_PRIVATE)
 
-        if (MySharedPref.getDynamicColors()){
+        if (MySharedPref.getDynamicColors()) {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
     }

@@ -36,8 +36,8 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="@string/isDynamicColorsEnabled"
-            app:title="@string/active_dynamic_colors"
-            app:summary="@string/dynamic_colors_summary">
+            app:summary="@string/dynamic_colors_summary"
+            app:title="@string/active_dynamic_colors">
 
         </SwitchPreferenceCompat>
 

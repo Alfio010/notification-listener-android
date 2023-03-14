@@ -28,7 +28,7 @@
     <string name="defaultSwitchValue">All applications</string>
 
     <string name="icon" translatable="false">icon</string>
-    
+
     <string name="textview" translatable="false">TextView</string>
     <string name="ask_not_permission">It is necessary to grant permission to read notifications</string>
     <string name="notification_name">Notification cancellation</string>
