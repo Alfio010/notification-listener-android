@@ -24,35 +24,43 @@
         <activity
             android:name=".activities.MySettingsActivity"
             android:exported="false"
-            android:label="@string/title_activity_my_settings" />
+            android:label="@string/settings" />
         <activity
             android:name=".activities.BlackListActivity"
             android:exported="false"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/blacklist" />
         <activity
             android:name=".activities.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/advanced_search"/>
         <activity
             android:name=".activities.AllNotificationsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/all_notification"/>
         <activity
             android:name=".activities.SpecificAppNotificationsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/chat" />
         <activity
             android:name=".activities.ChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/grouped_chat"/>
         <activity
             android:name=".activities.DeletedNotificationsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/deleted_notification"/>
         <activity
             android:name=".activities.ListSearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/search"/>
         <activity
             android:name=".activities.SpecificChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/chat"/>
         <activity
             android:name=".activities.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

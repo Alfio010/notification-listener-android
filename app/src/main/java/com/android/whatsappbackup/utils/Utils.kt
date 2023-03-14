@@ -71,7 +71,6 @@ object Utils {
     }
 
     fun uiDefaultSettings(activity: AppCompatActivity) {
-        activity.supportActionBar?.hide()
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         val typedValue = TypedValue()

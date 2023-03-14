@@ -26,4 +26,7 @@
     <string name="open_app">Apri app</string>
     <string name="open_blacklist">Visualizza blacklist</string>
     <string name="info">Info</string>
+    <string name="interface_setting">Interfaccia</string>
+    <string name="active_dynamic_colors">Colori dinamici</string>
+    <string name="dynamic_colors_summary">Cambia i colori dell`interfaccia in base ai colori del dispositivo</string>
 </resources>

@@ -111,6 +111,17 @@ class MySettingsActivity : AppCompatActivity() {
             if (version != null) {
                 version.title = "${version.title} ${BuildConfig.VERSION_NAME}"
             }
+
+            val isDynamicColorsEnabled = findPreference<SwitchPreferenceCompat>("isDynamicColorsEnabled")
+
+            if (isDynamicColorsEnabled != null) {
+                isDynamicColorsEnabled.isChecked = MySharedPref.getDynamicColors()
+                isDynamicColorsEnabled.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        MySharedPref.setDynamicColors(newValue as Boolean)
+                        true
+                    }
+            }
         }
     }
 }

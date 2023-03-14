@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DatabaseFactory
+import com.android.whatsappbackup.utils.MySharedPref
 import com.google.android.material.color.DynamicColors
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -26,11 +27,14 @@ class MyApplication : Application() {
         lateinit var pm: PackageManager
 
         lateinit var executor: ExecutorService
+
+        lateinit var application: MyApplication
     }
 
     override fun onCreate() {
         super.onCreate()
-        DynamicColors.applyToActivitiesIfAvailable(this)
+
+        application = MyApplication()
 
         pm = applicationContext.packageManager
         executor = Executors.newCachedThreadPool()
@@ -43,5 +47,9 @@ class MyApplication : Application() {
         defaultSwValue = getString(R.string.defaultSwitchValue)
 
         sharedPref = getSharedPreferences("NotInfo", MODE_PRIVATE)
+
+        if (MySharedPref.getDynamicColors()){
+            DynamicColors.applyToActivitiesIfAvailable(this)
+        }
     }
 }
