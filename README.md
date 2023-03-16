@@ -1,6 +1,6 @@
 ﻿# notification-listener-android
  
- <p float="middle">
+<p float="middle">
   <img src="img/main.jpg" width="200" />
   <img src="img/search.jpg" width="200" />
   <img src="img/pkgnames.jpg" width="200" />
