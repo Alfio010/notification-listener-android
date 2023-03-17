@@ -60,7 +60,7 @@ class SettingsAdapter(private val packageNames: List<PackageName>) :
         if (icon != null) {
             viewHolder.ivBlacklist.setImageDrawable(icon)
         } else {
-            viewHolder.ivBlacklist.setImageDrawable(R.drawable.default_icon.toDrawable()) //todo fix with system apps or custom drawable
+            viewHolder.ivBlacklist.setImageResource(R.drawable.baseline_android_24)
         }
     }
 
