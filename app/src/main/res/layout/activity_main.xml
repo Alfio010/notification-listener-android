@@ -5,87 +5,242 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?backgroundColor"
-    android:gravity="center"
+    android:gravity="center|center_horizontal|center_vertical"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="250sp"
+        android:layout_height="250sp"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:layout_marginTop="20sp"
+        android:layout_weight="4"
+        android:src="@mipmap/ic_launcher_foreground">
+
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10sp"
-        android:layout_marginRight="10sp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="80sp"
+        android:layout_weight="3"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:columnOrderPreserved="true"
+        android:padding="14dp"
+        android:rowCount="3">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bSpecificApp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="5sp"
+            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp">
 
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bSpecificApp"
-                android:layout_width="match_parent"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5sp"
-                android:layout_weight="1"
-                android:backgroundTint="?colorPrimary"
-                android:shadowColor="#A8A8A8"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_chat_24">
 
-                android:text="@string/chat" />
+            </com.google.android.material.imageview.ShapeableImageView>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/bWhatsAppChat"
-                android:layout_width="match_parent"
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5sp"
-                android:layout_weight="1"
-                android:backgroundTint="?colorPrimary"
-                android:shadowColor="#A8A8A8"
+                android:layout_gravity="bottom|center|center_vertical"
+                android:layout_marginBottom="20sp"
+                android:text="@string/chat"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                app:textAllCaps="true">
 
-                android:text="@string/grouped_chat" />
-        </LinearLayout>
+            </com.google.android.material.textview.MaterialTextView>
 
-        <com.google.android.material.button.MaterialButton
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/bWhatsAppChat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="5sp"
+            android:foregroundGravity="center"
+            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_groups_24">
+
+            </com.google.android.material.imageview.ShapeableImageView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center|center_vertical"
+                android:layout_marginBottom="20sp"
+                android:text="@string/grouped_chat"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                app:textAllCaps="true">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/bAll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="?colorPrimary"
-            android:shadowColor="#A8A8A8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="5sp"
+            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp">
 
-            android:text="@string/all_notification" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_home_24">
 
-        <com.google.android.material.button.MaterialButton
+            </com.google.android.material.imageview.ShapeableImageView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center|center_vertical"
+                android:layout_marginBottom="20sp"
+                android:text="@string/all_notification"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                app:textAllCaps="true">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/bDeletedNotifications"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="?colorPrimary"
-            android:shadowColor="#A8A8A8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="5sp"
+            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp">
 
-            android:text="@string/deleted_notification" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_delete_outline_24">
 
-        <com.google.android.material.button.MaterialButton
+            </com.google.android.material.imageview.ShapeableImageView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center|center_vertical"
+                android:layout_marginBottom="20sp"
+                android:text="@string/deleted_notification"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                app:textAllCaps="true">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/bAdvancedSearchActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="?colorPrimary"
-            android:shadowColor="#A8A8A8"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="5sp"
+            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp">
 
-            android:text="@string/advanced_search" />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_manage_search_24">
 
-    </LinearLayout>
+            </com.google.android.material.imageview.ShapeableImageView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fbSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="3sp"
-        android:layout_marginEnd="10sp"
-        android:backgroundTint="?colorPrimary"
-        android:clickable="true"
-        android:contentDescription="@string/settings"
-        android:focusable="true"
-        android:tintMode="multiply"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center|center_vertical"
+                android:layout_marginBottom="20sp"
+                android:text="@string/advanced_search"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                app:textAllCaps="true">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fbSettings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="5sp"
+            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_settings_24">
+
+            </com.google.android.material.imageview.ShapeableImageView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center|center_vertical"
+                android:layout_marginBottom="20sp"
+                android:text="@string/settings"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:textStyle="bold"
+                app:textAllCaps="true">
+
+            </com.google.android.material.textview.MaterialTextView>
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
 
 </LinearLayout>

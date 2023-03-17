@@ -15,7 +15,7 @@ import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
-class MySettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)

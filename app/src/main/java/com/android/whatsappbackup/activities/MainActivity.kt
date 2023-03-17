@@ -5,13 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.Utils.isNotificationServiceEnabled
 import com.android.whatsappbackup.utils.Utils.showToast
 import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,12 +21,12 @@ class MainActivity : AppCompatActivity() {
             uiDefaultSettings(this)
         }
 
-        val bSpecificApp = findViewById<MaterialButton>(R.id.bSpecificApp)
-        val bAll = findViewById<MaterialButton>(R.id.bAll)
-        val bDeletedNotifications = findViewById<MaterialButton>(R.id.bDeletedNotifications)
-        val bAdvancedSearchActivity = findViewById<MaterialButton>(R.id.bAdvancedSearchActivity)
-        val bChat = findViewById<MaterialButton>(R.id.bWhatsAppChat)
-        val fbSettings = findViewById<FloatingActionButton>(R.id.fbSettings)
+        val bSpecificApp = findViewById<CardView>(R.id.bSpecificApp)
+        val bAll = findViewById<CardView>(R.id.bAll)
+        val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
+        val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
+        val bChat = findViewById<CardView>(R.id.bWhatsAppChat)
+        val fbSettings = findViewById<CardView>(R.id.fbSettings)
 
         if (!isNotificationServiceEnabled(this)) {
             showToast(getString(R.string.ask_not_permission), this)
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         fbSettings.setOnClickListener {
-            val intent = Intent(this, MySettingsActivity::class.java)
+            val intent = Intent(this, SettingsActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
