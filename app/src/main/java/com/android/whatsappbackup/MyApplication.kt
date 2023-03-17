@@ -8,7 +8,6 @@ import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DatabaseFactory
 import com.android.whatsappbackup.utils.MySharedPref
 import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.DynamicColorsOptions
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import java.util.concurrent.ExecutorService
