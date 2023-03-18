@@ -29,4 +29,5 @@
     <string name="interface_setting">Interfaccia</string>
     <string name="active_dynamic_colors">Colori dinamici</string>
     <string name="dynamic_colors_summary">Cambia i colori dell`interfaccia in base ai colori del dispositivo</string>
+    <string name="null_value">\"Nessun testo acquisito\"</string>
 </resources>

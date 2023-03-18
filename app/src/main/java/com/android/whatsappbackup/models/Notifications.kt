@@ -8,7 +8,7 @@ import java.util.*
 @Entity
 data class Notifications(
     @Id
-    var entityId: Long,
+    val entityId: Long,
     @Index
     var packageName: String,
     var title: String,
@@ -19,7 +19,8 @@ data class Notifications(
     var infoText: String? = null,
     var peopleList: String? = null,
     var titleBig: String? = null,
-    var isDeleted: Boolean = false
+    var isDeleted: Boolean = false,
+    var isChat: Boolean = false
 ) {
     override fun toString(): String {
         return "Notifications(entityId=$entityId, packageName='$packageName', title='$title', time=$time, text='$text', " +

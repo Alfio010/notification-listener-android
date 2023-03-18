@@ -97,9 +97,16 @@ class NotificationsAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val notifications = notifications[position]
 
-        val title = notifications.title
+        val title = if (notifications.title.trim() != "null") {
+            notifications.title
+        } else {
+            context.getString(R.string.null_value)
+        }
+
         val text = if (notifications.text.length > maxLength) {
             notifications.text.subSequence(0, maxLength).toString() + "..."
+        } else if (notifications.text.trim() == "null"){
+            context.getString(R.string.null_value)
         } else {
             notifications.text
         }
