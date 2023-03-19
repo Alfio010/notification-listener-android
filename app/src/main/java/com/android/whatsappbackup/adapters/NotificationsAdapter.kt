@@ -105,7 +105,7 @@ class NotificationsAdapter(
 
         val text = if (notifications.text.length > maxLength) {
             notifications.text.subSequence(0, maxLength).toString() + "..."
-        } else if (notifications.text.trim() == "null"){
+        } else if (notifications.text.trim() == "null") {
             context.getString(R.string.null_value)
         } else {
             notifications.text

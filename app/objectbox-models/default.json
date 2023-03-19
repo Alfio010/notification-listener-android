@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8878416491191500552",
-      "lastPropertyId": "12:4844897236612062692",
+      "lastPropertyId": "13:4508125087551529187",
       "name": "Notifications",
       "properties": [
         {
@@ -65,6 +65,11 @@
           "id": "12:4844897236612062692",
           "name": "titleBig",
           "type": 9
+        },
+        {
+          "id": "13:4508125087551529187",
+          "name": "isChat",
+          "type": 1
         }
       ],
       "relations": []

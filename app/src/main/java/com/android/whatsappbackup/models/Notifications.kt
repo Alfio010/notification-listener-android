@@ -8,7 +8,7 @@ import java.util.*
 @Entity
 data class Notifications(
     @Id
-    val entityId: Long,
+    var entityId: Long,
     @Index
     var packageName: String,
     var title: String,

@@ -12,7 +12,7 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.DeletedNotificationsActivity
 
 const val icon = R.mipmap.ic_launcher
-const val channelID = "MY_SUPP_NOT"
+private const val channelID = "MY_SUPP_NOT"
 
 object NotificationsUtils {
     fun sendNotification(context: Context, title: String, text: String) {
