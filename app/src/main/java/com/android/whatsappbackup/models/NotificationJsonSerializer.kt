@@ -15,7 +15,7 @@ class NotificationJsonSerializer : JsonSerializer<Notifications> {
         val jsonObject = JsonObject()
 
         jsonObject.add("entityId", context.serialize(src.entityId))
-        jsonObject.add("packageName", context.serialize(src.packageName))
+        jsonObject.add("packageName", context.serialize(src.packageName.target.pkg))
         jsonObject.add("time", context.serialize(src.time))
 
         jsonObject.add("title", context.serialize(src.title))

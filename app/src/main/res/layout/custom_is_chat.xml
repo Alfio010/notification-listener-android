@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rowcustom"
+    android:id="@+id/isChatRowCustom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivBlacklist"
+                android:id="@+id/ivIsChat"
                 android:layout_width="70sp"
                 android:layout_height="70sp"
                 android:layout_marginLeft="4sp"
@@ -39,7 +39,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tvPackageName"
+                    android:id="@+id/tvIsChatPkgName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/textview"
@@ -57,7 +57,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/swIsBlackListed"
+                    android:id="@+id/swIsChat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minHeight="48sp"
@@ -66,5 +66,6 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 
 </LinearLayout>

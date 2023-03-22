@@ -235,10 +235,11 @@ object DBUtils {
         infoText: String,
         peopleList: String,
         titleBig: String
-    ): Notifications {
-        return Notifications(
+    ): Notifications? {
+        val packageName = packageNameExists(pkgName) ?: return null
+
+        val notifications = Notifications(
             0,
-            pkgName,
             title,
             Date(date),
             text,
@@ -248,6 +249,10 @@ object DBUtils {
             peopleList,
             titleBig
         )
+
+        notifications.packageName.target = packageName
+
+        return notifications
     }
 
     fun createNotificationDeleted(
@@ -263,7 +268,6 @@ object DBUtils {
     ): Notifications {
         return Notifications(
             0,
-            pkgName,
             title,
             Date(date),
             text,

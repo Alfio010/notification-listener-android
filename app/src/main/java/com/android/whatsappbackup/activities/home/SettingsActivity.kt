@@ -1,4 +1,4 @@
-package com.android.whatsappbackup.activities
+package com.android.whatsappbackup.activities.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.preference.SwitchPreferenceCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.activities.adapters.BlackListActivity
+import com.android.whatsappbackup.activities.adapters.IsChatActivity
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.Utils
@@ -33,7 +35,8 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            val blackListAuto = findPreference<SwitchPreferenceCompat>("isAutoBlacklistOn")
+            val blackListAuto =
+                findPreference<SwitchPreferenceCompat>(MySharedPref.autoBlacklistEnabled)
 
             if (blackListAuto != null) {
                 blackListAuto.isChecked = MySharedPref.getAutoBlacklistOn()
@@ -78,7 +81,19 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            val isNotificationEnabled = findPreference<SwitchPreferenceCompat>("isAutoBlacklistOn")
+            val isChat = findPreference<Preference>("is_chat")
+
+            if (isChat != null) {
+                isChat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    val intent = Intent(requireContext(), IsChatActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(intent)
+                    true
+                }
+            }
+
+            val isNotificationEnabled =
+                findPreference<SwitchPreferenceCompat>(MySharedPref.notificationEnabled)
 
             if (isNotificationEnabled != null) {
                 isNotificationEnabled.isChecked = MySharedPref.getNotificationEnabled()
@@ -113,7 +128,7 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             val isDynamicColorsEnabled =
-                findPreference<SwitchPreferenceCompat>("isDynamicColorsEnabled")
+                findPreference<SwitchPreferenceCompat>(MySharedPref.dynamicColorsEnabled)
 
             if (isDynamicColorsEnabled != null) {
                 isDynamicColorsEnabled.isChecked = MySharedPref.getDynamicColors()

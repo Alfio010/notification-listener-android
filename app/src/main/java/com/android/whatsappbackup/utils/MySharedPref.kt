@@ -5,9 +5,9 @@ import com.android.whatsappbackup.MyApplication.Companion.application
 import com.google.android.material.color.DynamicColors
 
 object MySharedPref {
-    private const val autoBlacklistEnabled = "isAutoBlacklistOn"
-    private const val notificationEnabled = "isNotificationEnabled"
-    private const val dynamicColorsEnabled = "isDynamicColorsEnabled"
+    const val autoBlacklistEnabled = "isAutoBlacklistOn"
+    const val notificationEnabled = "isNotificationEnabled"
+    const val dynamicColorsEnabled = "isDynamicColorsEnabled"
 
     fun setAutoBlacklist(value: Boolean) {
         MyApplication.sharedPref.edit().putBoolean(autoBlacklistEnabled, value).apply()

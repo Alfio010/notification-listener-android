@@ -7,6 +7,7 @@
     <string name="title_text">Titolo/Testo</string>
     <string name="deleted">Eliminato</string>
     <string name="search">Cerca</string>
+    <string name="chat_summary">Le applicazioni segnate come chat verranno mostrate nella sezione \"Chat\" dell`app</string>
     <string name="defaultSwitchValue">Tutte le applicazioni</string>
     <string name="settings">Impostazioni</string>
     <string name="blacklist_package">Blacklist predefinita</string>

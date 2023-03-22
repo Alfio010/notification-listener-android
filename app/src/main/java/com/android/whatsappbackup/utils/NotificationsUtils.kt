@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.activities.DeletedNotificationsActivity
+import com.android.whatsappbackup.activities.home.DeletedNotificationsActivity
 
 const val icon = R.mipmap.ic_launcher
 private const val channelID = "MY_SUPP_NOT"

@@ -94,6 +94,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
+        if (packageNameExists(sbn.packageName) == null) {
+            MyApplication.packageNames.put(createPackageName(sbn.packageName, this))
+        }
+
         val save = {
             if (title.isNotEmpty() || text.isNotEmpty()) {
                 val notification = createNotification(
@@ -108,12 +112,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     titleBig
                 )
 
-                LOGGER.doLog("NOTIFICATION: $notification")
+                if (notification != null) {
+                    LOGGER.doLog("NOTIFICATION: $notification")
 
-                MyApplication.notifications.put(notification)
-
-                if (packageNameExists(sbn.packageName) == null) {
-                    MyApplication.packageNames.put(createPackageName(sbn.packageName, this))
+                    MyApplication.notifications.put(notification)
                 }
             }
         }

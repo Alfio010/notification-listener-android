@@ -8,7 +8,7 @@
     android:background="?backgroundColor"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.SearchActivity">
+    tools:context=".activities.home.SearchActivity">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etAdvancedSearch"

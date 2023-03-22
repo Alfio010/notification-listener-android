@@ -13,9 +13,10 @@ data class PackageName(
     @Index
     @Unique
     var pkg: String,
-    var isBlackList: Boolean = false
+    var isBlackList: Boolean = false,
+    var isChat: Boolean = false
 ) {
     override fun toString(): String {
-        return "PackageName(entityId=$entityId, name=$name, pkg=$pkg, isBlackList=$isBlackList)"
+        return "PackageName(entityId=$entityId, name=$name, pkg='$pkg', isBlackList=$isBlackList, isChat=$isChat)"
     }
 }

@@ -1,4 +1,4 @@
-package com.android.whatsappbackup.activities
+package com.android.whatsappbackup.activities.home
 
 import com.android.whatsappbackup.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications

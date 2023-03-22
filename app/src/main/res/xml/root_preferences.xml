@@ -22,6 +22,17 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/chat">
+
+        <Preference
+            app:key="is_chat"
+            app:summary="@string/chat_summary"
+            app:title="@string/chat_title">
+
+        </Preference>
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/notifications">
 
         <SwitchPreferenceCompat

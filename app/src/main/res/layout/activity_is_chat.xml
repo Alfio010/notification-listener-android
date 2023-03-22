@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:background="?backgroundColor"
     android:orientation="vertical"
-    tools:context=".activities.home.AllNotificationsActivity">
+    tools:context=".activities.adapters.IsChatActivity">
 
     <LinearLayout
-        android:id="@+id/llNotiList"
+        android:id="@+id/isChatLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5sp"
@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearch"
+            android:id="@+id/etIsChat"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,9 +38,10 @@
         android:orientation="vertical">
 
         <view
-            android:id="@+id/lvAll"
+            android:id="@+id/rvIsChat"
             class="androidx.recyclerview.widget.RecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
+
 </LinearLayout>

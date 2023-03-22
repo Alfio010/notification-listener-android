@@ -37,7 +37,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5sp"
-            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardBackgroundColor="?colorPrimary"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:strokeWidth="1dp">
@@ -55,8 +55,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
+                android:shadowColor="#FFFFFF"
                 android:text="@string/chat"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
                 app:textAllCaps="true">
@@ -73,7 +75,7 @@
             android:layout_columnWeight="1"
             android:layout_margin="5sp"
             android:foregroundGravity="center"
-            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardBackgroundColor="?colorPrimary"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:strokeWidth="1dp">
@@ -91,8 +93,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
+                android:shadowColor="#FFFFFF"
                 android:text="@string/grouped_chat"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
                 app:textAllCaps="true">
@@ -108,7 +112,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5sp"
-            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardBackgroundColor="?colorPrimary"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:strokeWidth="1dp">
@@ -126,8 +130,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
+                android:shadowColor="#FFFFFF"
                 android:text="@string/all_notification"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
                 app:textAllCaps="true">
@@ -143,7 +149,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5sp"
-            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardBackgroundColor="?colorPrimary"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:strokeWidth="1dp">
@@ -161,8 +167,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
+                android:shadowColor="#FFFFFF"
                 android:text="@string/deleted_notification"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
                 app:textAllCaps="true">
@@ -178,7 +186,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5sp"
-            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardBackgroundColor="?colorPrimary"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:strokeWidth="1dp">
@@ -196,8 +204,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
+                android:shadowColor="#FFFFFF"
                 android:text="@string/advanced_search"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
                 app:textAllCaps="true">
@@ -213,7 +223,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5sp"
-            app:cardBackgroundColor="@color/cyan_dark"
+            app:cardBackgroundColor="?colorPrimary"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
             app:strokeWidth="1dp">
@@ -231,8 +241,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
+                android:shadowColor="#FFFFFF"
                 android:text="@string/settings"
                 android:textAlignment="center"
+                android:textColor="#000000"
                 android:textIsSelectable="false"
                 android:textStyle="bold"
                 app:textAllCaps="true">

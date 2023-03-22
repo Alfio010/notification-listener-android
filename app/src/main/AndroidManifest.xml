@@ -22,35 +22,38 @@
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name=".IsChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.home.SettingsActivity"
             android:exported="false"
             android:label="@string/settings" />
         <activity
-            android:name=".activities.BlackListActivity"
+            android:name=".activities.adapters.BlackListActivity"
             android:exported="false"
             android:label="@string/blacklist" />
         <activity
-            android:name=".activities.SearchActivity"
+            android:name=".activities.home.SearchActivity"
             android:exported="false"
             android:label="@string/advanced_search" />
         <activity
-            android:name=".activities.AllNotificationsActivity"
+            android:name=".activities.home.AllNotificationsActivity"
             android:exported="false"
             android:label="@string/all_notification" />
         <activity
-            android:name=".activities.SpecificAppNotificationsActivity"
+            android:name=".activities.home.SpecificAppNotificationsActivity"
             android:exported="false"
             android:label="@string/chat" />
         <activity
-            android:name=".activities.ChatActivity"
+            android:name=".activities.home.ChatActivity"
             android:exported="false"
             android:label="@string/grouped_chat" />
         <activity
-            android:name=".activities.DeletedNotificationsActivity"
+            android:name=".activities.home.DeletedNotificationsActivity"
             android:exported="false"
             android:label="@string/deleted_notification" />
         <activity
-            android:name=".activities.ListSearchActivity"
+            android:name=".activities.adapters.ListSearchActivity"
             android:exported="false"
             android:label="@string/search" />
         <activity
