@@ -8,11 +8,11 @@ import io.objectbox.annotation.Unique
 @Entity
 data class PackageName(
     @Id
-    var entityId: Long,
-    var name: String?,
+    var entityId: Long = 0,
+    var name: String? = null,
     @Index
     @Unique
-    var pkg: String,
+    var pkg: String = String(),
     var isBlackList: Boolean = false,
     var isChat: Boolean = false
 ) {

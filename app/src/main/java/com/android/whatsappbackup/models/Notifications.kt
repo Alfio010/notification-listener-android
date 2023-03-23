@@ -8,10 +8,10 @@ import java.util.*
 @Entity
 data class Notifications(
     @Id
-    var entityId: Long,
-    var title: String,
-    var time: Date,
-    var text: String,
+    var entityId: Long = 0,
+    var title: String = String(),
+    var time: Date = Date(),
+    var text: String = String(),
     var bigText: String? = null,
     var conversationTitle: String? = null,
     var infoText: String? = null,
@@ -22,6 +22,6 @@ data class Notifications(
     lateinit var packageName: ToOne<PackageName>
 
     override fun toString(): String {
-        return "Notifications(entityId=$entityId, packageName='$packageName', title='$title', time=$time, text='$text', bigText=$bigText, conversationTitle=$conversationTitle, infoText=$infoText, peopleList=$peopleList, titleBig=$titleBig, isDeleted=$isDeleted)"
+        return "Notifications(entityId=$entityId, packageName='${packageName.target}', title='$title', time=$time, text='$text', bigText=$bigText, conversationTitle=$conversationTitle, infoText=$infoText, peopleList=$peopleList, titleBig=$titleBig, isDeleted=$isDeleted)"
     }
 }

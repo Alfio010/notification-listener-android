@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.IsChatAdapter
-import com.android.whatsappbackup.adapters.SettingsAdapter
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.Utils

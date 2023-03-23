@@ -17,10 +17,10 @@ object DBUtils {
     fun searchDeletedNot(pkgName: String, date: Long, title: String, text: String): Notifications? {
         return notifications
             .query()
-            .equal(Notifications_.packageName, pkgName, QueryBuilder.StringOrder.CASE_SENSITIVE)
             .equal(Notifications_.time, date)
             .equal(Notifications_.title, title, QueryBuilder.StringOrder.CASE_SENSITIVE)
             .notEqual(Notifications_.text, text, QueryBuilder.StringOrder.CASE_SENSITIVE)
+            .filter { it.packageName.target.pkg == pkgName }
             .build()
             .findFirst()
     }
@@ -28,10 +28,10 @@ object DBUtils {
     fun searchOneNot(pkgName: String, title: String, date: Long, text: String): Notifications? {
         return notifications
             .query()
-            .equal(Notifications_.packageName, pkgName, QueryBuilder.StringOrder.CASE_SENSITIVE)
             .equal(Notifications_.title, title, QueryBuilder.StringOrder.CASE_SENSITIVE)
             .equal(Notifications_.time, date)
             .equal(Notifications_.text, text, QueryBuilder.StringOrder.CASE_SENSITIVE)
+            .filter { it.packageName.target.pkg == pkgName }
             .build()
             .findFirst()
     }
@@ -48,11 +48,7 @@ object DBUtils {
     fun perAppAllNotifications(pkgName: String): LazyList<Notifications> {
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgName,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgName }
             .orderDesc(Notifications_.time)
             .build()
             .findLazy()
@@ -61,11 +57,7 @@ object DBUtils {
     fun searchChat(pkgName: String, title: String): LazyList<Notifications> {
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgName,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgName }
             .startsWith(
                 Notifications_.title,
                 title,
@@ -79,11 +71,7 @@ object DBUtils {
     fun allNotification(): LazyList<Notifications> {
         return notifications
             .query()
-            .notEqual(
-                Notifications_.packageName,
-                pkgWhatsApp,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { !it.packageName.target.isChat }
             .orderDesc(Notifications_.time)
             .build()
             .findLazy()
@@ -92,11 +80,7 @@ object DBUtils {
     fun whatsappNotification(): MutableList<Notifications> {
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgWhatsApp,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgWhatsApp }
             .orderDesc(Notifications_.time)
             .build()
             .find()
@@ -105,11 +89,7 @@ object DBUtils {
     fun allNotificationSearch(string: String): List<Notifications> {
         return notifications
             .query()
-            .notEqual(
-                Notifications_.packageName,
-                pkgWhatsApp,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { !it.packageName.target.isChat }
             .contains(Notifications_.title, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
             .or()
             .contains(Notifications_.text, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
@@ -121,11 +101,7 @@ object DBUtils {
     fun perPackageNotificationSearch(string: String, pkgName: String): List<Notifications> {
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgName,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgName }
             .contains(Notifications_.title, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
             .or()
             .contains(Notifications_.text, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
@@ -153,11 +129,7 @@ object DBUtils {
 
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgName,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgName }
             .equal(Notifications_.isDeleted, isDeleted)
             .contains(Notifications_.title, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
             .or()
@@ -182,11 +154,7 @@ object DBUtils {
 
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgName,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgName }
             .equal(Notifications_.isDeleted, isDeleted)
             .orderDesc(Notifications_.time)
             .build()
@@ -215,11 +183,7 @@ object DBUtils {
     fun lastNotification(pkgName: String): Notifications? {
         return notifications
             .query()
-            .equal(
-                Notifications_.packageName,
-                pkgName,
-                QueryBuilder.StringOrder.CASE_SENSITIVE
-            )
+            .filter { it.packageName.target.pkg == pkgName }
             .orderDesc(Notifications_.entityId)
             .build()
             .findFirst()

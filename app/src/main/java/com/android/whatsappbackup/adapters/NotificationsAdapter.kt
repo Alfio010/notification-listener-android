@@ -65,7 +65,7 @@ class NotificationsAdapter(
                 }
                 builder.setNegativeButton(R.string.back) { _, _ -> }
                 builder.setNeutralButton(context.getString(R.string.open_app)) { _, _ ->
-                    Utils.openApp(notificationItem.packageName, context)
+                    Utils.openApp(notificationItem.packageName.target.pkg, context)
                 }
                 builder.create()
                 builder.show()
@@ -117,7 +117,7 @@ class NotificationsAdapter(
 
         viewHolder.tvDate.text = Utils.dateFormatter(notifications.time)
 
-        val icon = AppIcon.compute(notifications.packageName)
+        val icon = AppIcon.compute(notifications.packageName.target.pkg)
 
         if (icon != null) {
             viewHolder.ivIcon.setImageDrawable(icon)

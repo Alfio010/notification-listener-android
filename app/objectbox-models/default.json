@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8878416491191500552",
-      "lastPropertyId": "13:4508125087551529187",
+      "lastPropertyId": "14:3386074787156141491",
       "name": "Notifications",
       "properties": [
         {
@@ -13,13 +13,6 @@
           "name": "entityId",
           "type": 6,
           "flags": 1
-        },
-        {
-          "id": "2:7578771571798602254",
-          "name": "packageName",
-          "indexId": "1:4389553471949414081",
-          "type": 9,
-          "flags": 2048
         },
         {
           "id": "3:5655920637806019471",
@@ -67,16 +60,19 @@
           "type": 9
         },
         {
-          "id": "13:4508125087551529187",
-          "name": "isChat",
-          "type": 1
+          "id": "14:3386074787156141491",
+          "name": "packageNameId",
+          "indexId": "5:1481003158506231486",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "PackageName"
         }
       ],
       "relations": []
     },
     {
       "id": "2:8902696152457388726",
-      "lastPropertyId": "5:4932822926775162609",
+      "lastPropertyId": "6:7455028837653463366",
       "name": "PackageName",
       "properties": [
         {
@@ -101,13 +97,18 @@
           "indexId": "4:7019211843836792229",
           "type": 9,
           "flags": 2080
+        },
+        {
+          "id": "6:7455028837653463366",
+          "name": "isChat",
+          "type": 1
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "2:8902696152457388726",
-  "lastIndexId": "4:7019211843836792229",
+  "lastIndexId": "5:1481003158506231486",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
@@ -115,11 +116,14 @@
   "retiredEntityUids": [],
   "retiredIndexUids": [
     3330202211979634288,
-    4302151992235938428
+    4302151992235938428,
+    4389553471949414081
   ],
   "retiredPropertyUids": [
     8176653000475857659,
-    6358400184592931790
+    6358400184592931790,
+    7578771571798602254,
+    4508125087551529187
   ],
   "retiredRelationUids": [],
   "version": 1
