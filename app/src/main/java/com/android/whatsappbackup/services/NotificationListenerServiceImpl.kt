@@ -42,7 +42,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     it
                 )
             }) {
-            createBlackListPackageName(sbn.packageName, this)
+            createBlackListPackageName(sbn.packageName)
             return
         }
 
@@ -77,7 +77,13 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             String()
         }
 
-        if (searchOneNot(sbn.packageName, title, sbn.notification.`when`, text) != null) {
+        if (searchOneNot(
+                sbn.packageName,
+                title,
+                sbn.notification.`when`,
+                text
+            ) != null
+        ) {
             return
         }
 
@@ -95,7 +101,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         }
 
         if (packageNameExists(sbn.packageName) == null) {
-            MyApplication.packageNames.put(createPackageName(sbn.packageName, this))
+            MyApplication.packageNames.put(createPackageName(sbn.packageName))
         }
 
         val save = {
@@ -144,7 +150,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             if (MySharedPref.getAutoBlacklistOn() &&
                 SomeLists.blackListedNotificationKeys.any { sbn.packageName.contains(it) }
             ) {
-                createBlackListPackageName(sbn.packageName, this)
+                createBlackListPackageName(sbn.packageName)
                 return
             }
         }
@@ -178,7 +184,8 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             String()
         }
 
-        val entity = searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
+        val entity =
+            searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
 
         if (entity != null) {
             return
@@ -204,9 +211,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     )
                 }
 
-            MyApplication.notifications.put(deletedNotification)
-
-            sendNotification(this, deletedNotification.title, deletedNotification.text)
+            if (deletedNotification != null) {
+                MyApplication.notifications.put(deletedNotification)
+                sendNotification(this, deletedNotification.title, deletedNotification.text)
+            }
         }
     }
 }

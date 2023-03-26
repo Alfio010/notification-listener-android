@@ -19,7 +19,7 @@
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etIsChat"
+            android:id="@+id/etIsCh"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

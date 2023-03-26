@@ -7,7 +7,7 @@ import com.android.whatsappbackup.utils.DBUtils.allNotificationSearch
 import io.objectbox.query.LazyList
 
 class AllNotificationsActivity : NotificationListViewerBaseActivity() {
-    override fun getNotifications(): LazyList<Notifications> {
+    override fun getNotifications(): List<Notifications> {
         return allNotification()
     }
 

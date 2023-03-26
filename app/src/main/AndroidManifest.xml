@@ -22,7 +22,7 @@
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".IsChatActivity"
+            android:name=".activities.adapters.IsChatActivity"
             android:exported="false" />
         <activity
             android:name=".activities.home.SettingsActivity"

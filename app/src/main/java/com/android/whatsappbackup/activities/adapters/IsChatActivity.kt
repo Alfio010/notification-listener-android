@@ -30,14 +30,13 @@ class IsChatActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_is_chat)
 
         runOnUiThread {
-            setContentView(R.layout.blacklist_activity)
+            setContentView(R.layout.activity_is_chat)
             Utils.uiDefaultSettings(this)
         }
 
-        etSearchSettings = findViewById(R.id.etIsChat)
+        etSearchSettings = findViewById(R.id.etIsCh)
         recyclerView = findViewById(R.id.rvIsChat)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
