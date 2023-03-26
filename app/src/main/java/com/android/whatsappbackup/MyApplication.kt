@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DatabaseFactory
-import com.android.whatsappbackup.utils.MySharedPref
 import com.google.android.material.color.DynamicColors
 import io.objectbox.Box
 import io.objectbox.BoxStore
@@ -48,7 +47,7 @@ class MyApplication : Application() {
 
         sharedPref = getSharedPreferences("NotInfo", MODE_PRIVATE)
 
-        if (DynamicColors.isDynamicColorAvailable() && MySharedPref.getDynamicColors()) {
+        if (DynamicColors.isDynamicColorAvailable()) {
             DynamicColors.applyToActivitiesIfAvailable(this)
         }
     }

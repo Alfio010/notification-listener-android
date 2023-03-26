@@ -94,7 +94,7 @@
                 android:layout_gravity="bottom|center|center_vertical"
                 android:layout_marginBottom="20sp"
                 android:shadowColor="#FFFFFF"
-                android:text="@string/grouped_chat"
+                android:text="@string/group_chat"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textIsSelectable="false"

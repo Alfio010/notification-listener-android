@@ -23,7 +23,8 @@
         tools:targetApi="tiramisu">
         <activity
             android:name=".activities.adapters.IsChatActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/isChatActivity" />
         <activity
             android:name=".activities.home.SettingsActivity"
             android:exported="false"
@@ -47,7 +48,7 @@
         <activity
             android:name=".activities.home.GroupChatActivity"
             android:exported="false"
-            android:label="@string/grouped_chat" />
+            android:label="@string/group_chat" />
         <activity
             android:name=".activities.home.DeletedNotificationsActivity"
             android:exported="false"

@@ -42,18 +42,6 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/interface_setting">
-
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:key="@string/isDynamicColorsEnabled"
-            app:summary="@string/dynamic_colors_summary"
-            app:title="@string/active_dynamic_colors">
-
-        </SwitchPreferenceCompat>
-
-    </PreferenceCategory>
-
     <PreferenceCategory app:title="@string/info">
 
         <Preference

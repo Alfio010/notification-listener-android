@@ -11,15 +11,15 @@
     <!-- SharedPref -->
     <string name="isAutoBlacklistOn" translatable="false">isAutoBlacklistOn</string>
     <string name="isNotificationEnabled" translatable="false">isNotificationEnabled</string>
-    <string name="isDynamicColorsEnabled" translatable="false">isDynamicColorsEnabled</string>
 
     <!-- Activity name -->
     <string name="all_notification">All notification</string>
     <string name="deleted_notification">Deleted not.</string>
     <string name="advanced_search">Advanced search</string>
     <string name="chat" translatable="false">Chats</string>
-    <string name="grouped_chat">Grouped chats</string>
+    <string name="group_chat">Group chats</string>
     <string name="home" translatable="false">Home</string>
+    <string name="isChatActivity" translatable="false">Chat apps</string>
 
     <!-- Search Activity -->
     <string name="title_text">Title/Text</string>
@@ -49,9 +49,6 @@
     <string name="open_blacklist">Open blacklist</string>
     <string name="notifications" translatable="false">Notifications</string>
     <string name="info">About</string>
-    <string name="interface_setting">Interface</string>
-    <string name="active_dynamic_colors">Dynamic colors</string>
-    <string name="dynamic_colors_summary">Change interface colors to match device colors</string>
     <string name="chat_title" translatable="false">Chat apps</string>
     <string name="chat_summary">Applications marked as chat will be shown in the \"Chat\" section of the app</string>
 
