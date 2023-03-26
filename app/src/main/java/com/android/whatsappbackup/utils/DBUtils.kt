@@ -3,7 +3,6 @@ package com.android.whatsappbackup.utils
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.notifications
 import com.android.whatsappbackup.MyApplication.Companion.packageNames
-import com.android.whatsappbackup.MyApplication.Companion.pkgWhatsApp
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.Notifications_
 import com.android.whatsappbackup.models.PackageName
@@ -44,7 +43,7 @@ object DBUtils {
             .findLazy()
     }
 
-    fun perAppAllNotifications(): List<Notifications> {
+    fun isChatNotifications(): List<Notifications> {
         return notifications
             .query()
             .orderDesc(Notifications_.time)
@@ -67,7 +66,7 @@ object DBUtils {
             .filter { it.packageName.target.pkg == pkgName }
     }
 
-    fun allNotification(): List<Notifications> {
+    fun notificationWithoutChat(): List<Notifications> {
         return notifications
             .query()
             .orderDesc(Notifications_.time)
@@ -76,16 +75,7 @@ object DBUtils {
             .filter { !it.packageName.target.isChat }
     }
 
-    fun whatsappNotification(): List<Notifications> {
-        return notifications
-            .query()
-            .orderDesc(Notifications_.time)
-            .build()
-            .find()
-            .filter { it.packageName.target.isChat }
-    }
-
-    fun allNotificationSearch(string: String): List<Notifications> {
+    fun notificationWithoutChatSearch(string: String): List<Notifications> {
         return notifications
             .query()
             .contains(Notifications_.title, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)
@@ -97,7 +87,7 @@ object DBUtils {
             .filter { !it.packageName.target.isChat }
     }
 
-    fun perPackageNotificationSearch(string: String): List<Notifications> {
+    fun isChatNotificationSearch(string: String): List<Notifications> {
         return notifications
             .query()
             .contains(Notifications_.title, string, QueryBuilder.StringOrder.CASE_INSENSITIVE)

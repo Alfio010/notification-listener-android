@@ -22,11 +22,11 @@ class MainActivity : AppCompatActivity() {
             uiDefaultSettings(this)
         }
 
-        val bSpecificApp = findViewById<CardView>(R.id.bSpecificApp)
-        val bAll = findViewById<CardView>(R.id.bAll)
+        val bChats = findViewById<CardView>(R.id.bChats)
+        val bHome = findViewById<CardView>(R.id.bHome)
         val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
         val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
-        val bChat = findViewById<CardView>(R.id.bWhatsAppChat)
+        val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
         val fbSettings = findViewById<CardView>(R.id.fbSettings)
 
         if (!isNotificationServiceEnabled(this)) {
@@ -44,12 +44,12 @@ class MainActivity : AppCompatActivity() {
 
         checkPostNotificationPermission(this, this)
 
-        bSpecificApp.setOnClickListener {
-            val intent = Intent(this, SpecificAppNotificationsActivity::class.java)
+        bChats.setOnClickListener {
+            val intent = Intent(this, ChatsActivity::class.java)
             startActivity(intent)
         }
 
-        bAll.setOnClickListener {
+        bHome.setOnClickListener {
             val intent = Intent(this, AllNotificationsActivity::class.java)
             startActivity(intent)
         }
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        bChat.setOnClickListener {
-            val intent = Intent(this, ChatActivity::class.java)
+        bGroupChats.setOnClickListener {
+            val intent = Intent(this, GroupChatActivity::class.java)
             startActivity(intent)
         }
 

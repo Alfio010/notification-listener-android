@@ -41,11 +41,11 @@
             android:exported="false"
             android:label="@string/all_notification" />
         <activity
-            android:name=".activities.home.SpecificAppNotificationsActivity"
+            android:name=".activities.home.ChatsActivity"
             android:exported="false"
             android:label="@string/chat" />
         <activity
-            android:name=".activities.home.ChatActivity"
+            android:name=".activities.home.GroupChatActivity"
             android:exported="false"
             android:label="@string/grouped_chat" />
         <activity

@@ -31,7 +31,7 @@
         android:rowCount="3">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/bSpecificApp"
+            android:id="@+id/bChats"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_rowWeight="1"
@@ -68,7 +68,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/bWhatsAppChat"
+            android:id="@+id/bGroupChats"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_rowWeight="1"
@@ -106,7 +106,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/bAll"
+            android:id="@+id/bHome"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_rowWeight="1"

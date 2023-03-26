@@ -59,7 +59,7 @@ class NotificationsAdapter(
                 ) { _, _ ->
                     val intentChat = Intent(context, SpecificChatActivity::class.java)
                     intentChat.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                    intentChat.putExtra("pkgName", notificationItem.packageName)
+                    intentChat.putExtra("pkgName", notificationItem.packageName.target.pkg)
                     intentChat.putExtra("title", notificationItem.title)
                     ContextCompat.startActivity(context, intentChat, null)
                 }

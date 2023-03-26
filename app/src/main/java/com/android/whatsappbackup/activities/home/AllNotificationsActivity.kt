@@ -2,16 +2,15 @@ package com.android.whatsappbackup.activities.home
 
 import com.android.whatsappbackup.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
-import com.android.whatsappbackup.utils.DBUtils.allNotification
-import com.android.whatsappbackup.utils.DBUtils.allNotificationSearch
-import io.objectbox.query.LazyList
+import com.android.whatsappbackup.utils.DBUtils.notificationWithoutChat
+import com.android.whatsappbackup.utils.DBUtils.notificationWithoutChatSearch
 
 class AllNotificationsActivity : NotificationListViewerBaseActivity() {
     override fun getNotifications(): List<Notifications> {
-        return allNotification()
+        return notificationWithoutChat()
     }
 
     override fun getNotificationsBySearch(filter: String): List<Notifications> {
-        return allNotificationSearch(filter)
+        return notificationWithoutChatSearch(filter)
     }
 }

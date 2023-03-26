@@ -2,11 +2,11 @@ package com.android.whatsappbackup.activities.home
 
 import com.android.whatsappbackup.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
-import com.android.whatsappbackup.utils.DBUtils.whatsappNotification
+import com.android.whatsappbackup.utils.DBUtils.isChatNotifications
 
-class ChatActivity : NotificationListViewerBaseActivity() {
+class GroupChatActivity : NotificationListViewerBaseActivity() {
     override fun getNotifications(): List<Notifications> {
-        return whatsappNotification().onEach {
+        return isChatNotifications().onEach {
             if (it.conversationTitle.isNullOrBlank()) {
                 it.conversationTitle = it.title
             } else {
