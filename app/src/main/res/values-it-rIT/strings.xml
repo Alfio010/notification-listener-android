@@ -8,6 +8,7 @@
     <string name="deleted">Eliminato</string>
     <string name="search">Cerca</string>
     <string name="chat_summary">Le applicazioni segnate come chat verranno mostrate nella sezione \"Chat\" dell`app</string>
+    <string name="notification_summary">Riceverai una notifica se quest`app nota che una notifica ricevuta sul tuo dispositivo è stata cancellata. È possibile che vengano rilevati per errore dei falsi positivi.</string>
     <string name="defaultSwitchValue">Tutte le applicazioni</string>
     <string name="settings">Impostazioni</string>
     <string name="blacklist_package">Blacklist predefinita</string>

@@ -53,12 +53,9 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         val title =
             notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
-        val conversationTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        val conversationTitle =
             notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
                 .orEmpty()
-        } else {
-            String()
-        }
 
         val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
@@ -160,12 +157,9 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         val title =
             notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
-        val conversationTitle = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        val conversationTitle =
             notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
                 .orEmpty()
-        } else {
-            String()
-        }
 
         val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 

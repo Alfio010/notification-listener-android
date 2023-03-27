@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.home.*
+import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.Utils.isNotificationServiceEnabled
 import com.android.whatsappbackup.utils.Utils.showToast
@@ -23,33 +24,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         val bChats = findViewById<CardView>(R.id.bChats)
-        val bHome = findViewById<CardView>(R.id.bHome)
+        val bAllNotifications = findViewById<CardView>(R.id.bHome)
         val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
         val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
         val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
         val fbSettings = findViewById<CardView>(R.id.fbSettings)
 
-        if (!isNotificationServiceEnabled(this)) {
-            showToast(getString(R.string.ask_not_permission), this)
+        askNotificationServicePermission(this)
 
-            val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, this.packageName)
-            }
-
-            startActivity(intent)
-        }
-
-        checkPostNotificationPermission(this, this)
+        checkPostNotificationPermission(this)
 
         bChats.setOnClickListener {
             val intent = Intent(this, ChatsActivity::class.java)
             startActivity(intent)
         }
 
-        bHome.setOnClickListener {
+        bAllNotifications.setOnClickListener {
             val intent = Intent(this, AllNotificationsActivity::class.java)
             startActivity(intent)
         }

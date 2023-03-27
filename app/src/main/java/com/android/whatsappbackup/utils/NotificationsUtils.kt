@@ -47,7 +47,11 @@ object NotificationsUtils {
                 .setAutoCancel(true)
 
             with(NotificationManagerCompat.from(context)) {
-                notify(1234, builder.build())
+                if (Utils.isNotificationServiceEnabled(context)) {
+                    try {
+                        notify(1234, builder.build())
+                    }catch (_: SecurityException) { }
+                }
             }
         }
     }

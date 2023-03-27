@@ -1,6 +1,8 @@
 package com.android.whatsappbackup.utils
 
 import android.Manifest.permission.POST_NOTIFICATIONS
+import android.app.Activity
+import android.app.NotificationManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -18,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.pm
+import com.android.whatsappbackup.R
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,6 +33,21 @@ object Utils {
 
     fun showToast(text: String, context: AppCompatActivity) {
         context.runOnUiThread { Toast.makeText(context, text, Toast.LENGTH_LONG).show() }
+    }
+
+    fun askNotificationServicePermission(context: Context) {
+        if (!isNotificationServiceEnabled(context)) {
+            showToast(context.getString(R.string.ask_not_permission), context as AppCompatActivity)
+
+            val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+            }
+
+            context.startActivity(intent)
+        }
     }
 
     fun dateFormatter(date: Date): String {
@@ -121,21 +139,21 @@ object Utils {
         }
     }
 
-    fun checkPostNotificationPermission(context: Context, activity: AppCompatActivity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+    private fun isNotificationPostPermissionEnabled(context: Context): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ActivityCompat.checkSelfPermission(
                 context,
                 POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ContextCompat.checkSelfPermission(
-                    context,
-                    POST_NOTIFICATIONS
-                ) == PackageManager.PERMISSION_DENIED
-            ) {
-                ActivityCompat.requestPermissions(activity, arrayOf(POST_NOTIFICATIONS), 1)
-            }
-            return
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.areNotificationsEnabled()
+        }
+    }
+
+    fun checkPostNotificationPermission(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !isNotificationPostPermissionEnabled(context)) {
+            ActivityCompat.requestPermissions(context as Activity, arrayOf(POST_NOTIFICATIONS), 1)
         }
     }
 }

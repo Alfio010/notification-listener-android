@@ -96,10 +96,19 @@ class SettingsActivity : AppCompatActivity() {
                 findPreference<SwitchPreferenceCompat>(MySharedPref.notificationEnabled)
 
             if (isNotificationEnabled != null) {
-                isNotificationEnabled.isChecked = MySharedPref.getNotificationEnabled()
+                var notificationEnabled = Utils.isNotificationServiceEnabled(requireContext())
+                MySharedPref.setNotificationEnabled(notificationEnabled)
+
+                isNotificationEnabled.isChecked = notificationEnabled
                 isNotificationEnabled.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
-                        MySharedPref.setNotificationEnabled(newValue as Boolean)
+                        if (newValue as Boolean) {
+                            Utils.checkPostNotificationPermission(requireContext())
+                        }
+
+                        notificationEnabled = Utils.isNotificationServiceEnabled(requireContext())
+                        MySharedPref.setNotificationEnabled(notificationEnabled)
+                        isNotificationEnabled.isChecked = notificationEnabled
                         true
                     }
             }
