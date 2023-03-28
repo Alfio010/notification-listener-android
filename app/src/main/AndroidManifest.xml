@@ -63,7 +63,7 @@
             android:label="@string/chat" />
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
