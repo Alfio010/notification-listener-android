@@ -50,7 +50,8 @@ object NotificationsUtils {
                 if (Utils.isNotificationServiceEnabled(context)) {
                     try {
                         notify(1234, builder.build())
-                    }catch (_: SecurityException) { }
+                    } catch (_: SecurityException) {
+                    }
                 }
             }
         }

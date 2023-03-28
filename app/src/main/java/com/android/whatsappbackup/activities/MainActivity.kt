@@ -1,17 +1,13 @@
 package com.android.whatsappbackup.activities
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.home.*
 import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
-import com.android.whatsappbackup.utils.Utils.isNotificationServiceEnabled
-import com.android.whatsappbackup.utils.Utils.showToast
 import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
 
 class MainActivity : AppCompatActivity() {

@@ -38,8 +38,8 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:key="@string/isNotificationEnabled"
-            app:title="@string/enable_notification"
-            app:summary="@string/notification_summary"/>
+            app:summary="@string/notification_summary"
+            app:title="@string/enable_notification" />
 
     </PreferenceCategory>
 

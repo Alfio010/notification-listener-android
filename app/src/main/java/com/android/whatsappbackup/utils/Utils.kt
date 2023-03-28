@@ -146,13 +146,17 @@ object Utils {
                 POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
         } else {
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val notificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.areNotificationsEnabled()
         }
     }
 
     fun checkPostNotificationPermission(context: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !isNotificationPostPermissionEnabled(context)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && !isNotificationPostPermissionEnabled(
+                context
+            )
+        ) {
             ActivityCompat.requestPermissions(context as Activity, arrayOf(POST_NOTIFICATIONS), 1)
         }
     }
