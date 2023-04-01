@@ -31,7 +31,7 @@ object Utils {
             ?.any { it.startsWith(context.packageName + "/") } == true
     }
 
-    fun showToast(text: String, context: AppCompatActivity) {
+    private fun showToast(text: String, context: AppCompatActivity) {
         context.runOnUiThread { Toast.makeText(context, text, Toast.LENGTH_LONG).show() }
     }
 
@@ -100,6 +100,8 @@ object Utils {
         val color = ContextCompat.getColor(activity, typedValue.resourceId)
         activity.window.statusBarColor = color
         activity.window.navigationBarColor = color
+        activity.supportActionBar?.setDisplayShowHomeEnabled(true)
+        activity.supportActionBar?.setIcon(R.mipmap.ic_launcher_foreground)
     }
 
     fun isDiscordAndBlank(pkgName: String, text: String): Boolean {
