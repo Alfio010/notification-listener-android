@@ -8,16 +8,17 @@ import com.android.whatsappbackup.utils.DBUtils.searchChat
 
 class SpecificChatActivity : NotificationListViewerBaseActivity() {
     private lateinit var pkgName: String
-    private lateinit var title: String
+    private lateinit var chatTitle: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         pkgName = intent.extras!!.getString("pkgName", MyApplication.defaultSwValue)
-        title = intent.extras!!.getString("title", "")
+        chatTitle = intent.extras!!.getString("title", "")
         super.onCreate(savedInstanceState)
+        title = chatTitle
     }
 
     override fun getNotifications(): List<Notifications> {
-        return searchChat(pkgName, title)
+        return searchChat(pkgName, chatTitle)
     }
 
     override fun getNotificationsBySearch(filter: String): List<Notifications> {
