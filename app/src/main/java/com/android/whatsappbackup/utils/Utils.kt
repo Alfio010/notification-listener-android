@@ -162,4 +162,8 @@ object Utils {
             ActivityCompat.requestPermissions(context as Activity, arrayOf(POST_NOTIFICATIONS), 1)
         }
     }
+
+    fun openLink(context: Context, uri: String) {
+        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+    }
 }

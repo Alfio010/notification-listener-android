@@ -58,6 +58,12 @@
         </Preference>
 
         <Preference
+            app:key="github"
+            app:title="@string/github">
+
+        </Preference>
+
+        <Preference
             app:key="version"
             app:title="@string/version">
 

@@ -56,4 +56,5 @@
     <!-- Default values -->
     <string name="defaultSwitchValue">All applications</string>
     <string name="null_value">"No text captured"</string>
+    <string name="github" translatable="false">GitHub</string>
 </resources>

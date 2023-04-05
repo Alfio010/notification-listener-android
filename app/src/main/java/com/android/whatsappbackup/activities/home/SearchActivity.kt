@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
@@ -59,6 +60,10 @@ class SearchActivity : AppCompatActivity() {
             intent.putExtra("isDeleted", isDeleted)
 
             startActivity(intent)
+        }
+
+        onBackPressedDispatcher.addCallback {
+            finishAndRemoveTask()
         }
     }
 }

@@ -16,7 +16,6 @@ import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +51,6 @@ class SettingsActivity : AppCompatActivity() {
             if (openBlacklist != null) {
                 openBlacklist.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     val intent = Intent(requireContext(), BlackListActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
                     true
                 }
@@ -86,7 +84,6 @@ class SettingsActivity : AppCompatActivity() {
             if (isChat != null) {
                 isChat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     val intent = Intent(requireContext(), IsChatActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(intent)
                     true
                 }
@@ -126,6 +123,18 @@ class SettingsActivity : AppCompatActivity() {
                     Utils.openPlayStore(
                         requireContext(),
                         BuildConfig.APPLICATION_ID
+                    )
+                    true
+                }
+            }
+
+            val github = findPreference<Preference>("github")
+
+            if (github != null) {
+                github.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    Utils.openLink(
+                        requireContext(),
+                        "https://github.com/Alfio010/notification-listener-android"
                     )
                     true
                 }
