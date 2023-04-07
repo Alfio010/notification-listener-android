@@ -73,6 +73,7 @@ class SettingsActivity : AppCompatActivity() {
 
                     }
                     builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                    builder.setOnCancelListener { it.dismiss() }
                     builder.create()
                     builder.show()
                     true

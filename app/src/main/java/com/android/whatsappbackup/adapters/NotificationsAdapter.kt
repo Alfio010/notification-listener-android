@@ -122,6 +122,7 @@ class NotificationsAdapter(
                 builder.setNeutralButton(context.getString(R.string.open_app)) { _, _ ->
                     Utils.openApp(notificationItem.packageName.target.pkg, context)
                 }
+                builder.setOnCancelListener { it.dismiss() }
                 builder.create()
                 builder.show()
             }
