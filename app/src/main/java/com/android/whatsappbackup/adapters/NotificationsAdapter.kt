@@ -1,5 +1,6 @@
 package com.android.whatsappbackup.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -8,19 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.SpecificChatActivity
-import com.android.whatsappbackup.models.NotificationJsonSerializer
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.Utils
 import com.android.whatsappbackup.utils.computables.AppIcon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textview.MaterialTextView
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import org.json.JSONObject
 
 class NotificationsAdapter(
     private val notifications: List<Notifications>,
@@ -28,13 +27,9 @@ class NotificationsAdapter(
 ) :
     RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
     companion object {
-        private const val spacesToIndentEachLevel = 2
         private const val maxLength = 35
-        private val gson: Gson = GsonBuilder().registerTypeAdapter(
-            Notifications::class.java,
-            NotificationJsonSerializer()
-        ).create()
 
+        @SuppressLint("InflateParams")
         fun setListener(
             view: View,
             notificationItem: Notifications,
@@ -42,11 +37,72 @@ class NotificationsAdapter(
             context: Context
         ) {
             view.setOnClickListener {
-                val gJson = gson.toJson(notificationItem)
+                val customAlertDialogView = LayoutInflater.from(context)
+                    .inflate(R.layout.custom_my_dialog, null, false)
+
+                customAlertDialogView.findViewById<TextView>(R.id.tvDialogDate)
+                    .text = Utils.dateFormatter(notificationItem.time)
+
+                customAlertDialogView.findViewById<TextView>(R.id.tvDialogPackageName)
+                    .text = if (notificationItem.packageName.target.name.isNullOrBlank()) {
+                    notificationItem.packageName.target.pkg
+                } else {
+                    "${notificationItem.packageName.target.name} (${notificationItem.packageName.target.pkg})"
+                }
+
+                customAlertDialogView.findViewById<TextView>(R.id.tvDialogText)
+                    .text = notificationItem.text
+
+                if (!notificationItem.conversationTitle.isNullOrBlank()) {
+                    customAlertDialogView.findViewById<TextView>(R.id.tvDialogConversationTitle)
+                        .text = notificationItem.conversationTitle
+                } else {
+                    customAlertDialogView.findViewById<LinearLayout>(R.id.llConversationTitle)
+                        .visibility = View.GONE
+                }
+
+                if (!notificationItem.titleBig.isNullOrBlank()) {
+                    customAlertDialogView.findViewById<TextView>(R.id.tvDialogBigTitle)
+                        .text = notificationItem.titleBig
+                } else {
+                    customAlertDialogView.findViewById<LinearLayout>(R.id.llBigTitle)
+                        .visibility = View.GONE
+                }
+
+                if (!notificationItem.bigText.isNullOrBlank()) {
+                    customAlertDialogView.findViewById<TextView>(R.id.tvDialogBigText)
+                        .text = notificationItem.bigText
+                } else {
+                    customAlertDialogView.findViewById<LinearLayout>(R.id.llDialogBigText)
+                        .visibility = View.GONE
+                }
+
+                if (!notificationItem.infoText.isNullOrBlank()) {
+                    customAlertDialogView.findViewById<TextView>(R.id.tvDialogInfoText)
+                        .text = notificationItem.infoText
+                } else {
+                    customAlertDialogView.findViewById<LinearLayout>(R.id.llInfoText)
+                        .visibility = View.GONE
+                }
+
+                if (!notificationItem.peopleList.isNullOrBlank()) {
+                    customAlertDialogView.findViewById<TextView>(R.id.tvDialogPeopleList)
+                        .text = notificationItem.peopleList
+                } else {
+                    customAlertDialogView.findViewById<LinearLayout>(R.id.llPeopleList)
+                        .visibility = View.GONE
+                }
+
+                customAlertDialogView.findViewById<TextView>(R.id.tvDialogIsDeleted)
+                    .text = if (notificationItem.isDeleted) {
+                    context.getString(R.string.yes)
+                } else {
+                    context.getString(R.string.no)
+                }
 
                 val builder = MaterialAlertDialogBuilder(context)
                 builder.setTitle(notificationItem.title)
-                builder.setMessage(JSONObject(gJson).toString(spacesToIndentEachLevel))
+                builder.setView(customAlertDialogView)
 
                 if (icon != null) {
                     builder.setIcon(icon)
@@ -77,7 +133,7 @@ class NotificationsAdapter(
         val tvDescription: MaterialTextView
         val tvDate: MaterialTextView
         val ivIcon: ImageView
-        val linearLayout: LinearLayout
+        val linearLayout: LinearLayoutCompat
 
         init {
             tvName = view.findViewById(R.id.tvNome)

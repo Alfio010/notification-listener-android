@@ -17,7 +17,7 @@
         app:cardElevation="2dp"
         app:strokeWidth="1dp">
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llNotificationAdapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -70,7 +70,7 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>
 
 

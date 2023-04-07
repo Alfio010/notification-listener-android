@@ -29,4 +29,13 @@
     <string name="open_blacklist">Visualizza blacklist</string>
     <string name="info">Info</string>
     <string name="null_value">\"Nessun testo acquisito\"</string>
+    <string name="appName">Nome:</string>
+    <string name="text">Testo:</string>
+    <string name="date">Data:</string>
+    <string name="conversationTitle">Titolo conversazione:</string>
+    <string name="titleBig">Titolo esteso:</string>
+    <string name="textBig">Testo esteso:</string>
+    <string name="infoText">Testo aggiuntivo:</string>
+    <string name="peopleList">Lista persone:</string>
+    <string name="isDeleted">Cancellato:</string>
 </resources>

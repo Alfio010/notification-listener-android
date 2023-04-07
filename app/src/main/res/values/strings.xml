@@ -57,4 +57,15 @@
     <string name="defaultSwitchValue">All applications</string>
     <string name="null_value">"No text captured"</string>
     <string name="github" translatable="false">GitHub</string>
+
+    <!-- Dialog -->
+    <string name="appName">Name:</string>
+    <string name="text">Text:</string>
+    <string name="date">Date:</string>
+    <string name="conversationTitle">Conversation title:</string>
+    <string name="titleBig">Extended title:</string>
+    <string name="textBig">Extended text:</string>
+    <string name="infoText">Info text:</string>
+    <string name="peopleList">People list:</string>
+    <string name="isDeleted">Deleted:</string>
 </resources>
