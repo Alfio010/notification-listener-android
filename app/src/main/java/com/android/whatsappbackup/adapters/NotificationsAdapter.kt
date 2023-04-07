@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
@@ -26,7 +27,6 @@ class NotificationsAdapter(
     private val context: Context
 ) :
     RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
-
     companion object {
         private const val spacesToIndentEachLevel = 2
         private const val maxLength = 35
@@ -35,13 +35,13 @@ class NotificationsAdapter(
             NotificationJsonSerializer()
         ).create()
 
-        fun customAdapterButtonListener(
-            textView: MaterialTextView,
+        fun setListener(
+            view: View,
             notificationItem: Notifications,
             icon: Drawable?,
             context: Context
         ) {
-            textView.setOnClickListener {
+            view.setOnClickListener {
                 val gJson = gson.toJson(notificationItem)
 
                 val builder = MaterialAlertDialogBuilder(context)
@@ -77,12 +77,14 @@ class NotificationsAdapter(
         val tvDescription: MaterialTextView
         val tvDate: MaterialTextView
         val ivIcon: ImageView
+        val linearLayout: LinearLayout
 
         init {
             tvName = view.findViewById(R.id.tvNome)
             tvDescription = view.findViewById(R.id.tvDescrizione)
             tvDate = view.findViewById(R.id.tvDate)
             ivIcon = view.findViewById(R.id.ivIcon)
+            linearLayout = view.findViewById(R.id.llNotificationAdapter)
         }
     }
 
@@ -124,8 +126,9 @@ class NotificationsAdapter(
             viewHolder.ivIcon.setImageResource(R.drawable.baseline_android_24)
         }
 
-        customAdapterButtonListener(viewHolder.tvName, notifications, icon, context)
-        customAdapterButtonListener(viewHolder.tvDescription, notifications, icon, context)
+        setListener(viewHolder.tvName, notifications, icon, context)
+        setListener(viewHolder.tvDescription, notifications, icon, context)
+        setListener(viewHolder.linearLayout, notifications, icon, context)
     }
 
     override fun getItemCount() = notifications.size

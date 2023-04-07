@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvNotificationAdapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
@@ -17,6 +18,7 @@
         app:strokeWidth="1dp">
 
         <LinearLayout
+            android:id="@+id/llNotificationAdapter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

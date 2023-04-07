@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Simple NotiListener</string>
+    <string name="app_name" translatable="false">Notification Recovery</string>
     <string name="show_chat">Show chat</string>
     <string name="blacklist_package">Default apps blacklist</string>
     <string name="blacklist_auto">Blacklist system apps</string>
@@ -14,7 +14,7 @@
 
     <!-- Activity name -->
     <string name="all_notification">All notification</string>
-    <string name="deleted_notification">Deleted noti.</string>
+    <string name="deleted_notification">Deleted notification</string>
     <string name="advanced_search">Advanced search</string>
     <string name="chat" translatable="false">Chats</string>
     <string name="group_chat">Group chats</string>
