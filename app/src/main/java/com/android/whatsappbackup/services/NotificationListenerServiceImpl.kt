@@ -17,7 +17,6 @@ import com.android.whatsappbackup.utils.DBUtils.searchDeletedNot
 import com.android.whatsappbackup.utils.DBUtils.searchOneNot
 import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.NotificationsUtils.sendNotification
-import com.android.whatsappbackup.utils.SomeLists
 import com.android.whatsappbackup.utils.Utils.isBlacklistedNotification
 import com.android.whatsappbackup.utils.Utils.isDiscordAndBlank
 
@@ -37,11 +36,9 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (MySharedPref.getAutoBlacklistOn() && SomeLists.blackListedNotificationKeys.any {
-                sbn.packageName.contains(
-                    it
-                )
-            }) {
+        if (MySharedPref.getAutoBlacklistOn() &&
+            sbn.notification.category == Notification.CATEGORY_SYSTEM
+        ) {
             createBlackListPackageName(sbn.packageName)
             return
         }
@@ -145,7 +142,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             if (MySharedPref.getAutoBlacklistOn() &&
-                SomeLists.blackListedNotificationKeys.any { sbn.packageName.contains(it) }
+                sbn.notification.category == Notification.CATEGORY_SYSTEM
             ) {
                 createBlackListPackageName(sbn.packageName)
                 return

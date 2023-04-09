@@ -13,8 +13,8 @@ android {
         applicationId "com.alftendev.notlistener"
         minSdk 24
         targetSdk 33
-        versionCode 15
-        versionName "1.5"
+        versionCode 16
+        versionName "1.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,13 +41,13 @@ android {
 
 dependencies {
     implementation 'androidx.preference:preference:1.2.0'
-    implementation 'io.objectbox:objectbox-android:3.5.1'
-    implementation "org.apache.commons:commons-lang3:3.12.0"
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
+    implementation 'io.objectbox:objectbox-android:3.5.1'
+    implementation "org.apache.commons:commons-lang3:3.12.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

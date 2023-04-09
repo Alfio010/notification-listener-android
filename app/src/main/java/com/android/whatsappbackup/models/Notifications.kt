@@ -22,6 +22,9 @@ data class Notifications(
     lateinit var packageName: ToOne<PackageName>
 
     override fun toString(): String {
-        return "Notifications(entityId=$entityId, packageName='${packageName.target.pkg}', title='$title', time=$time, text='$text', bigText=$bigText, conversationTitle=$conversationTitle, infoText=$infoText, peopleList=$peopleList, titleBig=$titleBig, isDeleted=$isDeleted)"
+        return "Notifications(entityId=$entityId, packageName='${packageName.target.pkg}', " +
+                "title='$title', time=$time, text='$text', bigText=$bigText, " +
+                "conversationTitle=$conversationTitle, infoText=$infoText, " +
+                "peopleList=$peopleList, titleBig=$titleBig, isDeleted=$isDeleted)"
     }
 }

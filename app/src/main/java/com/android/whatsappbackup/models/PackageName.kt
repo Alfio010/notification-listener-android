@@ -17,6 +17,7 @@ data class PackageName(
     var isChat: Boolean = false
 ) {
     override fun toString(): String {
-        return "PackageName(entityId=$entityId, name=$name, pkg='$pkg', isBlackList=$isBlackList, isChat=$isChat)"
+        return "PackageName(entityId=$entityId, name=$name, pkg='$pkg', " +
+                "isBlackList=$isBlackList, isChat=$isChat)"
     }
 }
