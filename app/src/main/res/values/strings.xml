@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Notification Recovery</string>
+    <string name="app_name" translatable="false">Notifications Recovery</string>
     <string name="show_chat">Show chat</string>
     <string name="blacklist_package">Default apps blacklist</string>
     <string name="blacklist_auto">Blacklist system apps</string>
