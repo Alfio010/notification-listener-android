@@ -51,6 +51,7 @@ class IsChatAdapter(private val packageNames: List<PackageName>) :
             if (entity != null) {
                 entity.isChat = isChecked
                 MyApplication.packageNames.put(entity)
+                MyApplication.executor.submit { notifyItemChanged(position) }
             }
         }
 

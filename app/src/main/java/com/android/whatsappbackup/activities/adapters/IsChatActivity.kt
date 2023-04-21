@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.IsChatAdapter
@@ -37,11 +38,20 @@ class IsChatActivity : AppCompatActivity() {
             Utils.uiDefaultSettings(this)
         }
 
+        adapter = IsChatAdapter(DBUtils.allPackageNameFromTable())
+
         etSearchSettings = findViewById(R.id.etIsCh)
         recyclerView = findViewById(R.id.rvIsChat)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
+
+        adapter.registerAdapterDataObserver(object : AdapterDataObserver() {
+            override fun onChanged() {
+                super.onChanged()
+                MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
+            }
+        })
 
         etSearchSettings.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) = Unit

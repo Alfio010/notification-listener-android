@@ -13,8 +13,8 @@ import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.computables.AppIcon
 import com.google.android.material.textview.MaterialTextView
 
-class SettingsAdapter(private val packageNames: List<PackageName>) :
-    RecyclerView.Adapter<SettingsAdapter.ViewHolder>() {
+class BlacklistAdapter(private val packageNames: List<PackageName>) :
+    RecyclerView.Adapter<BlacklistAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNamePackage: MaterialTextView
@@ -51,6 +51,7 @@ class SettingsAdapter(private val packageNames: List<PackageName>) :
             if (entity != null) {
                 entity.isBlackList = isChecked
                 MyApplication.packageNames.put(entity)
+                MyApplication.executor.submit { notifyItemChanged(position) }
             }
         }
 
