@@ -13,8 +13,8 @@ android {
         applicationId "com.alftendev.notlistener"
         minSdk 24
         targetSdk 33
-        versionCode 17
-        versionName "1.7"
+        versionCode 19
+        versionName "1.7.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
