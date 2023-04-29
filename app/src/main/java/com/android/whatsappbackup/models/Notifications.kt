@@ -3,7 +3,7 @@ package com.android.whatsappbackup.models
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.relation.ToOne
-import java.util.*
+import java.util.Date
 
 @Entity
 data class Notifications(

@@ -9,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        resConfigs 'en', 'it-rIT'
+        resourceConfigurations += ['en', 'it-rIT']
         applicationId "com.alftendev.notlistener"
         minSdk 24
         targetSdk 33
@@ -27,20 +27,20 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
         coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = '17'
     }
 
     namespace 'com.android.whatsappbackup'
 }
 
 dependencies {
-    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'

@@ -9,7 +9,7 @@ import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.models.PackageName_
 import io.objectbox.query.LazyList
 import io.objectbox.query.QueryBuilder
-import java.util.*
+import java.util.Date
 
 object DBUtils {
     fun searchDeletedNot(pkgName: String, date: Long, title: String, text: String): Notifications? {

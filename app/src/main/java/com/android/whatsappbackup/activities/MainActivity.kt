@@ -5,7 +5,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.activities.home.*
+import com.android.whatsappbackup.activities.home.AllNotificationsActivity
+import com.android.whatsappbackup.activities.home.ChatsActivity
+import com.android.whatsappbackup.activities.home.DeletedNotificationsActivity
+import com.android.whatsappbackup.activities.home.GroupChatActivity
+import com.android.whatsappbackup.activities.home.SearchActivity
+import com.android.whatsappbackup.activities.home.SettingsActivity
 import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
