@@ -37,6 +37,9 @@ android {
     }
 
     namespace 'com.android.whatsappbackup'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -45,6 +48,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     implementation 'io.objectbox:objectbox-android:3.5.1'
     implementation "org.apache.commons:commons-lang3:3.12.0"

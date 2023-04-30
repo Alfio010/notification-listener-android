@@ -317,5 +317,37 @@ object DBUtils {
             .build()
             .findLazy()
     }
+
+    fun getPercentNotifications(): MutableMap<String, Float> {
+        val countedPackageName: MutableMap<String, Int> = mutableMapOf()
+
+        notifications
+            .query()
+            .build()
+            .find()
+            .forEach { notification ->
+                val pkgName =
+                    notification.packageName.target.name ?: notification.packageName.target.pkg
+                if (countedPackageName.containsKey(pkgName)) {
+                    countedPackageName[pkgName] = countedPackageName[pkgName]!! + 1
+                } else {
+                    countedPackageName[pkgName] = 1
+                }
+            }
+
+        val totalNotifications = notifications
+            .query()
+            .build()
+            .count()
+            .toFloat()
+
+        val percentageMap: MutableMap<String, Float> = mutableMapOf()
+
+        countedPackageName.forEach {
+            percentageMap[it.key] = (it.value.toFloat() / totalNotifications) * 100f
+        }
+
+        return percentageMap.toSortedMap(compareBy<String?> { percentageMap[it] }.thenBy { it })
+    }
 }
 

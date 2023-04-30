@@ -7,6 +7,7 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
+
             <category android:name="android.intent.category.LAUNCHER" />
         </intent>
         <intent>
@@ -14,11 +15,14 @@
         </intent>
         <intent>
             <action android:name="android.intent.action.SEND" />
+
             <data android:mimeType="*/*" />
         </intent>
         <intent>
             <action android:name="android.intent.action.VIEW" />
+
             <category android:name="android.intent.category.BROWSABLE" />
+
             <data android:scheme="https" />
         </intent>
     </queries>
@@ -38,6 +42,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
+        <activity
+            android:name=".activities.PieGraphActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.adapters.IsChatActivity"
             android:exported="false"
