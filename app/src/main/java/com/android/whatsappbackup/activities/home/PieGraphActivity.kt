@@ -20,6 +20,9 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import java.util.Random
 
 class PieGraphActivity : AppCompatActivity() {
+    companion object{
+        const val othersMaxValue = 4.5f
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -49,10 +52,10 @@ class PieGraphActivity : AppCompatActivity() {
 
         val entries: ArrayList<PieEntry> = ArrayList()
         percentageMap.forEach {
-            if (it.value >= 5f || it.key == this.getString(R.string.others)) {
+            if (it.value >= othersMaxValue || it.key == this.getString(R.string.others)) {
                 entries.add(PieEntry(it.value, it.key))
             } else {
-                others.add("${it.key} ${"%.1f".format(it.value)}%")
+                others.add("${it.key} ${"%.2f".format(it.value)}%")
             }
         }
 

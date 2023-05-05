@@ -5,6 +5,7 @@ import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.notifications
 import com.android.whatsappbackup.MyApplication.Companion.packageNames
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.activities.home.PieGraphActivity.Companion.othersMaxValue
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.Notifications_
 import com.android.whatsappbackup.models.PackageName
@@ -355,7 +356,7 @@ object DBUtils {
         var others = 0f
 
         countedPackageName.forEach {
-            if (percentageMap[it.key]!! < 5f) {
+            if (percentageMap[it.key]!! < othersMaxValue) {
                 others += percentageMap[it.key]!!
             }
         }
