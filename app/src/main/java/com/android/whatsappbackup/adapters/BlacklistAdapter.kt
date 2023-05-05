@@ -51,7 +51,13 @@ class BlacklistAdapter(private val packageNames: List<PackageName>) :
             if (entity != null) {
                 entity.isBlackList = isChecked
                 MyApplication.packageNames.put(entity)
+
+                DBUtils.packageNameExists(packageName.pkg)
+                    ?.let { viewHolder.swIsBlackListed.isChecked = it.isBlackList }
+
                 MyApplication.executor.submit { notifyItemChanged(position) }
+            } else {
+                viewHolder.swIsBlackListed.isChecked = packageName.isBlackList
             }
         }
 

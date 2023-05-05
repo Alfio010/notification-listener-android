@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.ListView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils
@@ -104,5 +105,9 @@ class PieGraphActivity : AppCompatActivity() {
         pieChart.data = data
 
         runOnUiThread { pieChart.invalidate() }
+
+        onBackPressedDispatcher.addCallback {
+            finishAndRemoveTask()
+        }
     }
 }
