@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
-import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.pm
 import com.android.whatsappbackup.R
 import java.text.SimpleDateFormat
@@ -63,7 +62,7 @@ object Utils {
             return true
         }
 
-        if (sbn.packageName == MyApplication.pkgWhatsApp && sbn.key!!.contains("null")) {
+        if (sbn.packageName == "com.whatsapp" && sbn.key!!.contains("null")) {
             return true
         }
 

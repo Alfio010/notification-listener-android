@@ -20,7 +20,6 @@ class MyApplication : Application() {
 
         lateinit var sharedPref: SharedPreferences
 
-        lateinit var pkgWhatsApp: String
         lateinit var defaultSwValue: String
 
         lateinit var pm: PackageManager
@@ -41,8 +40,6 @@ class MyApplication : Application() {
         database = DatabaseFactory.createDatabase(this)
         notifications = database.boxFor(Notifications::class.java)
         packageNames = database.boxFor(PackageName::class.java)
-
-        pkgWhatsApp = "com.whatsapp"
         defaultSwValue = getString(R.string.defaultSwitchValue)
 
         sharedPref = getSharedPreferences("NotInfo", MODE_PRIVATE)
