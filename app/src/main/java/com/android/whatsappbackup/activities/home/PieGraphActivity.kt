@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginTop
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.Utils
