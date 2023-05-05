@@ -9,10 +9,10 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.activities.MainActivity
 import com.android.whatsappbackup.activities.home.DeletedNotificationsActivity
 
-const val icon = R.mipmap.ic_launcher
-private const val channelID = "MY_SUPP_NOT"
+private const val CHANNEL_ID = "MY_SUPP_NOT"
 
 object NotificationsUtils {
     fun sendNotification(context: Context, title: String, text: String) {
@@ -20,7 +20,7 @@ object NotificationsUtils {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val name = context.getString(R.string.notification_name)
                 val importance = NotificationManager.IMPORTANCE_DEFAULT
-                val channel = NotificationChannel(channelID, name, importance).apply {
+                val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                     description = title
                 }
                 val notificationManager: NotificationManager =
@@ -28,14 +28,21 @@ object NotificationsUtils {
                 notificationManager.createNotificationChannel(channel)
             }
 
-            val intent = Intent(context, DeletedNotificationsActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intentMain = Intent(context, MainActivity::class.java).apply {
+                flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION
             }
-            val pendingIntent: PendingIntent =
-                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-            val builder = NotificationCompat.Builder(context, channelID)
-                .setSmallIcon(icon)
+            val intentNotification = Intent(context, DeletedNotificationsActivity::class.java)
+
+            val pendingIntent: PendingIntent =
+                PendingIntent.getActivities(
+                    context, 0,
+                    arrayOf(intentMain, intentNotification), PendingIntent.FLAG_IMMUTABLE
+                )
+
+            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.drawable.baseline_notifications_24)
                 .setContentTitle(context.getString(R.string.notification_title))
                 .setContentText("$text...")
                 .setStyle(

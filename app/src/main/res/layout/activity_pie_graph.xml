@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context=".activities.PieGraphActivity">
+    tools:context=".activities.home.PieGraphActivity">
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp" />
 
 </LinearLayout>

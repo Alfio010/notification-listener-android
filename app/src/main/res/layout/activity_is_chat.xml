@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="?backgroundColor"
     android:orientation="vertical"
-    tools:context=".activities.adapters.IsChatActivity">
+    tools:context=".activities.adaptersactivity.IsChatActivity">
 
     <LinearLayout
         android:id="@+id/isChatLinearLayout"

@@ -1,4 +1,4 @@
-package com.android.whatsappbackup.activities.adapters
+package com.android.whatsappbackup.activities.adaptersactivity
 
 import android.os.Bundle
 import android.util.Log

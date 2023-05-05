@@ -2,6 +2,9 @@ package com.android.whatsappbackup.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.android.whatsappbackup.R
@@ -9,6 +12,7 @@ import com.android.whatsappbackup.activities.home.AllNotificationsActivity
 import com.android.whatsappbackup.activities.home.ChatsActivity
 import com.android.whatsappbackup.activities.home.DeletedNotificationsActivity
 import com.android.whatsappbackup.activities.home.GroupChatActivity
+import com.android.whatsappbackup.activities.home.PieGraphActivity
 import com.android.whatsappbackup.activities.home.SearchActivity
 import com.android.whatsappbackup.activities.home.SettingsActivity
 import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
@@ -29,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
         val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
         val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
-        val fbSettings = findViewById<CardView>(R.id.fbSettings)
+        val bGraph = findViewById<CardView>(R.id.bGraph)
 
         askNotificationServicePermission(this)
 
@@ -60,9 +64,27 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        fbSettings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
+        bGraph.setOnClickListener {
+            val intent = Intent(this, PieGraphActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.settigs_menu -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

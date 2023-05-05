@@ -9,7 +9,7 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.activities.adapters.ListSearchActivity
+import com.android.whatsappbackup.activities.adaptersactivity.ListSearchActivity
 import com.android.whatsappbackup.utils.DBUtils.allPackageName
 import com.android.whatsappbackup.utils.DBUtils.nameToPackageName
 import com.android.whatsappbackup.utils.Utils

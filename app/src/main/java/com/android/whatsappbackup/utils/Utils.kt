@@ -7,6 +7,8 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -165,5 +167,10 @@ object Utils {
 
     fun openLink(context: Context, uri: String) {
         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+    }
+
+    fun isDarkThemeOn(context: Context): Boolean {
+        return context.resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
     }
 }

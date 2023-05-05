@@ -107,7 +107,7 @@ class NotificationsAdapter(
                 if (icon != null) {
                     builder.setIcon(icon)
                 } else {
-                    builder.setIcon(com.android.whatsappbackup.utils.icon)
+                    builder.setIcon(R.mipmap.ic_launcher)
                 }
 
                 builder.setPositiveButton(

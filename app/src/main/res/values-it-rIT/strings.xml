@@ -38,4 +38,5 @@
     <string name="infoText">Testo aggiuntivo:</string>
     <string name="peopleList">Lista persone:</string>
     <string name="isDeleted">Cancellato:</string>
+    <string name="graph">Grafico</string>
 </resources>

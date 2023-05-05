@@ -9,8 +9,8 @@ import androidx.preference.SwitchPreferenceCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.activities.adapters.BlackListActivity
-import com.android.whatsappbackup.activities.adapters.IsChatActivity
+import com.android.whatsappbackup.activities.adaptersactivity.BlackListActivity
+import com.android.whatsappbackup.activities.adaptersactivity.IsChatActivity
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.Utils

@@ -1,4 +1,4 @@
-package com.android.whatsappbackup.activities
+package com.android.whatsappbackup.activities.home
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils
+import com.android.whatsappbackup.utils.Utils
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -17,7 +18,11 @@ import java.util.Random
 class PieGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pie_graph)
+
+        runOnUiThread {
+            setContentView(R.layout.activity_pie_graph)
+            Utils.uiDefaultSettings(this)
+        }
 
         val pieChart: PieChart = findViewById(R.id.pieChart)
 
@@ -61,7 +66,14 @@ class PieGraphActivity : AppCompatActivity() {
         data.setValueFormatter(PercentFormatter())
         data.setValueTextSize(15f)
         data.setValueTypeface(Typeface.DEFAULT_BOLD)
-        data.setValueTextColor(Color.WHITE)
+
+        if (Utils.isDarkThemeOn(this)) {
+            pieChart.setEntryLabelColor(Color.WHITE)
+            data.setValueTextColor(Color.WHITE)
+        } else {
+            pieChart.setEntryLabelColor(Color.BLACK)
+            data.setValueTextColor(Color.BLACK)
+        }
 
         pieChart.data = data
         pieChart.invalidate()
