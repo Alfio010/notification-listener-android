@@ -3,7 +3,12 @@ package com.android.whatsappbackup.activities.home
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.LinearLayout
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginTop
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.Utils
@@ -15,6 +20,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import java.util.Random
 
+
 class PieGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +29,9 @@ class PieGraphActivity : AppCompatActivity() {
             setContentView(R.layout.activity_pie_graph)
             Utils.uiDefaultSettings(this)
         }
+
+        val llGraphActivity: LinearLayout by lazy { findViewById(R.id.llGraphActivity) }
+        val lvOthers: ListView by lazy { findViewById(R.id.lvOthers) }
 
         val pieChart: PieChart = findViewById(R.id.pieChart)
 
@@ -37,10 +46,25 @@ class PieGraphActivity : AppCompatActivity() {
 
         pieChart.legend.isEnabled = false
 
-        val percentageMap = DBUtils.getPercentNotifications()
+        val percentageMap = DBUtils.getPercentNotifications(this)
+        val others: MutableList<String> = mutableListOf()
+
         val entries: ArrayList<PieEntry> = ArrayList()
         percentageMap.forEach {
-            entries.add(PieEntry(it.value, it.key))
+            if (it.value >= 5f || it.key == this.getString(R.string.others)) {
+                entries.add(PieEntry(it.value, it.key))
+            } else {
+                others.add("${it.key} ${"%.1f".format(it.value)}%")
+            }
+        }
+
+        if (others.isNotEmpty()) {
+            val adapter: ArrayAdapter<String> =
+                ArrayAdapter(this, android.R.layout.simple_list_item_1, others.toTypedArray())
+            runOnUiThread {
+                lvOthers.adapter = adapter
+                llGraphActivity.visibility = View.VISIBLE
+            }
         }
 
         val dataSet = PieDataSet(entries, "Notifications")
@@ -76,6 +100,7 @@ class PieGraphActivity : AppCompatActivity() {
         }
 
         pieChart.data = data
-        pieChart.invalidate()
+
+        runOnUiThread { pieChart.invalidate() }
     }
 }

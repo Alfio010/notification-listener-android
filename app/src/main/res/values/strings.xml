@@ -33,6 +33,8 @@
     <string name="notification_name">Notification cancellation</string>
     <string name="notification_title">Notification deleted</string>
 
+    <string name="others">Others</string>
+
     <string name="open_app">Open app</string>
     <string name="title_activity_my_settings" translatable="false">MySettingsActivity</string>
 

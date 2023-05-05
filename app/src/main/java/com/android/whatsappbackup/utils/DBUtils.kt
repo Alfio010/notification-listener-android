@@ -1,8 +1,10 @@
 package com.android.whatsappbackup.utils
 
+import android.content.Context
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.notifications
 import com.android.whatsappbackup.MyApplication.Companion.packageNames
+import com.android.whatsappbackup.R
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.models.Notifications_
 import com.android.whatsappbackup.models.PackageName
@@ -318,7 +320,7 @@ object DBUtils {
             .findLazy()
     }
 
-    fun getPercentNotifications(): MutableMap<String, Float> {
+    fun getPercentNotifications(context: Context): MutableMap<String, Float> {
         val countedPackageName: MutableMap<String, Int> = mutableMapOf()
 
         notifications
@@ -328,10 +330,13 @@ object DBUtils {
             .forEach { notification ->
                 val pkgName =
                     notification.packageName.target.name ?: notification.packageName.target.pkg
-                if (countedPackageName.containsKey(pkgName)) {
-                    countedPackageName[pkgName] = countedPackageName[pkgName]!! + 1
-                } else {
-                    countedPackageName[pkgName] = 1
+
+                if (pkgName.isNotBlank()) {
+                    if (countedPackageName.containsKey(pkgName)) {
+                        countedPackageName[pkgName] = countedPackageName[pkgName]!! + 1
+                    } else {
+                        countedPackageName[pkgName] = 1
+                    }
                 }
             }
 
@@ -347,7 +352,20 @@ object DBUtils {
             percentageMap[it.key] = (it.value.toFloat() / totalNotifications) * 100f
         }
 
+        var others = 0f
+
+        countedPackageName.forEach {
+            if (percentageMap[it.key]!! < 5f) {
+                others += percentageMap[it.key]!!
+            }
+        }
+
         return percentageMap.toSortedMap(compareBy<String?> { percentageMap[it] }.thenBy { it })
+            .apply {
+                if (others > 0f) {
+                    put(context.getString(R.string.others), others)
+                }
+            }
     }
 }
 
