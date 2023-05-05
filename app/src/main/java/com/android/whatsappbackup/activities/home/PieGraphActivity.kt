@@ -20,9 +20,10 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import java.util.Random
 
 class PieGraphActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         const val othersMaxValue = 4.5f
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
