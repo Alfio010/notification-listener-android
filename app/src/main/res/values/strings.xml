@@ -17,7 +17,6 @@
     <string name="advanced_search">Advanced search</string>
     <string name="chat" translatable="false">Chats</string>
     <string name="group_chat">Group chats</string>
-    <string name="home" translatable="false">Home</string>
     <string name="isChatActivity" translatable="false">Chat apps</string>
 
     <!-- Search Activity -->
