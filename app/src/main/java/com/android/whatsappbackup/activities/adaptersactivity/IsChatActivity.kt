@@ -35,7 +35,7 @@ class IsChatActivity : AppCompatActivity() {
 
         runOnUiThread {
             setContentView(R.layout.activity_is_chat)
-            Utils.uiDefaultSettings(this)
+            Utils.uiDefaultSettings(this, true)
         }
 
         adapter = IsChatAdapter(DBUtils.allPackageNameFromTable())

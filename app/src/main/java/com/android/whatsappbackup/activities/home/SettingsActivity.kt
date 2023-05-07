@@ -28,7 +28,7 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        Utils.uiDefaultSettings(this)
+        Utils.uiDefaultSettings(this, true)
 
         onBackPressedDispatcher.addCallback {
             finishAndRemoveTask()

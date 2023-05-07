@@ -8,7 +8,6 @@
     tools:context=".activities.adaptersactivity.IsChatActivity">
 
     <LinearLayout
-        android:id="@+id/isChatLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="5sp"

@@ -34,7 +34,7 @@ class BlackListActivity : AppCompatActivity() {
 
         runOnUiThread {
             setContentView(R.layout.blacklist_activity)
-            Utils.uiDefaultSettings(this)
+            Utils.uiDefaultSettings(this, true)
         }
 
         adapter = BlacklistAdapter(DBUtils.allPackageNameFromTable())

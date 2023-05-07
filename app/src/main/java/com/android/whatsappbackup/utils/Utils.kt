@@ -89,7 +89,7 @@ object Utils {
         return false
     }
 
-    fun uiDefaultSettings(activity: AppCompatActivity) {
+    fun uiDefaultSettings(activity: AppCompatActivity, isIconAllowed: Boolean) {
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         val typedValue = TypedValue()
@@ -102,7 +102,9 @@ object Utils {
         activity.window.statusBarColor = color
         activity.window.navigationBarColor = color
         activity.supportActionBar?.setDisplayShowHomeEnabled(true)
-        activity.supportActionBar?.setIcon(R.mipmap.ic_launcher_foreground)
+        if (isIconAllowed) {
+            activity.supportActionBar?.setIcon(R.mipmap.ic_launcher_foreground)
+        }
     }
 
     fun isDiscordAndBlank(pkgName: String, text: String): Boolean {

@@ -22,7 +22,7 @@ class SearchActivity : AppCompatActivity() {
 
         runOnUiThread {
             setContentView(R.layout.activity_search)
-            Utils.uiDefaultSettings(this)
+            Utils.uiDefaultSettings(this, true)
         }
 
         val bSearch = findViewById<MaterialButton>(R.id.bSearch)

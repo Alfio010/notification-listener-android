@@ -33,7 +33,7 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         runOnUiThread {
-            uiDefaultSettings(this)
+            uiDefaultSettings(this, true)
             setContentView(R.layout.activity_notification_list)
         }
 

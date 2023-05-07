@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         runOnUiThread {
             setContentView(R.layout.activity_main)
-            uiDefaultSettings(this)
+            uiDefaultSettings(this, false)
         }
 
         val bChats = findViewById<CardView>(R.id.bChats)

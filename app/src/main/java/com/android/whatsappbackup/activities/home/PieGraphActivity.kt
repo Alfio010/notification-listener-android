@@ -30,7 +30,7 @@ class PieGraphActivity : AppCompatActivity() {
 
         runOnUiThread {
             setContentView(R.layout.activity_pie_graph)
-            Utils.uiDefaultSettings(this)
+            Utils.uiDefaultSettings(this, true)
         }
 
         val llGraphActivity: LinearLayout by lazy { findViewById(R.id.llGraphActivity) }
