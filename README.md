@@ -1,9 +1,14 @@
 ﻿# notification-listener-android
- 
+
+ ![primo_piano.png](img/primo_piano.png)
+
+<br>
+
 <p float="middle">
-  <img src="img/home_screen.png" width="200" />
-  <img src="img/search.png" width="200" />
-  <img src="img/settings.png" width="200" />
+  <img src="img/home.png" width="200" />
+  <img src="img/graph.png" width="200" />
+  <img src="img/search_screen.png" width="200" />
+  <img src="img/settings_screen.png" width="200" />
 </p>
 
 <h2> Description </h2>
