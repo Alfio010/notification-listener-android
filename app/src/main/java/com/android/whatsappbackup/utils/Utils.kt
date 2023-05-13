@@ -23,7 +23,9 @@ import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication.Companion.pm
 import com.android.whatsappbackup.R
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 object Utils {
     fun isNotificationServiceEnabled(context: Context): Boolean {
