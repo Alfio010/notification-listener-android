@@ -11,6 +11,7 @@ import io.objectbox.Box
 import io.objectbox.BoxStore
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 class MyApplication : Application() {
     companion object {
@@ -27,6 +28,8 @@ class MyApplication : Application() {
         lateinit var executor: ExecutorService
 
         lateinit var application: MyApplication
+
+        val authSuccess = AtomicBoolean(false)
     }
 
     override fun onCreate() {

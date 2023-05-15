@@ -1,5 +1,7 @@
 package com.android.whatsappbackup.activities
 
+import android.app.KeyguardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,7 +10,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.cardview.widget.CardView
-import com.android.whatsappbackup.MyApplication
+import com.android.whatsappbackup.MyApplication.Companion.authSuccess
 import com.android.whatsappbackup.MyApplication.Companion.executor
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.home.AllNotificationsActivity
@@ -23,7 +25,6 @@ import com.android.whatsappbackup.utils.Utils
 import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,60 +35,98 @@ class MainActivity : AppCompatActivity() {
             uiDefaultSettings(this, false)
         }
 
-        MySharedPref.setAuthState(true)
+        val bChats = findViewById<CardView>(R.id.bChats)
+        val bAllNotifications = findViewById<CardView>(R.id.bHome)
+        val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
+        val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
+        val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
+        val bGraph = findViewById<CardView>(R.id.bGraph)
 
-        var isAuthSucceeded = false
-        var openAuthScreen = true
-
-        try {
-            isAuthSucceeded = intent.extras!!.getBoolean("isAuthSucceeded", false)
-            openAuthScreen = intent.extras!!.getBoolean("openAuthScreen", true)
-        }catch (_: Exception) { }
-
-        if (MySharedPref.getAuthState() && openAuthScreen) {
-            startActivity(Intent(this, AuthActivity::class.java))
+        val buttonList: List<CardView> by lazy {
+            listOf(
+                bChats, bAllNotifications, bDeletedNotifications, bAdvancedSearchActivity,
+                bGroupChats, bChats
+            )
         }
 
-        if (!MySharedPref.getAuthState() || isAuthSucceeded) {
-            val bChats = findViewById<CardView>(R.id.bChats)
-            val bAllNotifications = findViewById<CardView>(R.id.bHome)
-            val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
-            val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
-            val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
-            val bGraph = findViewById<CardView>(R.id.bGraph)
+        askNotificationServicePermission(this)
 
-            askNotificationServicePermission(this)
+        checkPostNotificationPermission(this)
 
-            checkPostNotificationPermission(this)
+        bChats.setOnClickListener {
+            val intent = Intent(this, ChatsActivity::class.java)
+            startActivity(intent)
+        }
 
-            bChats.setOnClickListener {
-                val intent = Intent(this, ChatsActivity::class.java)
-                startActivity(intent)
-            }
+        bAllNotifications.setOnClickListener {
+            val intent = Intent(this, AllNotificationsActivity::class.java)
+            startActivity(intent)
+        }
 
-            bAllNotifications.setOnClickListener {
-                val intent = Intent(this, AllNotificationsActivity::class.java)
-                startActivity(intent)
-            }
+        bDeletedNotifications.setOnClickListener {
+            val intent = Intent(this, DeletedNotificationsActivity::class.java)
+            startActivity(intent)
+        }
 
-            bDeletedNotifications.setOnClickListener {
-                val intent = Intent(this, DeletedNotificationsActivity::class.java)
-                startActivity(intent)
-            }
+        bAdvancedSearchActivity.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
 
-            bAdvancedSearchActivity.setOnClickListener {
-                val intent = Intent(this, SearchActivity::class.java)
-                startActivity(intent)
-            }
+        bGroupChats.setOnClickListener {
+            val intent = Intent(this, GroupChatActivity::class.java)
+            startActivity(intent)
+        }
 
-            bGroupChats.setOnClickListener {
-                val intent = Intent(this, GroupChatActivity::class.java)
-                startActivity(intent)
-            }
+        bGraph.setOnClickListener {
+            val intent = Intent(this, PieGraphActivity::class.java)
+            startActivity(intent)
+        }
 
-            bGraph.setOnClickListener {
-                val intent = Intent(this, PieGraphActivity::class.java)
-                startActivity(intent)
+        if (MySharedPref.getAuthState() && !authSuccess.get()) {
+            val biometricPrompt = BiometricPrompt(this, executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(
+                        errorCode: Int,
+                        errString: CharSequence
+                    ) {
+                        super.onAuthenticationError(errorCode, errString)
+                        Utils.showToast("auth err", this@MainActivity)
+                        buttonList.forEach { it.isClickable = false }
+                    }
+
+                    override fun onAuthenticationSucceeded(
+                        result: BiometricPrompt.AuthenticationResult
+                    ) {
+                        super.onAuthenticationSucceeded(result)
+                        Utils.showToast("auth succeeded", this@MainActivity)
+                        buttonList.forEach { it.isClickable = true }
+                        authSuccess.set(true)
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        Utils.showToast("auth fail", this@MainActivity)
+                        buttonList.forEach { it.isClickable = false }
+                    }
+                })
+
+            val promptInfo = BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric login for my app")
+                .setSubtitle("Log in using your biometric credential")
+                .setConfirmationRequired(false).apply {
+                    val km =
+                        this@MainActivity.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                    if (km.isDeviceSecure) {
+                        @Suppress("DEPRECATION")
+                        setDeviceCredentialAllowed(true)
+                    } else {
+                        setNegativeButtonText("Cancel")
+                    }
+                }.build()
+
+            runOnUiThread {
+                biometricPrompt.authenticate(promptInfo)
             }
         }
     }
@@ -108,5 +147,10 @@ class MainActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        authSuccess.set(false)
     }
 }

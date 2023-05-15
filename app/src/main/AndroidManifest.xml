@@ -43,9 +43,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
-        <activity android:name=".activities.AuthActivity"
-            android:exported="false">
-        </activity>
         <activity
             android:name=".activities.home.PieGraphActivity"
             android:exported="false"
