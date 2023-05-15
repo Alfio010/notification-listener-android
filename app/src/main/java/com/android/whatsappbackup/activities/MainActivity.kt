@@ -6,7 +6,10 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricPrompt
 import androidx.cardview.widget.CardView
+import com.android.whatsappbackup.MyApplication
+import com.android.whatsappbackup.MyApplication.Companion.executor
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.home.AllNotificationsActivity
 import com.android.whatsappbackup.activities.home.ChatsActivity
@@ -15,9 +18,12 @@ import com.android.whatsappbackup.activities.home.GroupChatActivity
 import com.android.whatsappbackup.activities.home.PieGraphActivity
 import com.android.whatsappbackup.activities.home.SearchActivity
 import com.android.whatsappbackup.activities.home.SettingsActivity
+import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.Utils
 import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,45 +34,61 @@ class MainActivity : AppCompatActivity() {
             uiDefaultSettings(this, false)
         }
 
-        val bChats = findViewById<CardView>(R.id.bChats)
-        val bAllNotifications = findViewById<CardView>(R.id.bHome)
-        val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
-        val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
-        val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
-        val bGraph = findViewById<CardView>(R.id.bGraph)
+        MySharedPref.setAuthState(true)
 
-        askNotificationServicePermission(this)
+        var isAuthSucceeded = false
+        var openAuthScreen = true
 
-        checkPostNotificationPermission(this)
+        try {
+            isAuthSucceeded = intent.extras!!.getBoolean("isAuthSucceeded", false)
+            openAuthScreen = intent.extras!!.getBoolean("openAuthScreen", true)
+        }catch (_: Exception) { }
 
-        bChats.setOnClickListener {
-            val intent = Intent(this, ChatsActivity::class.java)
-            startActivity(intent)
+        if (MySharedPref.getAuthState() && openAuthScreen) {
+            startActivity(Intent(this, AuthActivity::class.java))
         }
 
-        bAllNotifications.setOnClickListener {
-            val intent = Intent(this, AllNotificationsActivity::class.java)
-            startActivity(intent)
-        }
+        if (!MySharedPref.getAuthState() || isAuthSucceeded) {
+            val bChats = findViewById<CardView>(R.id.bChats)
+            val bAllNotifications = findViewById<CardView>(R.id.bHome)
+            val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
+            val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
+            val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
+            val bGraph = findViewById<CardView>(R.id.bGraph)
 
-        bDeletedNotifications.setOnClickListener {
-            val intent = Intent(this, DeletedNotificationsActivity::class.java)
-            startActivity(intent)
-        }
+            askNotificationServicePermission(this)
 
-        bAdvancedSearchActivity.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
-        }
+            checkPostNotificationPermission(this)
 
-        bGroupChats.setOnClickListener {
-            val intent = Intent(this, GroupChatActivity::class.java)
-            startActivity(intent)
-        }
+            bChats.setOnClickListener {
+                val intent = Intent(this, ChatsActivity::class.java)
+                startActivity(intent)
+            }
 
-        bGraph.setOnClickListener {
-            val intent = Intent(this, PieGraphActivity::class.java)
-            startActivity(intent)
+            bAllNotifications.setOnClickListener {
+                val intent = Intent(this, AllNotificationsActivity::class.java)
+                startActivity(intent)
+            }
+
+            bDeletedNotifications.setOnClickListener {
+                val intent = Intent(this, DeletedNotificationsActivity::class.java)
+                startActivity(intent)
+            }
+
+            bAdvancedSearchActivity.setOnClickListener {
+                val intent = Intent(this, SearchActivity::class.java)
+                startActivity(intent)
+            }
+
+            bGroupChats.setOnClickListener {
+                val intent = Intent(this, GroupChatActivity::class.java)
+                startActivity(intent)
+            }
+
+            bGraph.setOnClickListener {
+                val intent = Intent(this, PieGraphActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 

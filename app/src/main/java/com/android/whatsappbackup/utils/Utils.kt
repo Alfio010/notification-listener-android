@@ -2,6 +2,7 @@ package com.android.whatsappbackup.utils
 
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.app.Activity
+import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -13,10 +14,14 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
+import android.util.Log
 import android.util.TypedValue
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
@@ -34,7 +39,7 @@ object Utils {
             ?.any { it.startsWith(context.packageName + "/") } == true
     }
 
-    private fun showToast(text: String, context: AppCompatActivity) {
+    fun showToast(text: String, context: AppCompatActivity) {
         context.runOnUiThread { Toast.makeText(context, text, Toast.LENGTH_LONG).show() }
     }
 
@@ -110,10 +115,7 @@ object Utils {
     }
 
     fun isDiscordAndBlank(pkgName: String, text: String): Boolean {
-        if (pkgName == "com.discord" && text.isBlank()) {
-            return true
-        }
-        return false
+        return pkgName == "com.discord" && text.isBlank()
     }
 
     fun openPlayStore(context: Context, pkg: String) {
@@ -175,5 +177,51 @@ object Utils {
     fun isDarkThemeOn(context: Context): Boolean {
         return context.resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+    }
+
+    fun isBiometricAuthAvailable(context: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val biometricManager = BiometricManager.from(context)
+            when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
+                BiometricManager.BIOMETRIC_SUCCESS ->
+                    Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
+
+                BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+                    Log.e("MY_APP_TAG", "No biometric features available on this device.")
+
+                BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
+                    Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+
+                BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                    val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
+                    val authType =
+                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q && km.isDeviceSecure) {
+                            BIOMETRIC_STRONG or DEVICE_CREDENTIAL
+                        } else {
+                            BIOMETRIC_STRONG
+                        }
+                    val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
+                        putExtra(
+                            Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
+                            authType
+                        )
+                    }
+                    context.startActivity(enrollIntent)
+                }
+
+                BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED -> {
+                    TODO()
+                }
+
+                BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED -> {
+                    TODO()
+                }
+
+                BiometricManager.BIOMETRIC_STATUS_UNKNOWN -> {
+                    TODO()
+                }
+            }
+        }
+
     }
 }

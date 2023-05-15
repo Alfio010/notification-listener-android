@@ -51,6 +51,8 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    implementation "androidx.biometric:biometric-ktx:1.2.0-alpha05"
+
     implementation 'io.objectbox:objectbox-android:3.5.1'
     implementation "org.apache.commons:commons-lang3:3.12.0"
 
