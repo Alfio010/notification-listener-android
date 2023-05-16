@@ -5,7 +5,7 @@ import com.android.whatsappbackup.MyApplication
 object MySharedPref {
     const val autoBlacklistEnabled = "isAutoBlacklistOn"
     const val notificationEnabled = "isNotificationEnabled"
-    private const val authEnabled = "isAuthEnabled"
+    const val authEnabled = "isAuthEnabled"
 
     fun setAutoBlacklist(value: Boolean) {
         MyApplication.sharedPref.edit().putBoolean(autoBlacklistEnabled, value).apply()

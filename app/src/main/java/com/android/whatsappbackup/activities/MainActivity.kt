@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                         errString: CharSequence
                     ) {
                         super.onAuthenticationError(errorCode, errString)
-                        Utils.showToast("auth err", this@MainActivity)
+                        Utils.showToast(getString(R.string.authErr), this@MainActivity)
                         buttonList.forEach { it.isClickable = false }
                     }
 
@@ -99,14 +99,14 @@ class MainActivity : AppCompatActivity() {
                         result: BiometricPrompt.AuthenticationResult
                     ) {
                         super.onAuthenticationSucceeded(result)
-                        Utils.showToast("auth succeeded", this@MainActivity)
+                        Utils.showToast(getString(R.string.authSuccess), this@MainActivity)
                         buttonList.forEach { it.isClickable = true }
                         authSuccess.set(true)
                     }
 
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
-                        Utils.showToast("auth fail", this@MainActivity)
+                        Utils.showToast(getString(R.string.authFail), this@MainActivity)
                         buttonList.forEach { it.isClickable = false }
                     }
                 })
@@ -140,6 +140,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.settigs_menu -> {
+                if (MySharedPref.getAuthState() && !authSuccess.get()) {
+                    return false
+                }
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 true

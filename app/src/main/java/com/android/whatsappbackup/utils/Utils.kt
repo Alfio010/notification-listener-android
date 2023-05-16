@@ -2,7 +2,6 @@ package com.android.whatsappbackup.utils
 
 import android.Manifest.permission.POST_NOTIFICATIONS
 import android.app.Activity
-import android.app.KeyguardManager
 import android.app.NotificationManager
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -14,14 +13,12 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.service.notification.StatusBarNotification
-import android.util.Log
 import android.util.TypedValue
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.BuildConfig
@@ -179,49 +176,50 @@ object Utils {
                 Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
     }
 
-    fun isBiometricAuthAvailable(context: Context) {
+    fun isBiometricAuthAvailable(context: Context, activity: AppCompatActivity): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val biometricManager = BiometricManager.from(context)
             when (biometricManager.canAuthenticate(BIOMETRIC_STRONG)) {
                 BiometricManager.BIOMETRIC_SUCCESS ->
-                    Log.d("MY_APP_TAG", "App can authenticate using biometrics.")
+                    return true
 
-                BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                    Log.e("MY_APP_TAG", "No biometric features available on this device.")
+                BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+                    showToast(context.getString(R.string.biometricUnavailable), activity)
+                    return false
+                }
 
-                BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                    Log.e("MY_APP_TAG", "Biometric features are currently unavailable.")
+                BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+                    showToast(context.getString(R.string.biometricCurrentlyUnavailable), activity)
+                    return false
+                }
 
                 BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
-                    val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-                    val authType =
-                        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q && km.isDeviceSecure) {
-                            BIOMETRIC_STRONG or DEVICE_CREDENTIAL
-                        } else {
-                            BIOMETRIC_STRONG
-                        }
-                    val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-                        putExtra(
-                            Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED,
-                            authType
-                        )
-                    }
-                    context.startActivity(enrollIntent)
+                    showToast(context.getString(R.string.authNoEnrolled), activity)
+                    return false
                 }
 
                 BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED -> {
-                    TODO()
+                    showToast(context.getString(R.string.biometricError) + 1, activity)
+                    return false
                 }
 
                 BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED -> {
-                    TODO()
+                    showToast(context.getString(R.string.biometricError) + 2, activity)
+                    return false
                 }
 
                 BiometricManager.BIOMETRIC_STATUS_UNKNOWN -> {
-                    TODO()
+                    showToast(context.getString(R.string.biometricError) + 3, activity)
+                    return false
+                }
+
+                else -> {
+                    showToast(context.getString(R.string.biometricError) + 4, activity)
+                    return false
                 }
             }
         }
-
+        showToast(context.getString(R.string.biometricUnsupported), activity)
+        return false
     }
 }

@@ -43,6 +43,15 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/security">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="isAuthEnabled"
+            app:title="@string/authInfo" />
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/info">
 
         <Preference

@@ -67,4 +67,16 @@
     <string name="peopleList">People list:</string>
     <string name="isDeleted">Deleted:</string>
     <string name="graph">Graph</string>
+
+    <!-- Auth -->
+    <string name="authErr">Authentication error</string>
+    <string name="authFail">Authentication failed</string>
+    <string name="authSuccess">Authentication success</string>
+    <string name="authInfo">Biometric authentication or PIN</string>
+    <string name="security">Security</string>
+    <string name="authNoEnrolled">Authentication unavailable because no device or biometric credentials are registered</string>
+    <string name="biometricUnavailable">No biometric features available on this device</string>
+    <string name="biometricCurrentlyUnavailable">Biometric features are currently unavailable</string>
+    <string name="biometricError">Biometric sensor error</string>
+    <string name="biometricUnsupported">Biometric authentication supported by Android 11 or higher</string>
 </resources>

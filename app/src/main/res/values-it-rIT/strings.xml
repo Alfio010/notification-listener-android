@@ -39,4 +39,14 @@
     <string name="peopleList">Lista persone:</string>
     <string name="isDeleted">Cancellato:</string>
     <string name="graph">Grafico</string>
+    <string name="authErr">Errore autenticazione</string>
+    <string name="authFail">Autenticazione fallita</string>
+    <string name="authSuccess">Autenticazione riuscita</string>
+    <string name="authInfo">Autenticazione biometrica o PIN</string>
+    <string name="security">Sicurezza</string>
+    <string name="authNoEnrolled">Autenticazione non disponibile perché non sono registrate credenziali biometriche o del dispositivo</string>
+    <string name="biometricUnavailable">Nessuna funzionalità biometrica disponibile su questo dispositivo</string>
+    <string name="biometricCurrentlyUnavailable">Le funzionalità biometriche non sono attualmente disponibili</string>
+    <string name="biometricError">Errore del sensore biometrico</string>
+    <string name="biometricUnsupported">Autenticazione biometrica supportata da Android 11 o superiore</string>
 </resources>

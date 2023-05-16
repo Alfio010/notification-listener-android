@@ -18,9 +18,14 @@ import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SettingsActivity : AppCompatActivity() {
+    companion object {
+        private lateinit var myActivity: AppCompatActivity
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+        myActivity = this
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
@@ -47,6 +52,23 @@ class SettingsActivity : AppCompatActivity() {
                 blackListAuto.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
                         MySharedPref.setAutoBlacklist(newValue as Boolean)
+                        true
+                    }
+            }
+
+            val isAuthEnabled =
+                findPreference<SwitchPreferenceCompat>(MySharedPref.authEnabled)
+
+            if (isAuthEnabled != null) {
+                isAuthEnabled.isChecked = MySharedPref.getAuthState()
+                isAuthEnabled.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        if (Utils.isBiometricAuthAvailable(requireContext(), myActivity)) {
+                            MySharedPref.setAuthState(newValue as Boolean)
+                        } else {
+                            isAuthEnabled.isChecked = false
+                            MySharedPref.setAuthState(false)
+                        }
                         true
                     }
             }
