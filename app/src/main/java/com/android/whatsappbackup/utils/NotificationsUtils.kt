@@ -54,7 +54,7 @@ object NotificationsUtils {
                 .setAutoCancel(true)
 
             with(NotificationManagerCompat.from(context)) {
-                if (Utils.isNotificationServiceEnabled(context)) {
+                if (Utils.isNotificationPostPermissionEnabled(context)) {
                     try {
                         notify(1234, builder.build())
                     } catch (_: SecurityException) {

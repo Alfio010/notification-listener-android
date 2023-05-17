@@ -30,7 +30,7 @@ import java.util.Locale
 import java.util.TimeZone
 
 object Utils {
-    fun isNotificationServiceEnabled(context: Context): Boolean {
+    private fun isNotificationServiceEnabled(context: Context): Boolean {
         return Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
             ?.split(":", ",")
             ?.any { it.startsWith(context.packageName + "/") } == true
@@ -86,11 +86,7 @@ object Utils {
             return true
         }
 
-        if (sbn.key == "com.sec.android.app.samsungapps|121314|null|10091") {
-            return true
-        }
-
-        return false
+        return sbn.key == "com.sec.android.app.samsungapps|121314|null|10091"
     }
 
     fun uiDefaultSettings(activity: AppCompatActivity, isIconAllowed: Boolean) {
@@ -145,7 +141,7 @@ object Utils {
         }
     }
 
-    private fun isNotificationPostPermissionEnabled(context: Context): Boolean {
+    fun isNotificationPostPermissionEnabled(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             ActivityCompat.checkSelfPermission(
                 context,
