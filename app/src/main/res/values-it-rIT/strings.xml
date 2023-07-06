@@ -47,6 +47,9 @@
     <string name="authNoEnrolled">Autenticazione non disponibile perché non sono registrate credenziali biometriche o del dispositivo</string>
     <string name="biometricUnavailable">Nessuna funzionalità biometrica disponibile su questo dispositivo</string>
     <string name="biometricCurrentlyUnavailable">Le funzionalità biometriche non sono attualmente disponibili</string>
-    <string name="biometricError">Errore del sensore biometrico</string>
+    <string name="biometricError">Errore del sensore biometrico </string>
     <string name="biometricUnsupported">Autenticazione biometrica supportata da Android 11 o superiore</string>
+    <string name="reauth">Riprova ad autenticarti</string>
+    <string name="biometric_title">Autenticati per accedere all`app</string>
+    <string name="cancel">Annulla</string>
 </resources>

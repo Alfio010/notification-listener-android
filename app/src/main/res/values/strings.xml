@@ -77,6 +77,9 @@
     <string name="authNoEnrolled">Authentication unavailable because no device or biometric credentials are registered</string>
     <string name="biometricUnavailable">No biometric features available on this device</string>
     <string name="biometricCurrentlyUnavailable">Biometric features are currently unavailable</string>
-    <string name="biometricError">Biometric sensor error</string>
+    <string name="biometricError">Biometric sensor error </string>
     <string name="biometricUnsupported">Biometric authentication supported by Android 11 or higher</string>
+    <string name="reauth">Try authentication again</string>
+    <string name="biometric_title">Login to access the app</string>
+    <string name="cancel">Cancel</string>
 </resources>

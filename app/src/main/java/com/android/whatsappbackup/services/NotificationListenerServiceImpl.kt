@@ -66,7 +66,12 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
 
         val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            notificationExtras.getCharSequence(Notification.EXTRA_PEOPLE_LIST)?.toString().orEmpty()
+            try {
+                notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
+                    ?.toString().orEmpty()
+            } catch (e: ClassCastException) {
+                LOGGER.doLog("error casting: ${e.stackTraceToString()}")
+            }
         } else {
             String()
         }
@@ -108,7 +113,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     bigText,
                     conversationTitle,
                     infoText,
-                    peopleList,
+                    peopleList.toString(),
                     titleBig
                 )
 
@@ -170,7 +175,12 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
 
         val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            notificationExtras.getCharSequence(Notification.EXTRA_PEOPLE_LIST)?.toString().orEmpty()
+            try {
+                notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
+                    ?.toString().orEmpty()
+            } catch (e: ClassCastException) {
+                LOGGER.doLog("error casting: ${e.stackTraceToString()}")
+            }
         } else {
             String()
         }
@@ -197,7 +207,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                         bigText,
                         conversationTitle,
                         infoText,
-                        peopleList,
+                        peopleList.toString(),
                         titleBig
                     )
                 }

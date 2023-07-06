@@ -10,6 +10,7 @@
     tools:context=".activities.MainActivity">
 
     <GridLayout
+        android:id="@+id/cardViewGrid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="80sp"
@@ -303,5 +304,15 @@
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bReAuth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/reauth"
+        android:visibility="gone" />
 
 </LinearLayout>
