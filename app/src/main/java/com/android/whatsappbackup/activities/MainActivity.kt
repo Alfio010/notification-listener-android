@@ -1,7 +1,6 @@
 package com.android.whatsappbackup.activities
 
 import android.app.KeyguardManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +10,7 @@ import android.view.View
 import android.widget.GridLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
+import androidx.biometric.BiometricPrompt.PromptInfo
 import androidx.cardview.widget.CardView
 import com.android.whatsappbackup.MyApplication.Companion.authSuccess
 import com.android.whatsappbackup.MyApplication.Companion.executor
@@ -26,36 +26,36 @@ import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.Utils
 import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
+import com.android.whatsappbackup.utils.Utils.isNotificationServiceEnabled
 import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
 import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var cardViewGrid: GridLayout
+    private lateinit var bReAuth: MaterialButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        askNotificationServicePermission(this)
 
         runOnUiThread {
             setContentView(R.layout.activity_main)
             uiDefaultSettings(this, false)
-            askNotificationServicePermission(this)
         }
 
+        cardViewGrid = findViewById(R.id.cardViewGrid)
         val bChats = findViewById<CardView>(R.id.bChats)
         val bAllNotifications = findViewById<CardView>(R.id.bHome)
         val bDeletedNotifications = findViewById<CardView>(R.id.bDeletedNotifications)
         val bAdvancedSearchActivity = findViewById<CardView>(R.id.bAdvancedSearchActivity)
         val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
         val bGraph = findViewById<CardView>(R.id.bGraph)
-        val bReAuth = findViewById<MaterialButton>(R.id.bReAuth)
-        val cardViewGrid = findViewById<GridLayout>(R.id.cardViewGrid)
+        bReAuth = findViewById(R.id.bReAuth)
 
-        val buttonList: List<CardView> by lazy {
-            listOf(
-                bChats, bAllNotifications, bDeletedNotifications, bAdvancedSearchActivity,
-                bGroupChats, bGraph
-            )
+        if (isNotificationServiceEnabled(this)) {
+            checkPostNotificationPermission(this)
         }
-
-        checkPostNotificationPermission(this)
 
         bChats.setOnClickListener {
             val intent = Intent(this, ChatsActivity::class.java)
@@ -87,74 +87,30 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (MySharedPref.getAuthState() && !authSuccess.get()) {
-            val biometricPrompt = BiometricPrompt(this, executor,
-                object : BiometricPrompt.AuthenticationCallback() {
-                    override fun onAuthenticationError(
-                        errorCode: Int,
-                        errString: CharSequence
-                    ) {
-                        super.onAuthenticationError(errorCode, errString)
-                        runOnUiThread {
-                            Utils.showToast(getString(R.string.authErr), this@MainActivity)
-                            buttonList.forEach {
-                                it.isClickable = false
-                            }
-                            cardViewGrid.visibility = View.GONE
-                            bReAuth.visibility = View.VISIBLE
-                        }
-                    }
-
-                    override fun onAuthenticationSucceeded(
-                        result: BiometricPrompt.AuthenticationResult
-                    ) {
-                        super.onAuthenticationSucceeded(result)
-                        runOnUiThread {
-                            Utils.showToast(getString(R.string.authSuccess), this@MainActivity)
-                            buttonList.forEach {
-                                it.isClickable = true
-                            }
-                            cardViewGrid.visibility = View.VISIBLE
-                            bReAuth.visibility = View.GONE
-                        }
-                        authSuccess.set(true)
-                    }
-
-                    override fun onAuthenticationFailed() {
-                        super.onAuthenticationFailed()
-                        runOnUiThread {
-                            Utils.showToast(getString(R.string.authFail), this@MainActivity)
-                            buttonList.forEach {
-                                it.isClickable = false
-                            }
-                            cardViewGrid.visibility = View.GONE
-                            bReAuth.visibility = View.VISIBLE
-                        }
-                    }
-                })
-
-            val promptInfo = BiometricPrompt.PromptInfo.Builder()
-                .setTitle(getString(R.string.biometric_title))
-                .setConfirmationRequired(false).apply {
-                    val km =
-                        this@MainActivity.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
-                    if (km.isDeviceSecure) {
-                        @Suppress("DEPRECATION")
-                        setDeviceCredentialAllowed(true)
-                    } else {
-                        setNegativeButtonText(getString(R.string.cancel))
-                    }
-                }.build()
-
-            bReAuth.setOnClickListener {
-                runOnUiThread {
-                    biometricPrompt.authenticate(promptInfo)
+        if (!isNotificationServiceEnabled(this)) {
+            runOnUiThread {
+                cardViewGrid.visibility = View.GONE
+                bReAuth.visibility = View.VISIBLE
+                bReAuth.text = getString(R.string.ask_not_permission)
+                bReAuth.setOnClickListener {
+                    askNotificationServicePermission(this)
                 }
             }
+        }
 
+        initializeBiometricAuth()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isNotificationServiceEnabled(this)) {
             runOnUiThread {
-                biometricPrompt.authenticate(promptInfo)
+                cardViewGrid.visibility = View.VISIBLE
+                bReAuth.visibility = View.GONE
+                bReAuth.text = getString(R.string.reauth)
             }
+            checkPostNotificationPermission(this)
+            initializeBiometricAuth()
         }
     }
 
@@ -179,8 +135,71 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         authSuccess.set(false)
+    }
+
+    private fun initializeBiometricAuth() {
+        if (MySharedPref.getAuthState() && !authSuccess.get()) {
+            val biometricPrompt = BiometricPrompt(this, executor,
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationError(
+                        errorCode: Int,
+                        errString: CharSequence
+                    ) {
+                        super.onAuthenticationError(errorCode, errString)
+                        runOnUiThread {
+                            Utils.showToast(getString(R.string.authErr), this@MainActivity)
+                            cardViewGrid.visibility = View.GONE
+                            bReAuth.visibility = View.VISIBLE
+                        }
+                    }
+
+                    override fun onAuthenticationSucceeded(
+                        result: BiometricPrompt.AuthenticationResult
+                    ) {
+                        super.onAuthenticationSucceeded(result)
+                        runOnUiThread {
+                            Utils.showToast(getString(R.string.authSuccess), this@MainActivity)
+                            cardViewGrid.visibility = View.VISIBLE
+                            bReAuth.visibility = View.GONE
+                        }
+                        authSuccess.set(true)
+                    }
+
+                    override fun onAuthenticationFailed() {
+                        super.onAuthenticationFailed()
+                        runOnUiThread {
+                            Utils.showToast(getString(R.string.authFail), this@MainActivity)
+                            cardViewGrid.visibility = View.GONE
+                            bReAuth.visibility = View.VISIBLE
+                        }
+                    }
+                })
+
+            val promptInfo = PromptInfo.Builder()
+                .setTitle(getString(R.string.biometric_title))
+                .setConfirmationRequired(false).apply {
+                    val km =
+                        this@MainActivity.getSystemService(KEYGUARD_SERVICE) as KeyguardManager
+                    if (km.isDeviceSecure) {
+                        @Suppress("DEPRECATION")
+                        setDeviceCredentialAllowed(true)
+                    } else {
+                        setNegativeButtonText(getString(R.string.cancel))
+                    }
+                }.build()
+
+            bReAuth.setOnClickListener {
+                runOnUiThread {
+                    biometricPrompt.authenticate(promptInfo)
+                }
+            }
+
+            runOnUiThread {
+                biometricPrompt.authenticate(promptInfo)
+            }
+        }
     }
 }

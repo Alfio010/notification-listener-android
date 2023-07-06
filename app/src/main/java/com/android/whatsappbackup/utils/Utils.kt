@@ -30,7 +30,7 @@ import java.util.Locale
 import java.util.TimeZone
 
 object Utils {
-    private fun isNotificationServiceEnabled(context: Context): Boolean {
+    fun isNotificationServiceEnabled(context: Context): Boolean {
         return Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
             ?.split(":", ",")
             ?.any { it.startsWith(context.packageName + "/") } == true
@@ -46,6 +46,7 @@ object Utils {
 
             val intent = Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
