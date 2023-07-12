@@ -70,7 +70,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
                     ?.toString().orEmpty()
             } catch (e: ClassCastException) {
-                LOGGER.doLog("error casting: ${e.stackTraceToString()}")
+                LOGGER.log("error casting: ${e.stackTraceToString()}")
             }
         } else {
             String()
@@ -118,7 +118,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 )
 
                 if (notification != null) {
-                    LOGGER.doLog("NOTIFICATION: $notification")
+                    LOGGER.log("NOTIFICATION: $notification")
 
                     MyApplication.notifications.put(notification)
                 }
@@ -179,7 +179,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
                     ?.toString().orEmpty()
             } catch (e: ClassCastException) {
-                LOGGER.doLog("error casting: ${e.stackTraceToString()}")
+                LOGGER.log("error casting: ${e.stackTraceToString()}")
             }
         } else {
             String()

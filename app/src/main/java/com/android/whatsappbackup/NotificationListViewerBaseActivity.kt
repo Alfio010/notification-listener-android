@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.adapters.NotificationsAdapter
 import com.android.whatsappbackup.models.Notifications
-import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
+import com.android.whatsappbackup.utils.AuthUtils.askAuth
+import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 
 abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
     open lateinit var recycleView: RecyclerView
@@ -31,6 +32,8 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        askAuth(this)
 
         runOnUiThread {
             uiDefaultSettings(this, true)

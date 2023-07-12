@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.MainActivity
 import com.android.whatsappbackup.activities.home.DeletedNotificationsActivity
+import com.android.whatsappbackup.utils.PermissionUtils.isNotificationPostPermissionEnabled
 
 private const val CHANNEL_ID = "MY_SUPP_NOT"
 
@@ -54,7 +55,7 @@ object NotificationsUtils {
                 .setAutoCancel(true)
 
             with(NotificationManagerCompat.from(context)) {
-                if (Utils.isNotificationPostPermissionEnabled(context)) {
+                if (isNotificationPostPermissionEnabled(context)) {
                     try {
                         notify(1234, builder.build())
                     } catch (_: SecurityException) {

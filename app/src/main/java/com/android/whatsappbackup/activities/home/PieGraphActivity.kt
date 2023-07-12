@@ -10,8 +10,10 @@ import android.widget.ListView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.DBUtils
-import com.android.whatsappbackup.utils.Utils
+import com.android.whatsappbackup.utils.UiUtils.isDarkThemeOn
+import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -28,9 +30,11 @@ class PieGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        askAuth(this)
+
         runOnUiThread {
             setContentView(R.layout.activity_pie_graph)
-            Utils.uiDefaultSettings(this, true)
+            uiDefaultSettings(this, true)
         }
 
         val llGraphActivity: LinearLayout by lazy { findViewById(R.id.llGraphActivity) }
@@ -94,7 +98,7 @@ class PieGraphActivity : AppCompatActivity() {
         data.setValueTextSize(15f)
         data.setValueTypeface(Typeface.DEFAULT_BOLD)
 
-        if (Utils.isDarkThemeOn(this)) {
+        if (isDarkThemeOn(this)) {
             pieChart.setEntryLabelColor(Color.WHITE)
             data.setValueTextColor(Color.WHITE)
         } else {

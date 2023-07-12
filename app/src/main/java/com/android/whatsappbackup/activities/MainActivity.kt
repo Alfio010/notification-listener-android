@@ -22,12 +22,13 @@ import com.android.whatsappbackup.activities.home.GroupChatActivity
 import com.android.whatsappbackup.activities.home.PieGraphActivity
 import com.android.whatsappbackup.activities.home.SearchActivity
 import com.android.whatsappbackup.activities.home.SettingsActivity
+import com.android.whatsappbackup.utils.AuthUtils.haveToAskAuth
 import com.android.whatsappbackup.utils.MySharedPref
-import com.android.whatsappbackup.utils.Utils
-import com.android.whatsappbackup.utils.Utils.askNotificationServicePermission
-import com.android.whatsappbackup.utils.Utils.checkPostNotificationPermission
-import com.android.whatsappbackup.utils.Utils.isNotificationServiceEnabled
-import com.android.whatsappbackup.utils.Utils.uiDefaultSettings
+import com.android.whatsappbackup.utils.PermissionUtils.askNotificationServicePermission
+import com.android.whatsappbackup.utils.PermissionUtils.checkPostNotificationPermission
+import com.android.whatsappbackup.utils.PermissionUtils.isNotificationServiceEnabled
+import com.android.whatsappbackup.utils.UiUtils.showToast
+import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
@@ -141,7 +142,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeBiometricAuth() {
-        if (MySharedPref.getAuthState() && !authSuccess.get()) {
+        if (haveToAskAuth()) {
             val biometricPrompt = BiometricPrompt(this, executor,
                 object : BiometricPrompt.AuthenticationCallback() {
                     override fun onAuthenticationError(
@@ -150,7 +151,7 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         super.onAuthenticationError(errorCode, errString)
                         runOnUiThread {
-                            Utils.showToast(getString(R.string.authErr), this@MainActivity)
+                            showToast(getString(R.string.authErr), this@MainActivity)
                             cardViewGrid.visibility = View.GONE
                             bReAuth.visibility = View.VISIBLE
                         }
@@ -161,7 +162,7 @@ class MainActivity : AppCompatActivity() {
                     ) {
                         super.onAuthenticationSucceeded(result)
                         runOnUiThread {
-                            Utils.showToast(getString(R.string.authSuccess), this@MainActivity)
+                            showToast(getString(R.string.authSuccess), this@MainActivity)
                             cardViewGrid.visibility = View.VISIBLE
                             bReAuth.visibility = View.GONE
                         }
@@ -171,7 +172,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onAuthenticationFailed() {
                         super.onAuthenticationFailed()
                         runOnUiThread {
-                            Utils.showToast(getString(R.string.authFail), this@MainActivity)
+                            showToast(getString(R.string.authFail), this@MainActivity)
                             cardViewGrid.visibility = View.GONE
                             bReAuth.visibility = View.VISIBLE
                         }

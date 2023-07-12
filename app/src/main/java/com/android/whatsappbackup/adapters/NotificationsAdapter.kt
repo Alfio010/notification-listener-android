@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.SpecificChatActivity
 import com.android.whatsappbackup.models.Notifications
+import com.android.whatsappbackup.utils.UiUtils.dateFormatter
 import com.android.whatsappbackup.utils.Utils
 import com.android.whatsappbackup.utils.computables.AppIcon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -41,7 +42,7 @@ class NotificationsAdapter(
                     .inflate(R.layout.custom_my_dialog, null, false)
 
                 customAlertDialogView.findViewById<TextView>(R.id.tvDialogDate)
-                    .text = Utils.dateFormatter(notificationItem.time)
+                    .text = dateFormatter(notificationItem.time)
 
                 customAlertDialogView.findViewById<TextView>(R.id.tvDialogPackageName)
                     .text = if (notificationItem.packageName.target.name.isNullOrBlank()) {
@@ -173,7 +174,7 @@ class NotificationsAdapter(
 
         viewHolder.tvDescription.text = text
 
-        viewHolder.tvDate.text = Utils.dateFormatter(notifications.time)
+        viewHolder.tvDate.text = dateFormatter(notifications.time)
 
         val icon = AppIcon.compute(notifications.packageName.target.pkg)
 

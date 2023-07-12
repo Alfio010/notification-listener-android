@@ -14,7 +14,7 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.IsChatAdapter
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DBUtils
-import com.android.whatsappbackup.utils.Utils
+import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 
 class IsChatActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -35,7 +35,7 @@ class IsChatActivity : AppCompatActivity() {
 
         runOnUiThread {
             setContentView(R.layout.activity_is_chat)
-            Utils.uiDefaultSettings(this, true)
+            uiDefaultSettings(this, true)
         }
 
         adapter = IsChatAdapter(DBUtils.allPackageNameFromTable())

@@ -12,8 +12,13 @@ import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.adaptersactivity.BlackListActivity
 import com.android.whatsappbackup.activities.adaptersactivity.IsChatActivity
+import com.android.whatsappbackup.utils.AuthUtils.askAuth
+import com.android.whatsappbackup.utils.AuthUtils.isBiometricAuthAvailable
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.PermissionUtils.checkPostNotificationPermission
+import com.android.whatsappbackup.utils.PermissionUtils.isNotificationPostPermissionEnabled
+import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -24,7 +29,11 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
+
+        askAuth(this)
+
+        runOnUiThread { setContentView(R.layout.settings_activity) }
+
         myActivity = this
         if (savedInstanceState == null) {
             supportFragmentManager
@@ -33,7 +42,7 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        Utils.uiDefaultSettings(this, true)
+        uiDefaultSettings(this, true)
 
         onBackPressedDispatcher.addCallback {
             finishAndRemoveTask()
@@ -63,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
                 isAuthEnabled.isChecked = MySharedPref.getAuthState()
                 isAuthEnabled.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
-                        if (Utils.isBiometricAuthAvailable(requireContext(), myActivity)) {
+                        if (isBiometricAuthAvailable(requireContext(), myActivity)) {
                             MySharedPref.setAuthState(newValue as Boolean)
                         } else {
                             isAuthEnabled.isChecked = false
@@ -122,18 +131,18 @@ class SettingsActivity : AppCompatActivity() {
 
             if (isNotificationEnabled != null) {
                 var notificationEnabled =
-                    Utils.isNotificationPostPermissionEnabled(requireContext())
+                    isNotificationPostPermissionEnabled(requireContext())
                 MySharedPref.setNotificationEnabled(notificationEnabled)
 
                 isNotificationEnabled.isChecked = notificationEnabled
                 isNotificationEnabled.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
                         if (newValue as Boolean) {
-                            Utils.checkPostNotificationPermission(requireContext())
+                            checkPostNotificationPermission(requireContext())
                         }
 
                         notificationEnabled =
-                            Utils.isNotificationPostPermissionEnabled(requireContext())
+                            isNotificationPostPermissionEnabled(requireContext())
                         MySharedPref.setNotificationEnabled(notificationEnabled)
                         isNotificationEnabled.isChecked = notificationEnabled
                         true
