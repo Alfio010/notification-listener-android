@@ -6,6 +6,7 @@ object MySharedPref {
     const val autoBlacklistEnabled = "isAutoBlacklistOn"
     const val notificationEnabled = "isNotificationEnabled"
     const val authEnabled = "isAuthEnabled"
+    private const val graphHaveToAsk = "graphHaveToAsk"
 
     fun setAutoBlacklist(value: Boolean) {
         MyApplication.sharedPref.edit().putBoolean(autoBlacklistEnabled, value).apply()
@@ -29,5 +30,13 @@ object MySharedPref {
 
     fun getAuthState(): Boolean {
         return MyApplication.sharedPref.getBoolean(authEnabled, false)
+    }
+
+    fun setGraphHaveToAsk(value: Boolean) {
+        MyApplication.sharedPref.edit().putBoolean(graphHaveToAsk, value).apply()
+    }
+
+    fun getGraphHaveToAsk(): Boolean {
+        return MyApplication.sharedPref.getBoolean(graphHaveToAsk, true)
     }
 }

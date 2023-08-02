@@ -253,7 +253,7 @@ object DBUtils {
     ): PackageName {
         return PackageName(
             0,
-            Utils.getAppName(pkgName),
+            Utils.getAppNameFromPackageName(pkgName),
             pkgName
         )
     }
@@ -263,7 +263,7 @@ object DBUtils {
     ): PackageName {
         return PackageName(
             0,
-            Utils.getAppName(pkgName),
+            Utils.getAppNameFromPackageName(pkgName),
             pkgName,
             true
         )

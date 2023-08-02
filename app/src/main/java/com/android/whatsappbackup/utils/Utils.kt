@@ -1,8 +1,10 @@
 package com.android.whatsappbackup.utils
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.service.notification.StatusBarNotification
 import com.android.whatsappbackup.BuildConfig
@@ -62,13 +64,31 @@ object Utils {
     }
 
     @Suppress("DEPRECATION")
-    fun getAppName(pkgName: String): String {
+    fun getAppNameFromPackageName(pkgName: String): String {
         return try {
             pm.getApplicationLabel(pm.getApplicationInfo(pkgName, 0))
                 .toString()
         } catch (e: java.lang.Exception) {
             String()
         }
+    }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    fun getPackageNameFromAppName(appName: String): String? {
+        val apps by lazy { pm.getInstalledApplications(PackageManager.GET_META_DATA) }
+
+        for (appInfo in apps) {
+            val label = pm.getApplicationLabel(appInfo).toString()
+            if (label == appName) {
+                return appInfo.packageName
+            }
+        }
+
+        if (getAppNameFromPackageName(appName) != String()) {
+            return appName
+        }
+
+        return null
     }
 
     fun openLink(context: Context, uri: String) {
