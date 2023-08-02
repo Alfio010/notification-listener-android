@@ -148,7 +148,7 @@ class PieGraphActivity : AppCompatActivity() {
                     ) { _, _, b ->
                         MySharedPref.setGraphHaveToAsk(b)
                     }
-
+--
                     builder.setPositiveButton(
                         "Più info"
                     ) { _, _ ->
