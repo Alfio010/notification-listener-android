@@ -5,6 +5,9 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="notification-listener-android.notlistener.app">
+        <State />
+      </entry>
     </value>
   </component>
 </project>
