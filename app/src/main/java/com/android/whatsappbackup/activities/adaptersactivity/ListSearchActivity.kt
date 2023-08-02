@@ -5,8 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.android.whatsappbackup.MyApplication.Companion.defaultSwValue
-import com.android.whatsappbackup.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.activities.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.DBUtils.advancedNotificationSearch
 import com.android.whatsappbackup.utils.DBUtils.advancedNotificationSearchWithoutText

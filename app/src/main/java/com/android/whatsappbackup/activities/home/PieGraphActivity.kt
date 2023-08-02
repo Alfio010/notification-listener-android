@@ -13,10 +13,11 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.activities.SpecificChatActivity
+import com.android.whatsappbackup.activities.specificactivity.SpecificGraphActivity
 import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.isDarkThemeOn
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.android.whatsappbackup.utils.Utils.getPackageNameFromAppName
@@ -125,6 +126,11 @@ class PieGraphActivity : AppCompatActivity() {
             override fun onValueSelected(e: Entry?, h: Highlight?) {
                 val pieEntry = e as PieEntry
 
+                if (pieEntry.label.isNullOrBlank()) {
+                    UiUtils.showToast("Name of app selected is missing", this@PieGraphActivity)
+                    return
+                }
+
                 val builder = MaterialAlertDialogBuilder(this@PieGraphActivity)
                 builder.setTitle(pieEntry.label)
 
@@ -139,6 +145,10 @@ class PieGraphActivity : AppCompatActivity() {
                     }
                 }
 
+                val intentChat =
+                    Intent(this@PieGraphActivity, SpecificGraphActivity::class.java)
+                intentChat.putExtra("appLabel", pieEntry.label)
+
                 if (MySharedPref.getGraphHaveToAsk()) {
                     val savedChoice = booleanArrayOf(MySharedPref.getGraphHaveToAsk())
 
@@ -148,12 +158,11 @@ class PieGraphActivity : AppCompatActivity() {
                     ) { _, _, b ->
                         MySharedPref.setGraphHaveToAsk(b)
                     }
---
+
                     builder.setPositiveButton(
                         "Più info"
                     ) { _, _ ->
-                        val intentChat =
-                            Intent(this@PieGraphActivity, SpecificChatActivity::class.java)
+
                         ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
                     }
 
@@ -165,7 +174,6 @@ class PieGraphActivity : AppCompatActivity() {
                     builder.create()
                     builder.show()
                 } else {
-                    val intentChat = Intent(this@PieGraphActivity, SpecificChatActivity::class.java)
                     ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
                 }
 

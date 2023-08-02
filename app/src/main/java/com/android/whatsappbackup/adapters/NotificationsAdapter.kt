@@ -14,7 +14,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.activities.SpecificChatActivity
+import com.android.whatsappbackup.activities.specificactivity.SpecificChatActivity
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.UiUtils.dateFormatter
 import com.android.whatsappbackup.utils.Utils

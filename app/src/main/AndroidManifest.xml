@@ -44,6 +44,9 @@
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".activities.specificactivity.SpecificGraphActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.home.PieGraphActivity"
             android:exported="false"
             android:label="@string/graph" />
@@ -84,7 +87,7 @@
             android:exported="false"
             android:label="@string/search" />
         <activity
-            android:name=".activities.SpecificChatActivity"
+            android:name=".activities.specificactivity.SpecificChatActivity"
             android:exported="false"
             android:label="@string/chat" />
         <activity

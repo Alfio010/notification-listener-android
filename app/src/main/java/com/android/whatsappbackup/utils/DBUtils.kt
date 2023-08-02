@@ -1,6 +1,7 @@
 package com.android.whatsappbackup.utils
 
 import android.content.Context
+import android.util.Log
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.MyApplication.Companion.notifications
 import com.android.whatsappbackup.MyApplication.Companion.packageNames
@@ -368,5 +369,37 @@ object DBUtils {
                 }
             }
     }
-}
 
+    fun getSpecificNotificationsForGraph(appLabel: String): MutableMap<String, Float> {
+        val countedNotifications: MutableMap<String, Float> = mutableMapOf()
+// remove others entry
+        notifications
+            .query()
+            .build()
+            .find()
+            .filter { it.packageName.target.name == appLabel || it.packageName.target.pkg == appLabel }
+            .forEach { notification ->
+                val title = if (notification.packageName.target.pkg.contains("com.whatsapp")) {
+                    notification.conversationTitle?.substringBeforeLast("(") ?: notification.title
+                } else {
+                    notification.title
+                }
+
+                if (title.isBlank()) {
+                    if (countedNotifications.containsKey(title) || countedNotifications.any {
+                            it.key.startsWith(
+                                title
+                            )
+                        }) {
+                        countedNotifications[title] = countedNotifications[title]!! + 1f
+                    } else {
+                        countedNotifications[title] = 1f
+                    }
+                }
+            }
+
+        Log.d("aaa-test", countedNotifications.toString())
+
+        return countedNotifications
+    }
+}
