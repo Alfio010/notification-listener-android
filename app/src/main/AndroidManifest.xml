@@ -45,7 +45,8 @@
         tools:targetApi="tiramisu">
         <activity
             android:name=".activities.specificactivity.SpecificGraphActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/info" />
         <activity
             android:name=".activities.home.PieGraphActivity"
             android:exported="false"

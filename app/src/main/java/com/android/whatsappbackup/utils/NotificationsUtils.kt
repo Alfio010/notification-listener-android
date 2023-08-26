@@ -34,7 +34,10 @@ object NotificationsUtils {
                     Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION
             }
 
-            val intentNotification = Intent(context, DeletedNotificationsActivity::class.java)
+            val intentNotification = Intent(
+                context,
+                DeletedNotificationsActivity::class.java
+            ).setAction(Intent.ACTION_MAIN)
 
             val pendingIntent: PendingIntent =
                 PendingIntent.getActivities(

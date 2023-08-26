@@ -28,7 +28,7 @@ class NotificationsAdapter(
 ) :
     RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
     companion object {
-        private const val maxLength = 35
+        private const val MAX_LENGTH = 35
 
         @SuppressLint("InflateParams")
         fun setListener(
@@ -114,7 +114,10 @@ class NotificationsAdapter(
                 builder.setPositiveButton(
                     R.string.show_chat
                 ) { _, _ ->
-                    val intentChat = Intent(context, SpecificChatActivity::class.java)
+                    val intentChat = Intent(
+                        context,
+                        SpecificChatActivity::class.java
+                    ).setAction(Intent.ACTION_MAIN)
                     intentChat.putExtra("pkgName", notificationItem.packageName.target.pkg)
                     intentChat.putExtra("title", notificationItem.title)
                     ContextCompat.startActivity(context, intentChat, null)
@@ -162,8 +165,8 @@ class NotificationsAdapter(
             context.getString(R.string.null_value)
         }
 
-        val text = if (notifications.text.length > maxLength) {
-            notifications.text.subSequence(0, maxLength).toString() + "..."
+        val text = if (notifications.text.length > MAX_LENGTH) {
+            notifications.text.subSequence(0, MAX_LENGTH).toString() + "..."
         } else if (notifications.text.trim() == "null") {
             context.getString(R.string.null_value)
         } else {

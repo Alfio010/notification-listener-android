@@ -16,7 +16,7 @@ object Utils {
             return true
         }
 
-        if (sbn.packageName == "com.whatsapp" && sbn.key!!.contains("null")) {
+        if (sbn.packageName.startsWith("com.whatsapp") && sbn.key!!.contains("null")) {
             return true
         }
 
@@ -63,7 +63,6 @@ object Utils {
         }
     }
 
-    @Suppress("DEPRECATION")
     fun getAppNameFromPackageName(pkgName: String): String {
         return try {
             pm.getApplicationLabel(pm.getApplicationInfo(pkgName, 0))

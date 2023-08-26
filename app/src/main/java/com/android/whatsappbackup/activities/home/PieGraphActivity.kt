@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
@@ -36,7 +35,7 @@ import java.util.Random
 
 class PieGraphActivity : AppCompatActivity() {
     companion object {
-        const val othersMaxValue = 4.5f
+        const val OTHERS_MAX_VALUE = 4.5f
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +69,7 @@ class PieGraphActivity : AppCompatActivity() {
 
         val entries: ArrayList<PieEntry> = ArrayList()
         percentageMap.forEach {
-            if (it.value >= othersMaxValue || it.key == this.getString(R.string.others)) {
+            if (it.value >= OTHERS_MAX_VALUE || it.key == this.getString(R.string.others)) {
                 entries.add(PieEntry(it.value, it.key))
             } else {
                 others.add("${it.key} ${"%.2f".format(it.value)}%")
@@ -127,61 +126,59 @@ class PieGraphActivity : AppCompatActivity() {
                 val pieEntry = e as PieEntry
 
                 if (pieEntry.label.isNullOrBlank()) {
-                    UiUtils.showToast("Name of app selected is missing", this@PieGraphActivity)
+                    UiUtils.showToast(
+                        getString(R.string.name_of_app_selected_is_missing),
+                        this@PieGraphActivity
+                    )
                     return
                 }
 
-                val builder = MaterialAlertDialogBuilder(this@PieGraphActivity)
-                builder.setTitle(pieEntry.label)
-
-                val packageName = getPackageNameFromAppName(pieEntry.label)
-
-                if (!packageName.isNullOrBlank()) {
-                    val icon = AppIcon.compute(packageName)
-                    if (icon != null) {
-                        builder.setIcon(icon)
-                    } else {
-                        builder.setIcon(R.mipmap.ic_launcher)
-                    }
-                }
-
                 val intentChat =
-                    Intent(this@PieGraphActivity, SpecificGraphActivity::class.java)
+                    Intent(this@PieGraphActivity, SpecificGraphActivity::class.java).setAction(
+                        Intent.ACTION_MAIN
+                    )
                 intentChat.putExtra("appLabel", pieEntry.label)
 
                 if (MySharedPref.getGraphHaveToAsk()) {
-                    val savedChoice = booleanArrayOf(MySharedPref.getGraphHaveToAsk())
+                    runOnUiThread {
+                        val builder = MaterialAlertDialogBuilder(this@PieGraphActivity)
+                        builder.setTitle(pieEntry.label)
 
-                    builder.setMultiChoiceItems(
-                        arrayOf("Remember decision"),
-                        savedChoice
-                    ) { _, _, b ->
-                        MySharedPref.setGraphHaveToAsk(b)
+                        val packageName = getPackageNameFromAppName(pieEntry.label)
+
+                        if (!packageName.isNullOrBlank()) {
+                            val icon = AppIcon.compute(packageName)
+                            if (icon != null) {
+                                builder.setIcon(icon)
+                            } else {
+                                builder.setIcon(R.mipmap.ic_launcher)
+                            }
+                        }
+
+                        val savedChoice = booleanArrayOf(MySharedPref.getGraphHaveToAsk())
+
+                        builder.setMultiChoiceItems(
+                            arrayOf(getString(R.string.remember_decision)),
+                            savedChoice
+                        ) { _, _, b ->
+                            MySharedPref.setGraphHaveToAsk(b)
+                        }
+
+                        builder.setPositiveButton(
+                            getString(R.string.more_info)
+                        ) { _, _ ->
+
+                            ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
+                        }
+
+                        builder.setNegativeButton(R.string.back) { _, _ -> }
+                        builder.setOnCancelListener { it.dismiss() }
+                        builder.create()
+                        builder.show()
                     }
-
-                    builder.setPositiveButton(
-                        "Più info"
-                    ) { _, _ ->
-
-                        ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
-                    }
-
-                    builder.setNegativeButton(R.string.back) { _, _ -> }
-                    builder.setNeutralButton("aa") { _, _ ->
-
-                    }
-                    builder.setOnCancelListener { it.dismiss() }
-                    builder.create()
-                    builder.show()
                 } else {
                     ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
                 }
-
-                Log.d(
-                    "VAL SELECTED",
-                    "Value: " + e.getY() + ", xIndex: " + e.getX()
-                            + ", DataSet index: " + h?.dataSetIndex + " pieentry: ${pieEntry.label} value ${pieEntry.value}"
-                )
             }
         })
 

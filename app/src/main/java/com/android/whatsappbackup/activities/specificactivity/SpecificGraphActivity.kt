@@ -1,20 +1,15 @@
 package com.android.whatsappbackup.activities.specificactivity
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
-import com.android.whatsappbackup.utils.DBUtils.getSpecificNotificationsForGraph
+import com.android.whatsappbackup.adapters.SpecificNotificationAdapter
+import com.android.whatsappbackup.utils.DBUtils
+import com.android.whatsappbackup.utils.DBUtils.nameToPackageName
 import com.android.whatsappbackup.utils.UiUtils
-import com.github.mikephil.charting.animation.Easing
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
-import java.util.Random
 
 class SpecificGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,60 +21,15 @@ class SpecificGraphActivity : AppCompatActivity() {
 
         val appLabel = intent.extras!!.getString("appLabel", String())
 
-        val pieChart: PieChart = findViewById(R.id.specificPieGraph)
+        val adapter = SpecificNotificationAdapter(
+            DBUtils.getSpecificNotificationsForGraph(appLabel),
+            nameToPackageName(appLabel)
+        )
+        val rvSpecificNotificationStat = findViewById<RecyclerView>(R.id.rvSpecificNotificationStat)
+        val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        pieChart.setUsePercentValues(true)
-        pieChart.description.isEnabled = false
-        pieChart.setExtraOffsets(5f, 10f, 5f, 5f)
-
-        pieChart.isDrawHoleEnabled = false
-
-        pieChart.isRotationEnabled = true
-        pieChart.animateY(999, Easing.EaseInOutQuart)
-
-        pieChart.legend.isEnabled = false
-
-        val specificNotifications = getSpecificNotificationsForGraph(appLabel)
-        val entries: ArrayList<PieEntry> = ArrayList()
-        specificNotifications.forEach {
-            entries.add(PieEntry(it.value, it.key))
-        }
-
-        val dataSet = PieDataSet(entries, "Notifications")
-
-        dataSet.setDrawIcons(true)
-        dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-        dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
-
-        val colors: ArrayList<Int> = ArrayList()
-        val rnd = Random()
-        specificNotifications.forEach { _ ->
-            colors.add(
-                Color.argb(
-                    255,
-                    rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)
-                )
-            )
-        }
-
-        dataSet.colors = colors
-
-        val data = PieData(dataSet)
-        data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(15f)
-        data.setValueTypeface(Typeface.DEFAULT_BOLD)
-
-        if (UiUtils.isDarkThemeOn(this)) {
-            pieChart.setEntryLabelColor(Color.WHITE)
-            data.setValueTextColor(Color.WHITE)
-        } else {
-            pieChart.setEntryLabelColor(Color.BLACK)
-            data.setValueTextColor(Color.BLACK)
-        }
-
-        pieChart.data = data
-
-        runOnUiThread { pieChart.invalidate() }
+        rvSpecificNotificationStat.layoutManager = linearLayoutManager
+        rvSpecificNotificationStat.adapter = adapter
 
         onBackPressedDispatcher.addCallback {
             finishAndRemoveTask()
