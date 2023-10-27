@@ -371,7 +371,7 @@ object DBUtils {
     }
 
     fun getSpecificNotificationsForGraph(appLabel: String): MutableList<NotificationStatsItem> {
-        val notiItemList: MutableList<NotificationStatsItem> = mutableListOf()
+        val notificationItemList: MutableList<NotificationStatsItem> = mutableListOf()
 
         run {
             val countedNotifications: MutableMap<String, Long> = mutableMapOf()
@@ -408,7 +408,7 @@ object DBUtils {
 
             countedNotifications.toSortedMap(compareBy<String?> { countedNotifications[it] }.thenBy { it })
                 .forEach {
-                    notiItemList.add(
+                    notificationItemList.add(
                         NotificationStatsItem(
                             it.key,
                             it.value,
@@ -418,6 +418,6 @@ object DBUtils {
                 }
         }
 
-        return notiItemList
+        return notificationItemList
     }
 }

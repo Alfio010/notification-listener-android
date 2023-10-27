@@ -23,8 +23,10 @@
                 android:id="@+id/ivSpecificNotification"
                 android:layout_width="70sp"
                 android:layout_height="70sp"
-                android:layout_marginLeft="4sp"
-                android:layout_marginRight="4sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="2sp"
+                android:layout_marginRight="7sp"
+                android:layout_marginBottom="2sp"
                 android:layout_weight="0.27"
                 android:contentDescription="@string/icon"
                 android:visibility="visible"
@@ -41,7 +43,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="2sp"
                     android:layout_marginEnd="5sp"
+                    android:layout_marginBottom="2sp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     tools:ignore="UselessParent">

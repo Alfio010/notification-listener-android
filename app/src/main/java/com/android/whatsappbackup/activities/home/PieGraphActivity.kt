@@ -15,12 +15,9 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.specificactivity.SpecificGraphActivity
 import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.DBUtils
-import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.isDarkThemeOn
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
-import com.android.whatsappbackup.utils.Utils.getPackageNameFromAppName
-import com.android.whatsappbackup.utils.computables.AppIcon
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
@@ -30,7 +27,6 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.util.Random
 
 class PieGraphActivity : AppCompatActivity() {
@@ -133,52 +129,16 @@ class PieGraphActivity : AppCompatActivity() {
                     return
                 }
 
+                if (pieEntry.label == getString(R.string.others)) {
+                    return
+                }
+
                 val intentChat =
                     Intent(this@PieGraphActivity, SpecificGraphActivity::class.java).setAction(
                         Intent.ACTION_MAIN
                     )
                 intentChat.putExtra("appLabel", pieEntry.label)
-
-                if (MySharedPref.getGraphHaveToAsk()) {
-                    runOnUiThread {
-                        val builder = MaterialAlertDialogBuilder(this@PieGraphActivity)
-                        builder.setTitle(pieEntry.label)
-
-                        val packageName = getPackageNameFromAppName(pieEntry.label)
-
-                        if (!packageName.isNullOrBlank()) {
-                            val icon = AppIcon.compute(packageName)
-                            if (icon != null) {
-                                builder.setIcon(icon)
-                            } else {
-                                builder.setIcon(R.mipmap.ic_launcher)
-                            }
-                        }
-
-                        val savedChoice = booleanArrayOf(MySharedPref.getGraphHaveToAsk())
-
-                        builder.setMultiChoiceItems(
-                            arrayOf(getString(R.string.remember_decision)),
-                            savedChoice
-                        ) { _, _, b ->
-                            MySharedPref.setGraphHaveToAsk(b)
-                        }
-
-                        builder.setPositiveButton(
-                            getString(R.string.more_info)
-                        ) { _, _ ->
-
-                            ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
-                        }
-
-                        builder.setNegativeButton(R.string.back) { _, _ -> }
-                        builder.setOnCancelListener { it.dismiss() }
-                        builder.create()
-                        builder.show()
-                    }
-                } else {
-                    ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
-                }
+                ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
             }
         })
 
