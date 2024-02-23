@@ -54,7 +54,7 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val blackListAuto =
-                findPreference<SwitchPreferenceCompat>(MySharedPref.autoBlacklistEnabled)
+                findPreference<SwitchPreferenceCompat>(MySharedPref.AUTO_BLACKLIST_ENABLED_STRING)
 
             if (blackListAuto != null) {
                 blackListAuto.isChecked = MySharedPref.getAutoBlacklistOn()
@@ -66,7 +66,7 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             val isAuthEnabled =
-                findPreference<SwitchPreferenceCompat>(MySharedPref.authEnabled)
+                findPreference<SwitchPreferenceCompat>(MySharedPref.AUTH_ENABLED_STRING)
 
             if (isAuthEnabled != null) {
                 isAuthEnabled.isChecked = MySharedPref.getAuthState()
@@ -86,7 +86,10 @@ class SettingsActivity : AppCompatActivity() {
 
             if (openBlacklist != null) {
                 openBlacklist.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    val intent = Intent(requireContext(), BlackListActivity::class.java)
+                    val intent = Intent(
+                        requireContext(),
+                        BlackListActivity::class.java
+                    ).setAction(Intent.ACTION_MAIN)
                     startActivity(intent)
                     true
                 }
@@ -120,14 +123,17 @@ class SettingsActivity : AppCompatActivity() {
 
             if (isChat != null) {
                 isChat.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    val intent = Intent(requireContext(), IsChatActivity::class.java)
+                    val intent = Intent(
+                        requireContext(),
+                        IsChatActivity::class.java
+                    ).setAction(Intent.ACTION_MAIN)
                     startActivity(intent)
                     true
                 }
             }
 
             val isNotificationEnabled =
-                findPreference<SwitchPreferenceCompat>(MySharedPref.notificationEnabled)
+                findPreference<SwitchPreferenceCompat>(MySharedPref.NOTIFICATION_ENABLED_STRING)
 
             if (isNotificationEnabled != null) {
                 var notificationEnabled =

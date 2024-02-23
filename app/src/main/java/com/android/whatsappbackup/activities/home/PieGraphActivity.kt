@@ -1,5 +1,6 @@
 package com.android.whatsappbackup.activities.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -9,22 +10,28 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.android.whatsappbackup.R
+import com.android.whatsappbackup.activities.specificactivity.SpecificGraphActivity
 import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.DBUtils
+import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.isDarkThemeOn
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import java.util.Random
 
 class PieGraphActivity : AppCompatActivity() {
     companion object {
-        const val othersMaxValue = 4.5f
+        const val OTHERS_MAX_VALUE = 4.5f
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +65,7 @@ class PieGraphActivity : AppCompatActivity() {
 
         val entries: ArrayList<PieEntry> = ArrayList()
         percentageMap.forEach {
-            if (it.value >= othersMaxValue || it.key == this.getString(R.string.others)) {
+            if (it.value >= OTHERS_MAX_VALUE || it.key == this.getString(R.string.others)) {
                 entries.add(PieEntry(it.value, it.key))
             } else {
                 others.add("${it.key} ${"%.2f".format(it.value)}%")
@@ -107,6 +114,33 @@ class PieGraphActivity : AppCompatActivity() {
         }
 
         pieChart.data = data
+
+        pieChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onNothingSelected() {}
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                val pieEntry = e as PieEntry
+
+                if (pieEntry.label.isNullOrBlank()) {
+                    UiUtils.showToast(
+                        getString(R.string.name_of_app_selected_is_missing),
+                        this@PieGraphActivity
+                    )
+                    return
+                }
+
+                if (pieEntry.label == getString(R.string.others)) {
+                    return
+                }
+
+                val intentChat =
+                    Intent(this@PieGraphActivity, SpecificGraphActivity::class.java).setAction(
+                        Intent.ACTION_MAIN
+                    )
+                intentChat.putExtra("appLabel", pieEntry.label)
+                ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
+            }
+        })
 
         runOnUiThread { pieChart.invalidate() }
 

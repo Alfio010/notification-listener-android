@@ -52,4 +52,6 @@
     <string name="reauth">Riprova ad autenticarti</string>
     <string name="biometric_title">Autenticati per accedere all`app</string>
     <string name="cancel">Annulla</string>
+    <string name="name_of_app_selected_is_missing">Nome app mancante</string>
+    <string name="more_info">Più info</string>
 </resources>

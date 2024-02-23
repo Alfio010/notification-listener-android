@@ -1,4 +1,4 @@
-package com.android.whatsappbackup
+package com.android.whatsappbackup.activities
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +8,8 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.whatsappbackup.MyApplication
+import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.NotificationsAdapter
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.AuthUtils.askAuth

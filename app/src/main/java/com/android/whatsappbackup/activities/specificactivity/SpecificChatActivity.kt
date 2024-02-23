@@ -1,8 +1,8 @@
-package com.android.whatsappbackup.activities
+package com.android.whatsappbackup.activities.specificactivity
 
 import android.os.Bundle
 import com.android.whatsappbackup.MyApplication
-import com.android.whatsappbackup.NotificationListViewerBaseActivity
+import com.android.whatsappbackup.activities.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.DBUtils.searchChat
 

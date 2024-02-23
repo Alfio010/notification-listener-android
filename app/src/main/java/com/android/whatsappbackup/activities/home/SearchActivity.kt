@@ -56,7 +56,7 @@ class SearchActivity : AppCompatActivity() {
             val text = etAdvancedSearch.text.toString()
             val pkgName = nameToPackageName(spinnerSearch.selectedItem.toString())
             val isDeleted = swSearch.isChecked
-            val intent = Intent(this, ListSearchActivity::class.java)
+            val intent = Intent(this, ListSearchActivity::class.java).setAction(Intent.ACTION_MAIN)
 
             intent.putExtra("text", text)
             intent.putExtra("pkgName", pkgName)

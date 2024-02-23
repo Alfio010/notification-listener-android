@@ -13,9 +13,9 @@ import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.computables.AppIcon
 import com.google.android.material.textview.MaterialTextView
 
+// TODO specificGraph in alert
 class BlacklistAdapter(private val packageNames: List<PackageName>) :
     RecyclerView.Adapter<BlacklistAdapter.ViewHolder>() {
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNamePackage: MaterialTextView
         val swIsBlackListed: SwitchCompat

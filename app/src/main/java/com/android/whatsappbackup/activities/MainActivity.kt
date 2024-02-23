@@ -59,32 +59,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         bChats.setOnClickListener {
-            val intent = Intent(this, ChatsActivity::class.java)
+            val intent = Intent(this, ChatsActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
         }
 
         bAllNotifications.setOnClickListener {
-            val intent = Intent(this, AllNotificationsActivity::class.java)
+            val intent =
+                Intent(this, AllNotificationsActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
         }
 
         bDeletedNotifications.setOnClickListener {
-            val intent = Intent(this, DeletedNotificationsActivity::class.java)
+            val intent =
+                Intent(this, DeletedNotificationsActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
         }
 
         bAdvancedSearchActivity.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
+            val intent = Intent(this, SearchActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
         }
 
         bGroupChats.setOnClickListener {
-            val intent = Intent(this, GroupChatActivity::class.java)
+            val intent = Intent(this, GroupChatActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
         }
 
         bGraph.setOnClickListener {
-            val intent = Intent(this, PieGraphActivity::class.java)
+            val intent = Intent(this, PieGraphActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
         }
 
@@ -127,7 +129,8 @@ class MainActivity : AppCompatActivity() {
                 if (MySharedPref.getAuthState() && !authSuccess.get()) {
                     return true
                 }
-                val intent = Intent(this, SettingsActivity::class.java)
+                val intent =
+                    Intent(this, SettingsActivity::class.java).setAction(Intent.ACTION_MAIN)
                 startActivity(intent)
                 true
             }
