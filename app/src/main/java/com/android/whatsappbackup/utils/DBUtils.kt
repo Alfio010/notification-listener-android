@@ -373,50 +373,48 @@ object DBUtils {
     fun getSpecificNotificationsForGraph(appLabel: String): MutableList<NotificationStatsItem> {
         val notificationItemList: MutableList<NotificationStatsItem> = mutableListOf()
 
-        run {
-            val countedNotifications: MutableMap<String, Long> = mutableMapOf()
+        val countedNotifications: MutableMap<String, Long> = mutableMapOf()
 
-            notifications
-                .query()
-                .build()
-                .find()
-                .filter { it.packageName.target.name == appLabel || it.packageName.target.pkg == appLabel }
-                .forEach { notification ->
-                    val title = if (notification.packageName.target.pkg.contains("com.whatsapp")) {
-                        notification.conversationTitle?.substringBeforeLast("(")
-                            ?: notification.title
+        notifications
+            .query()
+            .build()
+            .find()
+            .filter { it.packageName.target.name == appLabel || it.packageName.target.pkg == appLabel }
+            .forEach { notification ->
+                val title = if (notification.packageName.target.pkg.contains("com.whatsapp")) {
+                    notification.conversationTitle?.substringBeforeLast("(")
+                        ?: notification.title
+                } else {
+                    notification.title
+                }
+
+                if (title.isNotBlank()) {
+                    if (countedNotifications.containsKey(title) || countedNotifications.any {
+                            it.key.startsWith(
+                                title
+                            )
+                        }) {
+                        countedNotifications[title] = countedNotifications[title]!! + 1
                     } else {
-                        notification.title
-                    }
-
-                    if (title.isNotBlank()) {
-                        if (countedNotifications.containsKey(title) || countedNotifications.any {
-                                it.key.startsWith(
-                                    title
-                                )
-                            }) {
-                            countedNotifications[title] = countedNotifications[title]!! + 1
-                        } else {
-                            countedNotifications[title] = 1
-                        }
+                        countedNotifications[title] = 1
                     }
                 }
+            }
 
-            var total = 0f
+        var total = 0f
 
-            countedNotifications.forEach { total += it.value }
+        countedNotifications.forEach { total += it.value }
 
-            countedNotifications.toSortedMap(compareBy<String?> { countedNotifications[it] }.thenBy { it })
-                .forEach {
-                    notificationItemList.add(
-                        NotificationStatsItem(
-                            it.key,
-                            it.value,
-                            ("%.2f".format((100.0 * it.value / total))).toDoubleOrNull()
-                        )
+        countedNotifications.toSortedMap(compareBy<String?> { countedNotifications[it] }.thenBy { it })
+            .forEach {
+                notificationItemList.add(
+                    NotificationStatsItem(
+                        it.key,
+                        it.value,
+                        ("%.2f".format((100.0 * it.value / total))).toDoubleOrNull()
                     )
-                }
-        }
+                )
+            }
 
         return notificationItemList
     }

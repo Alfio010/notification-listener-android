@@ -55,6 +55,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:paddingStart="3.5sp"
                         android:text="@string/textview"
                         android:textColor="@color/cyan_white"
                         android:textSize="20sp"
