@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/blacklist">
 
@@ -49,6 +50,17 @@
             app:defaultValue="false"
             app:key="isAuthEnabled"
             app:title="@string/authInfo" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/theme">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/theme_options"
+            android:entryValues="@array/theme_options"
+            android:key="isAutoTheme"
+            android:title="@string/change_theme" />
 
     </PreferenceCategory>
 

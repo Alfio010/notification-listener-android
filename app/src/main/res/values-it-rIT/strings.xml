@@ -27,6 +27,7 @@
     <string name="others">Altri</string>
     <string name="open_app">Apri app</string>
     <string name="open_blacklist">Visualizza blacklist</string>
+    <string name="theme">Tema</string>
     <string name="info">Info</string>
     <string name="null_value">\"Nessun testo acquisito\"</string>
     <string name="appName">Nome:</string>
@@ -54,4 +55,8 @@
     <string name="cancel">Annulla</string>
     <string name="name_of_app_selected_is_missing">Nome app mancante</string>
     <string name="more_info">Più info</string>
+    <string name="system">Sistema</string>
+    <string name="dark">Scuro</string>
+    <string name="light">Chiaro</string>
+    <string name="change_theme">Cambia tema</string>
 </resources>

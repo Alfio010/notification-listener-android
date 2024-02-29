@@ -46,4 +46,52 @@ object UiUtils {
         formatter.timeZone = TimeZone.getDefault()
         return formatter.format(date)
     }
+
+    fun themeStringToValue(context: Context, value: String): Int {
+        when (value) {
+            context.getString(R.string.system) -> return 1
+            context.getString(R.string.dark) -> return 2
+            context.getString(R.string.light) -> return 3
+        }
+
+        return 1
+    }
+
+    fun themeValueToString(context: Context, value: Int): String {
+        when (value) {
+            1 -> return context.getString(R.string.system)
+            2 -> return context.getString(R.string.dark)
+            3 -> return context.getString(R.string.light)
+        }
+
+        return context.getString(R.string.system)
+    }
+
+    fun themeValueToTheme(context: Context, value: Int): Int {
+        when (value) {
+            1 -> return if (isDarkThemeOn(context)) {
+                R.style.Theme_dark
+            } else {
+                R.style.Theme_light
+            }
+
+            2 -> return R.style.Theme_dark
+            3 -> return R.style.Theme_light
+        }
+
+        return R.style.Theme_light
+    }
+
+    fun changeTheme(context: Context) {
+        when (MySharedPref.getThemeOptions()) {
+            1 -> if (isDarkThemeOn(context)) {
+                context.setTheme(R.style.Theme_dark)
+            } else {
+                context.setTheme(R.style.Theme_light)
+            }
+
+            2 -> context.setTheme(R.style.Theme_dark)
+            3 -> context.setTheme(R.style.Theme_light)
+        }
+    }
 }

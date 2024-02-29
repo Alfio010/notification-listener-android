@@ -27,6 +27,7 @@ import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.PermissionUtils.askNotificationServicePermission
 import com.android.whatsappbackup.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.PermissionUtils.isNotificationServiceEnabled
+import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.showToast
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.google.android.material.button.MaterialButton
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bReAuth: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
 
         askNotificationServicePermission(this)

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -18,6 +19,8 @@ import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.PermissionUtils.isNotificationPostPermissionEnabled
+import com.android.whatsappbackup.utils.UiUtils
+import com.android.whatsappbackup.utils.UiUtils.changeTheme
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,6 +31,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(UiUtils.themeValueToTheme(this.application, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
 
         askAuth(this)
@@ -78,6 +82,27 @@ class SettingsActivity : AppCompatActivity() {
                             isAuthEnabled.isChecked = false
                             MySharedPref.setAuthState(false)
                         }
+                        true
+                    }
+            }
+
+            val themeOptions = findPreference<ListPreference>(MySharedPref.THEME_OPTIONS_ENABLED)
+
+            if (themeOptions != null) {
+                themeOptions.value = UiUtils.themeValueToString(
+                    this.requireContext(),
+                    MySharedPref.getThemeOptions()
+                )
+                themeOptions.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        MySharedPref.setThemeOptions(
+                            UiUtils.themeStringToValue(
+                                this.requireContext(),
+                                newValue.toString()
+                            )
+                        )
+                        changeTheme(myActivity)
+                        myActivity.recreate()
                         true
                     }
             }

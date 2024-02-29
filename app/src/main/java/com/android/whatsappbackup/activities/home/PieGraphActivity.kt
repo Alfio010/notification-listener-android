@@ -15,6 +15,7 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.specificactivity.SpecificGraphActivity
 import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.DBUtils
+import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.isDarkThemeOn
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
@@ -35,6 +36,7 @@ class PieGraphActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
 
         askAuth(this)

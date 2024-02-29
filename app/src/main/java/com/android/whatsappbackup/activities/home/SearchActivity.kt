@@ -13,12 +13,15 @@ import com.android.whatsappbackup.activities.adaptersactivity.ListSearchActivity
 import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.DBUtils.allPackageName
 import com.android.whatsappbackup.utils.DBUtils.nameToPackageName
+import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.materialswitch.MaterialSwitch
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
 
         askAuth(this)

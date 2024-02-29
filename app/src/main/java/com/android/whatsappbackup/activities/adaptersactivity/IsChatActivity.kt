@@ -14,6 +14,8 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.IsChatAdapter
 import com.android.whatsappbackup.models.PackageName
 import com.android.whatsappbackup.utils.DBUtils
+import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 
 class IsChatActivity : AppCompatActivity() {
@@ -31,6 +33,7 @@ class IsChatActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
 
         runOnUiThread {

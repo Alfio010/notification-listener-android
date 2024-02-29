@@ -10,6 +10,8 @@ import com.android.whatsappbackup.activities.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.DBUtils.advancedNotificationSearch
 import com.android.whatsappbackup.utils.DBUtils.advancedNotificationSearchWithoutText
+import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.UiUtils
 import kotlin.properties.Delegates
 
 class ListSearchActivity : NotificationListViewerBaseActivity() {
@@ -24,6 +26,7 @@ class ListSearchActivity : NotificationListViewerBaseActivity() {
 
         Log.d("aaa-test", "pkg $pkgName deleted $isDeleted text $text")
 
+        setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
         findViewById<LinearLayout>(R.id.llNotiList).visibility = View.GONE
     }

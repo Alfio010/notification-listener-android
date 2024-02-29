@@ -15,4 +15,36 @@
         <item name="backgroundColor">@color/background</item>
 
     </style>
+
+    <style name="Theme.light" parent="Theme.Material3.DynamicColors.DayNight">
+
+        <item name="colorPrimary">@color/cyan_light</item>
+        <item name="colorPrimaryVariant">@color/cyan_dark</item>
+        <item name="colorOnPrimary">@color/cyan_white</item>
+
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/blue_white</item>
+        <item name="colorOnSecondary">@color/blue_dark</item>
+
+        <item name="android:statusBarColor">@color/background_dark_cardview</item>
+
+        <item name="backgroundColor">@color/background</item>
+
+    </style>
+
+    <style name="Theme.dark" parent="Theme.Material3.DynamicColors.DayNight">
+
+        <item name="colorPrimary">@color/cyan_light</item>
+        <item name="colorPrimaryVariant">@color/cyan_dark</item>
+        <item name="colorOnPrimary">@color/cyan_white</item>
+
+        <item name="colorSecondary">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/blue_white</item>
+        <item name="colorOnSecondary">@color/blue_dark</item>
+
+        <item name="android:statusBarColor">@color/background_dark_cardview</item>
+
+        <item name="backgroundColor">@color/background_dark</item>
+
+    </style>
 </resources>

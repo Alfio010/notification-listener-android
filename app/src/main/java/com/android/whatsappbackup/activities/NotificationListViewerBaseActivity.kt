@@ -13,6 +13,8 @@ import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.NotificationsAdapter
 import com.android.whatsappbackup.models.Notifications
 import com.android.whatsappbackup.utils.AuthUtils.askAuth
+import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 
 abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
@@ -33,6 +35,7 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
 
         askAuth(this)
