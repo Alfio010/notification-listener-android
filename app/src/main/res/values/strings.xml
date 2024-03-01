@@ -89,4 +89,5 @@
     <string name="dark">Dark</string>
     <string name="light">Light</string>
     <string name="change_theme">Change theme</string>
+    <string name="theme_changed">The theme has been changed, restart the app to apply the changes</string>
 </resources>

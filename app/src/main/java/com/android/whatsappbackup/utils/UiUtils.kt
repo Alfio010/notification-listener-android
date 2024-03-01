@@ -82,16 +82,7 @@ object UiUtils {
         return R.style.Theme_light
     }
 
-    fun changeTheme(context: Context) {
-        when (MySharedPref.getThemeOptions()) {
-            1 -> if (isDarkThemeOn(context)) {
-                context.setTheme(R.style.Theme_dark)
-            } else {
-                context.setTheme(R.style.Theme_light)
-            }
-
-            2 -> context.setTheme(R.style.Theme_dark)
-            3 -> context.setTheme(R.style.Theme_light)
-        }
+    fun setTheme(context: Context) {
+        context.setTheme(themeValueToTheme(context, MySharedPref.getThemeOptions()))
     }
 }

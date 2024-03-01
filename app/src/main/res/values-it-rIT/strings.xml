@@ -59,4 +59,5 @@
     <string name="dark">Scuro</string>
     <string name="light">Chiaro</string>
     <string name="change_theme">Cambia tema</string>
+    <string name="theme_changed">Il tema è stato cambiato, riavviare l`app per applicare i cambiamenti</string>
 </resources>

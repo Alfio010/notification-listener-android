@@ -20,7 +20,7 @@ import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.PermissionUtils.isNotificationPostPermissionEnabled
 import com.android.whatsappbackup.utils.UiUtils
-import com.android.whatsappbackup.utils.UiUtils.changeTheme
+import com.android.whatsappbackup.utils.UiUtils.setTheme
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.android.whatsappbackup.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -89,7 +89,8 @@ class SettingsActivity : AppCompatActivity() {
             val themeOptions = findPreference<ListPreference>(MySharedPref.THEME_OPTIONS_ENABLED)
 
             if (themeOptions != null) {
-                themeOptions.value = UiUtils.themeValueToString(
+                themeOptions.summary = UiUtils.themeValueToString(this.requireContext(),MySharedPref.getThemeOptions())
+                    themeOptions.value = UiUtils.themeValueToString(
                     this.requireContext(),
                     MySharedPref.getThemeOptions()
                 )
@@ -101,8 +102,9 @@ class SettingsActivity : AppCompatActivity() {
                                 newValue.toString()
                             )
                         )
-                        changeTheme(myActivity)
+                        setTheme(myActivity)
                         myActivity.recreate()
+                        UiUtils.showToast(getString(R.string.theme_changed), myActivity)
                         true
                     }
             }
