@@ -1,13 +1,13 @@
 package com.android.whatsappbackup.activities.adaptersactivity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import com.android.whatsappbackup.MyApplication.Companion.defaultSwValue
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
+import com.android.whatsappbackup.utils.AuthUtils
 import com.android.whatsappbackup.utils.DBUtils.advancedNotificationSearch
 import com.android.whatsappbackup.utils.DBUtils.advancedNotificationSearchWithoutText
 import com.android.whatsappbackup.utils.MySharedPref
@@ -24,7 +24,7 @@ class ListSearchActivity : NotificationListViewerBaseActivity() {
         isDeleted = intent.extras!!.getBoolean("isDeleted", false)
         text = intent.extras!!.getString("text", "")
 
-        Log.d("aaa-test", "pkg $pkgName deleted $isDeleted text $text")
+        AuthUtils.askAuth(this)
 
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)

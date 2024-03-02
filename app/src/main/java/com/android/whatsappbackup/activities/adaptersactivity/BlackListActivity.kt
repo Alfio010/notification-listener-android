@@ -12,6 +12,7 @@ import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.BlacklistAdapter
 import com.android.whatsappbackup.models.PackageName
+import com.android.whatsappbackup.utils.AuthUtils
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
 import com.android.whatsappbackup.utils.UiUtils
@@ -34,6 +35,8 @@ class BlackListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
+
+        AuthUtils.askAuth(this)
 
         runOnUiThread {
             setContentView(R.layout.blacklist_activity)

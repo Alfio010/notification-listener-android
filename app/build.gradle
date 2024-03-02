@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 apply plugin: 'io.objectbox'
@@ -56,6 +57,8 @@ dependencies {
 
     implementation 'io.objectbox:objectbox-android:3.8.0'
     implementation 'org.apache.commons:commons-lang3:3.14.0'
+
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

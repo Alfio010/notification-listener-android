@@ -60,4 +60,7 @@
     <string name="light">Chiaro</string>
     <string name="change_theme">Cambia tema</string>
     <string name="theme_changed">Il tema è stato cambiato, riavviare l`app per applicare i cambiamenti</string>
+    <string name="open_source_licenses">"Licenze open source "</string>
+    <string name="MPAndroidChart_license">Licenza MPAndroidChart</string>
+    <string name="app_license">Licenza dell\'app</string>
 </resources>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.adapters.SpecificNotificationAdapter
+import com.android.whatsappbackup.utils.AuthUtils
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.DBUtils.nameToPackageName
 import com.android.whatsappbackup.utils.MySharedPref
@@ -15,6 +16,7 @@ import com.android.whatsappbackup.utils.UiUtils
 class SpecificGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
+        AuthUtils.askAuth(this)
         super.onCreate(savedInstanceState)
         runOnUiThread {
             setContentView(R.layout.activity_specific_graph)

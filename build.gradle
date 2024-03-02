@@ -6,6 +6,7 @@ buildscript {
     dependencies {
         classpath "io.objectbox:objectbox-gradle-plugin:3.5.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
+        classpath 'com.google.android.gms:oss-licenses-plugin:0.10.6'
     }
     repositories {
         mavenCentral()

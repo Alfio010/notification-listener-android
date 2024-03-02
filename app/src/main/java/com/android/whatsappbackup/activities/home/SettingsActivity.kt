@@ -23,6 +23,7 @@ import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.setTheme
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.android.whatsappbackup.utils.Utils
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SettingsActivity : AppCompatActivity() {
@@ -89,8 +90,11 @@ class SettingsActivity : AppCompatActivity() {
             val themeOptions = findPreference<ListPreference>(MySharedPref.THEME_OPTIONS_ENABLED)
 
             if (themeOptions != null) {
-                themeOptions.summary = UiUtils.themeValueToString(this.requireContext(),MySharedPref.getThemeOptions())
-                    themeOptions.value = UiUtils.themeValueToString(
+                themeOptions.summary = UiUtils.themeValueToString(
+                    this.requireContext(),
+                    MySharedPref.getThemeOptions()
+                )
+                themeOptions.value = UiUtils.themeValueToString(
                     this.requireContext(),
                     MySharedPref.getThemeOptions()
                 )
@@ -210,6 +214,46 @@ class SettingsActivity : AppCompatActivity() {
                     )
                     true
                 }
+            }
+
+            val appLicense = findPreference<Preference>("app_license")
+
+            if (appLicense != null) {
+                appLicense.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    Utils.openLink(
+                        requireContext(),
+                        "https://www.gnu.org/licenses/gpl-3.0.html"
+                    )
+                    true
+                }
+            }
+
+            val licenses = findPreference<Preference>("licenses")
+
+            if (licenses != null) {
+                licenses.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    OssLicensesMenuActivity.setActivityTitle(getString(R.string.open_source_licenses))
+                    startActivity(
+                        Intent(
+                            this.requireContext(),
+                            OssLicensesMenuActivity::class.java
+                        )
+                    )
+                    true
+                }
+            }
+
+            val licenseMPAndroidChart = findPreference<Preference>("licenseMPAndroidChart")
+
+            if (licenseMPAndroidChart != null) {
+                licenseMPAndroidChart.onPreferenceClickListener =
+                    Preference.OnPreferenceClickListener {
+                        Utils.openLink(
+                            requireContext(),
+                            "http://www.apache.org/licenses/LICENSE-2.0"
+                        )
+                        true
+                    }
             }
 
             val version = findPreference<Preference>("version")

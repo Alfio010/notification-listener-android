@@ -7,11 +7,9 @@
     <string name="back">Back</string>
     <string name="blacklist_reset_confirm">Are you sure you want to reset the blacklist?</string>
 
-    <!-- SharedPref -->
     <string name="isAutoBlacklistOn" translatable="false">isAutoBlacklistOn</string>
     <string name="isNotificationEnabled" translatable="false">isNotificationEnabled</string>
 
-    <!-- Activity name -->
     <string name="all_notification">All notification</string>
     <string name="deleted_notification">Deleted notification</string>
     <string name="advanced_search">Advanced search</string>
@@ -19,7 +17,6 @@
     <string name="group_chat">Group chats</string>
     <string name="isChatActivity" translatable="false">Chat apps</string>
 
-    <!-- Search Activity -->
     <string name="title_text">Title/Text</string>
     <string name="deleted">Deleted</string>
     <string name="search">Search</string>
@@ -35,7 +32,6 @@
 
     <string name="open_app">Open app</string>
 
-    <!-- Settings Activity -->
     <string name="blacklist" translatable="false">Blacklist</string>
     <string name="settings">Settings</string>
     <string name="reset_blacklist" translatable="false">Reset blacklist</string>
@@ -52,12 +48,10 @@
     <string name="chat_summary">Applications marked as chat will be shown in the \"Chat\" section of the app</string>
     <string name="notification_summary">You will get a notification if this app notices that a notification received on your device has been cleared. False positives may be detected by mistake.</string>
 
-    <!-- Default values -->
     <string name="defaultSwitchValue">All applications</string>
     <string name="null_value">"No text captured"</string>
     <string name="github" translatable="false">GitHub</string>
 
-    <!-- Dialog -->
     <string name="appName">Name:</string>
     <string name="text">Text:</string>
     <string name="date">Date:</string>
@@ -69,7 +63,6 @@
     <string name="isDeleted">Deleted:</string>
     <string name="graph">Graph</string>
 
-    <!-- Auth -->
     <string name="authErr">Authentication error</string>
     <string name="authFail">Authentication failed</string>
     <string name="authSuccess">Authentication success</string>
@@ -90,4 +83,7 @@
     <string name="light">Light</string>
     <string name="change_theme">Change theme</string>
     <string name="theme_changed">The theme has been changed, restart the app to apply the changes</string>
+    <string name="open_source_licenses">Open source licenses</string>
+    <string name="MPAndroidChart_license">MPAndroidChart license</string>
+    <string name="app_license">App license</string>
 </resources>

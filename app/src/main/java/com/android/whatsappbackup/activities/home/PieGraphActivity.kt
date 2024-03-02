@@ -107,12 +107,26 @@ class PieGraphActivity : AppCompatActivity() {
         data.setValueTextSize(15f)
         data.setValueTypeface(Typeface.DEFAULT_BOLD)
 
-        if (isDarkThemeOn(this)) {
-            pieChart.setEntryLabelColor(Color.WHITE)
-            data.setValueTextColor(Color.WHITE)
-        } else {
-            pieChart.setEntryLabelColor(Color.BLACK)
-            data.setValueTextColor(Color.BLACK)
+        when (MySharedPref.getThemeOptions()) {
+            1 -> {
+                if (isDarkThemeOn(this)) {
+                    pieChart.setEntryLabelColor(Color.WHITE)
+                    data.setValueTextColor(Color.WHITE)
+                } else {
+                    pieChart.setEntryLabelColor(Color.BLACK)
+                    data.setValueTextColor(Color.BLACK)
+                }
+            }
+
+            2 -> {
+                pieChart.setEntryLabelColor(Color.WHITE)
+                data.setValueTextColor(Color.WHITE)
+            }
+
+            3 -> {
+                pieChart.setEntryLabelColor(Color.BLACK)
+                data.setValueTextColor(Color.BLACK)
+            }
         }
 
         pieChart.data = data

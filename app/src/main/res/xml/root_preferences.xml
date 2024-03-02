@@ -85,6 +85,24 @@
         </Preference>
 
         <Preference
+            app:key="app_license"
+            app:title="@string/app_license">
+
+        </Preference>
+
+        <Preference
+            app:key="licenses"
+            app:title="@string/open_source_licenses">
+
+        </Preference>
+
+        <Preference
+            app:key="licenseMPAndroidChart"
+            app:title="@string/MPAndroidChart_license">
+
+        </Preference>
+
+        <Preference
             app:key="version"
             app:title="@string/version">
 

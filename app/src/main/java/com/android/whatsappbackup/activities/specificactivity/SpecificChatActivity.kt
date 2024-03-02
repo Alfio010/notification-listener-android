@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.android.whatsappbackup.MyApplication
 import com.android.whatsappbackup.activities.NotificationListViewerBaseActivity
 import com.android.whatsappbackup.models.Notifications
+import com.android.whatsappbackup.utils.AuthUtils
 import com.android.whatsappbackup.utils.DBUtils.searchChat
 
 class SpecificChatActivity : NotificationListViewerBaseActivity() {
@@ -13,6 +14,9 @@ class SpecificChatActivity : NotificationListViewerBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         pkgName = intent.extras!!.getString("pkgName", MyApplication.defaultSwValue)
         chatTitle = intent.extras!!.getString("title", "")
+
+        AuthUtils.askAuth(this)
+
         super.onCreate(savedInstanceState)
         title = chatTitle
     }
