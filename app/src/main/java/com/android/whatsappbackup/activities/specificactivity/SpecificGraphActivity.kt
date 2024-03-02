@@ -16,7 +16,9 @@ import com.android.whatsappbackup.utils.UiUtils
 class SpecificGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
+
         AuthUtils.askAuth(this)
+
         super.onCreate(savedInstanceState)
         runOnUiThread {
             setContentView(R.layout.activity_specific_graph)

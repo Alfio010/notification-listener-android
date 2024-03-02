@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
@@ -28,6 +29,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import java.lang.NullPointerException
 import java.util.Random
 
 class PieGraphActivity : AppCompatActivity() {
@@ -149,12 +151,19 @@ class PieGraphActivity : AppCompatActivity() {
                     return
                 }
 
-                val intentChat =
-                    Intent(this@PieGraphActivity, SpecificGraphActivity::class.java).setAction(
-                        Intent.ACTION_MAIN
-                    )
-                intentChat.putExtra("appLabel", pieEntry.label)
-                ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
+                Log.d("aaa-test", pieEntry.label)
+
+                try {
+                    val intentChat =
+                        Intent(this@PieGraphActivity, SpecificGraphActivity::class.java).setAction(
+                            Intent.ACTION_MAIN
+                        )
+                    intentChat.putExtra("appLabel", pieEntry.label)
+                    ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
+                } catch (e: NullPointerException) {
+                    UiUtils.showToast("Error", this@PieGraphActivity)
+                    Log.d("aaa-error", e.stackTraceToString())
+                }
             }
         })
 
