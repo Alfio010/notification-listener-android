@@ -181,7 +181,8 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            val isNotificationPermissionEnabled = findPreference<Preference>("is_notification_permission_enabled")
+            val isNotificationPermissionEnabled =
+                findPreference<Preference>("is_notification_permission_enabled")
 
             if (isNotificationPermissionEnabled != null) {
                 if (isNotificationPostPermissionEnabled(requireContext())) {
@@ -211,8 +212,9 @@ class SettingsActivity : AppCompatActivity() {
                 findPreference<SwitchPreferenceCompat>(NOTIFICATION_ENABLED_STRING)
 
             if (isNotificationEnabled != null) {
-                val notificationEnabled = requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                    .getBoolean(NOTIFICATION_ENABLED_STRING, true)
+                val notificationEnabled =
+                    requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        .getBoolean(NOTIFICATION_ENABLED_STRING, true)
 
                 isNotificationEnabled.isChecked = notificationEnabled
                 isNotificationEnabled.onPreferenceChangeListener =
