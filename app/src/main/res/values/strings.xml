@@ -86,4 +86,9 @@
     <string name="open_source_licenses">Open source licenses</string>
     <string name="MPAndroidChart_license">MPAndroidChart license</string>
     <string name="app_license">App license</string>
+    <string name="licenses">Licenses</string>
+    <string name="notification_permission">Notification permission</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="click_to_change">click to edit</string>
 </resources>

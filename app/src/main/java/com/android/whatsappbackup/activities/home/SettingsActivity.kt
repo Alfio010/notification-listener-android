@@ -1,5 +1,6 @@
 package com.android.whatsappbackup.activities.home
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.addCallback
@@ -10,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.android.whatsappbackup.BuildConfig
 import com.android.whatsappbackup.MyApplication
+import com.android.whatsappbackup.MyApplication.Companion.sharedPrefName
 import com.android.whatsappbackup.R
 import com.android.whatsappbackup.activities.adaptersactivity.BlackListActivity
 import com.android.whatsappbackup.activities.adaptersactivity.IsChatActivity
@@ -17,13 +19,16 @@ import com.android.whatsappbackup.utils.AuthUtils.askAuth
 import com.android.whatsappbackup.utils.AuthUtils.isBiometricAuthAvailable
 import com.android.whatsappbackup.utils.DBUtils
 import com.android.whatsappbackup.utils.MySharedPref
+import com.android.whatsappbackup.utils.MySharedPref.AUTH_ENABLED_STRING
+import com.android.whatsappbackup.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
+import com.android.whatsappbackup.utils.MySharedPref.NOTIFICATION_ENABLED_STRING
+import com.android.whatsappbackup.utils.MySharedPref.THEME_OPTIONS_ENABLED
 import com.android.whatsappbackup.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.whatsappbackup.utils.PermissionUtils.isNotificationPostPermissionEnabled
 import com.android.whatsappbackup.utils.UiUtils
 import com.android.whatsappbackup.utils.UiUtils.setTheme
 import com.android.whatsappbackup.utils.UiUtils.uiDefaultSettings
 import com.android.whatsappbackup.utils.Utils
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SettingsActivity : AppCompatActivity() {
@@ -55,39 +60,46 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        @SuppressLint("ApplySharedPref")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
             val blackListAuto =
-                findPreference<SwitchPreferenceCompat>(MySharedPref.AUTO_BLACKLIST_ENABLED_STRING)
+                findPreference<SwitchPreferenceCompat>(AUTO_BLACKLIST_ENABLED_STRING)
 
             if (blackListAuto != null) {
                 blackListAuto.isChecked = MySharedPref.getAutoBlacklistOn()
                 blackListAuto.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
-                        MySharedPref.setAutoBlacklist(newValue as Boolean)
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit()
+                            .putBoolean(AUTO_BLACKLIST_ENABLED_STRING, newValue as Boolean).commit()
                         true
                     }
             }
 
             val isAuthEnabled =
-                findPreference<SwitchPreferenceCompat>(MySharedPref.AUTH_ENABLED_STRING)
+                findPreference<SwitchPreferenceCompat>(AUTH_ENABLED_STRING)
 
             if (isAuthEnabled != null) {
                 isAuthEnabled.isChecked = MySharedPref.getAuthState()
                 isAuthEnabled.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
                         if (isBiometricAuthAvailable(requireContext(), myActivity)) {
-                            MySharedPref.setAuthState(newValue as Boolean)
+                            sharedPref.edit().putBoolean(AUTH_ENABLED_STRING, newValue as Boolean)
+                                .commit()
                         } else {
                             isAuthEnabled.isChecked = false
-                            MySharedPref.setAuthState(false)
+                            sharedPref.edit().putBoolean(AUTH_ENABLED_STRING, false).commit()
                         }
                         true
                     }
             }
 
-            val themeOptions = findPreference<ListPreference>(MySharedPref.THEME_OPTIONS_ENABLED)
+            val themeOptions = findPreference<ListPreference>(THEME_OPTIONS_ENABLED)
 
             if (themeOptions != null) {
                 themeOptions.summary = UiUtils.themeValueToString(
@@ -100,12 +112,18 @@ class SettingsActivity : AppCompatActivity() {
                 )
                 themeOptions.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
-                        MySharedPref.setThemeOptions(
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+
+                        sharedPref.edit().putInt(
+                            THEME_OPTIONS_ENABLED,
                             UiUtils.themeStringToValue(
                                 this.requireContext(),
                                 newValue.toString()
                             )
                         )
+                            .commit()
+
                         setTheme(myActivity)
                         myActivity.recreate()
                         UiUtils.showToast(getString(R.string.theme_changed), myActivity)
@@ -163,13 +181,38 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
+            val isNotificationPermissionEnabled = findPreference<Preference>("is_notification_permission_enabled")
+
+            if (isNotificationPermissionEnabled != null) {
+                if (isNotificationPostPermissionEnabled(requireContext())) {
+                    isNotificationPermissionEnabled.summary =
+                        getString(R.string.enabled)
+                } else {
+                    isNotificationPermissionEnabled.summary =
+                        getString(R.string.disabled)
+                }
+
+                /* TODO fix
+                isNotificationPermissionEnabled.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        ActivityCompat.requestPermissions(
+                            myActivity,
+                            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                            1
+                        )
+                    }
+
+                    true
+                }
+                */
+            }
+
             val isNotificationEnabled =
-                findPreference<SwitchPreferenceCompat>(MySharedPref.NOTIFICATION_ENABLED_STRING)
+                findPreference<SwitchPreferenceCompat>(NOTIFICATION_ENABLED_STRING)
 
             if (isNotificationEnabled != null) {
-                var notificationEnabled =
-                    isNotificationPostPermissionEnabled(requireContext())
-                MySharedPref.setNotificationEnabled(notificationEnabled)
+                val notificationEnabled = requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                    .getBoolean(NOTIFICATION_ENABLED_STRING, true)
 
                 isNotificationEnabled.isChecked = notificationEnabled
                 isNotificationEnabled.onPreferenceChangeListener =
@@ -178,10 +221,11 @@ class SettingsActivity : AppCompatActivity() {
                             checkPostNotificationPermission(requireContext())
                         }
 
-                        notificationEnabled =
-                            isNotificationPostPermissionEnabled(requireContext())
-                        MySharedPref.setNotificationEnabled(notificationEnabled)
-                        isNotificationEnabled.isChecked = notificationEnabled
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit()
+                            .putBoolean(NOTIFICATION_ENABLED_STRING, newValue as Boolean).commit()
+
                         true
                     }
             }
@@ -232,12 +276,11 @@ class SettingsActivity : AppCompatActivity() {
 
             if (licenses != null) {
                 licenses.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    OssLicensesMenuActivity.setActivityTitle(getString(R.string.open_source_licenses))
                     startActivity(
                         Intent(
                             this.requireContext(),
-                            OssLicensesMenuActivity::class.java
-                        )
+                            LicensesActivity::class.java
+                        ).setAction(Intent.ACTION_MAIN)
                     )
                     true
                 }

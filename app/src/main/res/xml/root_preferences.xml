@@ -36,6 +36,12 @@
 
     <PreferenceCategory app:title="@string/notifications">
 
+        <Preference
+            app:key="is_notification_permission_enabled"
+            app:title="@string/notification_permission">
+
+        </Preference>
+
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:key="@string/isNotificationEnabled"

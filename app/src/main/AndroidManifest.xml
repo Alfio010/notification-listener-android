@@ -44,6 +44,10 @@
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".activities.home.LicensesActivity"
+            android:exported="false"
+            android:label="@string/licenses" />
+        <activity
             android:name=".activities.specificactivity.SpecificGraphActivity"
             android:exported="false"
             android:label="@string/info" />
