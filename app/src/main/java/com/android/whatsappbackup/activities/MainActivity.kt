@@ -55,11 +55,11 @@ class MainActivity : AppCompatActivity() {
         val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
         val bGraph = findViewById<CardView>(R.id.bGraph)
         bReAuth = findViewById(R.id.bReAuth)
-
+/*
         if (isNotificationServiceEnabled(this)) {
             checkPostNotificationPermission(this)
         }
-
+*/
         bChats.setOnClickListener {
             val intent = Intent(this, ChatsActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
