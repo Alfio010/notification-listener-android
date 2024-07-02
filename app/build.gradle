@@ -48,7 +48,7 @@ android {
         jvmTarget = '17'
     }
 
-    namespace 'com.android.whatsappbackup'
+    namespace 'com.android.alftendev'
     buildFeatures {
         viewBinding true
     }
