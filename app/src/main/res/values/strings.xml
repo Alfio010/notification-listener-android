@@ -44,6 +44,7 @@
     <string name="notifications" translatable="false">Notifications</string>
     <string name="theme">Theme</string>
     <string name="info">About</string>
+    <string name="info_specific_graph">About BETA</string>
     <string name="chat_title" translatable="false">Chat apps</string>
     <string name="chat_summary">Applications marked as chat will be shown in the \"Chat\" section of the app</string>
     <string name="notification_summary">You will get a notification if this app notices that a notification received on your device has been cleared. False positives may be detected by mistake.</string>
@@ -61,7 +62,7 @@
     <string name="infoText">Info text:</string>
     <string name="peopleList">People list:</string>
     <string name="isDeleted">Deleted:</string>
-    <string name="graph">Graph</string>
+    <string name="graph">Graph BETA</string>
 
     <string name="authErr">Authentication error</string>
     <string name="authFail">Authentication failed</string>
