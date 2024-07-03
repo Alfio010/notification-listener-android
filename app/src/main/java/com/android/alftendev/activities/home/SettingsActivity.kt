@@ -22,9 +22,11 @@ import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.NOTIFICATION_ENABLED_STRING
+import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
 import com.android.alftendev.utils.MySharedPref.THEME_OPTIONS_ENABLED
 import com.android.alftendev.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.alftendev.utils.PermissionUtils.isNotificationPostPermissionEnabled
+import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.setTheme
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
@@ -63,6 +65,39 @@ class SettingsActivity : AppCompatActivity() {
         @SuppressLint("ApplySharedPref")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
+
+            val isNotificationRecordingServiceEnabled =
+                findPreference<Preference>("is_record_notification_permission_enabled")
+
+            if (isNotificationRecordingServiceEnabled != null) {
+                if (isNotificationServiceEnabled(requireContext())) {
+                    isNotificationRecordingServiceEnabled.summary =
+                        getString(R.string.enabled)
+                } else {
+                    isNotificationRecordingServiceEnabled.summary =
+                        getString(R.string.disabled)
+                }
+            }
+
+            val isNotificationServiceEnabled =
+                findPreference<SwitchPreferenceCompat>("isRecordNotificationEnabled")
+
+            if (isNotificationServiceEnabled != null) {
+                val notificationEnabled =
+                    requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        .getBoolean(RECORD_NOTIFICATIONS_ENABLED, true)
+
+                isNotificationServiceEnabled.isChecked = notificationEnabled
+                isNotificationServiceEnabled.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit()
+                            .putBoolean(RECORD_NOTIFICATIONS_ENABLED, newValue as Boolean).commit()
+
+                        true
+                    }
+            }
 
             val blackListAuto =
                 findPreference<SwitchPreferenceCompat>(AUTO_BLACKLIST_ENABLED_STRING)
@@ -226,7 +261,7 @@ class SettingsActivity : AppCompatActivity() {
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
                         sharedPref.edit()
-                            .putBoolean(NOTIFICATION_ENABLED_STRING, newValue as Boolean).commit()
+                            .putBoolean(NOTIFICATION_ENABLED_STRING, newValue).commit()
 
                         true
                     }

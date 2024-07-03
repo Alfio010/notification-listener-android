@@ -69,4 +69,6 @@
     <string name="enabled">Abilitato</string>
     <string name="disabled">Disabilitato</string>
     <string name="click_to_change">clicca per modificare</string>
+    <string name="enable_notifications_recording">Abilita la registrazione delle notifiche</string>
+    <string name="notification_recording_description">Abilita la registrazione delle notifiche. Quando disattivato le notifiche non verranno salvate dall`app.</string>
 </resources>

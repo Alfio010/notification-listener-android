@@ -28,6 +28,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         super.onNotificationPosted(sbn)
 
+        if (!MySharedPref.getIsRecordNotificationsEnabled()) {
+            return
+        }
+
         if (isBlacklistedNotification(sbn)) {
             return
         }
@@ -135,6 +139,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
+        if (!MySharedPref.getIsRecordNotificationsEnabled()) {
+            return
+        }
+
         if (isBlacklistedNotification(sbn)) {
             return
         }

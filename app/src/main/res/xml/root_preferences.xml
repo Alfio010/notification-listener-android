@@ -1,6 +1,24 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:title="@string/app_name">
+
+        <Preference
+            app:key="is_record_notification_permission_enabled"
+            app:title="@string/notification_recovery_service">
+
+        </Preference>
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="isRecordNotificationEnabled"
+            app:summary="@string/notification_recording_description"
+            app:title="@string/enable_notifications_recording" />
+
+    </PreferenceCategory>
     <PreferenceCategory app:title="@string/blacklist">
 
         <SwitchPreferenceCompat
