@@ -25,7 +25,6 @@ import com.android.alftendev.activities.home.SettingsActivity
 import com.android.alftendev.utils.AuthUtils.haveToAskAuth
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.PermissionUtils.askNotificationServicePermission
-import com.android.alftendev.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.showToast
@@ -55,11 +54,7 @@ class MainActivity : AppCompatActivity() {
         val bGroupChats = findViewById<CardView>(R.id.bGroupChats)
         val bGraph = findViewById<CardView>(R.id.bGraph)
         bReAuth = findViewById(R.id.bReAuth)
-        /*
-                if (isNotificationServiceEnabled(this)) {
-                    checkPostNotificationPermission(this)
-                }
-        */
+
         bChats.setOnClickListener {
             val intent = Intent(this, ChatsActivity::class.java).setAction(Intent.ACTION_MAIN)
             startActivity(intent)
@@ -114,7 +109,6 @@ class MainActivity : AppCompatActivity() {
                 bReAuth.visibility = View.GONE
                 bReAuth.text = getString(R.string.reauth)
             }
-            checkPostNotificationPermission(this)
             initializeBiometricAuth()
         }
     }

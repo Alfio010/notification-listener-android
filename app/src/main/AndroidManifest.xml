@@ -50,7 +50,7 @@
         <activity
             android:name=".activities.specificactivity.SpecificGraphActivity"
             android:exported="false"
-            android:label="@string/info" />
+            android:label="@string/info_specific_graph" />
         <activity
             android:name=".activities.home.PieGraphActivity"
             android:exported="false"
