@@ -18,14 +18,15 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llNotificationAdapter"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivIcon"
                 android:layout_width="100sp"
                 android:layout_height="100sp"
-                android:layout_marginLeft="4sp"
-                android:layout_marginRight="4sp"
+                android:layout_marginStart="6sp"
+                android:layout_marginEnd="6sp"
                 android:layout_weight="1"
                 android:contentDescription="@string/icon"
                 android:visibility="visible"

@@ -8,9 +8,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
+        android:layout_marginStart="10sp"
         android:layout_marginTop="7sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -34,8 +34,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -60,8 +60,8 @@
         android:id="@+id/llConversationTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -86,8 +86,8 @@
         android:id="@+id/llBigTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -111,8 +111,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -137,8 +137,8 @@
         android:id="@+id/llDialogBigText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -163,8 +163,8 @@
         android:id="@+id/llInfoText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -189,8 +189,8 @@
         android:id="@+id/llPeopleList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
@@ -214,8 +214,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginEnd="5sp"
+        android:layout_marginStart="10sp"
+        android:layout_marginEnd="10sp"
         android:layout_marginBottom="3sp"
         android:orientation="horizontal">
 
