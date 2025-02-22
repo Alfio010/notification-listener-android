@@ -12,6 +12,7 @@ import android.widget.ListView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.android.alftendev.R
 import com.android.alftendev.activities.specificactivity.SpecificGraphActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
@@ -20,6 +21,9 @@ import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.isDarkThemeOn
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
+import com.android.alftendev.utils.Utils.generateRandomColor
+import com.android.alftendev.utils.Utils.getDominantColor
+import com.android.alftendev.utils.computables.AppIcon
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
@@ -29,7 +33,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import java.util.Random
+
 
 class PieGraphActivity : AppCompatActivity() {
     companion object {
@@ -91,14 +95,20 @@ class PieGraphActivity : AppCompatActivity() {
         dataSet.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
 
         val colors: ArrayList<Int> = ArrayList()
-        val rnd = Random()
-        percentageMap.forEach { _ ->
-            colors.add(
-                Color.argb(
-                    255,
-                    rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256)
-                )
-            )
+
+        percentageMap.forEach {
+            val packageName = DBUtils.nameToPackageName(it.key)
+
+            if (packageName.isNotBlank()) {
+                val icon = AppIcon.compute(packageName)
+
+                if (icon != null) {
+                    colors.add(getDominantColor(icon.toBitmap()))
+                    return@forEach
+                }
+            }
+            colors.add(generateRandomColor())
+            return@forEach
         }
 
         dataSet.colors = colors

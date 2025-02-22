@@ -5,10 +5,14 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.Uri
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication.Companion.pm
+import java.util.Random
+
 
 object Utils {
     fun isBlacklistedNotification(sbn: StatusBarNotification?): Boolean {
@@ -92,5 +96,19 @@ object Utils {
 
     fun openLink(context: Context, uri: String) {
         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+    }
+
+    fun generateRandomColor(): Int {
+        return Color.argb(
+            255,
+            Random().nextInt(256), Random().nextInt(256), Random().nextInt(256)
+        )
+    }
+
+    fun getDominantColor(bitmap: Bitmap): Int {
+        val newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true)
+        val color = newBitmap.getPixel(0, 0)
+        newBitmap.recycle()
+        return color
     }
 }
