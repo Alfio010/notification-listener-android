@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.alftendev.R
 import com.android.alftendev.activities.specificactivity.SpecificChatActivity
@@ -120,7 +119,7 @@ class NotificationsAdapter(
                     ).setAction(Intent.ACTION_MAIN)
                     intentChat.putExtra("pkgName", notificationItem.packageName.target.pkg)
                     intentChat.putExtra("title", notificationItem.title)
-                    ContextCompat.startActivity(context, intentChat, null)
+                    context.startActivity(intentChat)
                 }
                 builder.setNegativeButton(R.string.back) { _, _ -> }
                 builder.setNeutralButton(context.getString(R.string.open_app)) { _, _ ->

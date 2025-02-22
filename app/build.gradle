@@ -65,13 +65,13 @@ dependencies {
 
     implementation "androidx.biometric:biometric-ktx:1.4.0-alpha02"
 
-    implementation 'io.objectbox:objectbox-android:4.0.3'
+    implementation 'io.objectbox:objectbox-android:4.1.0'
     implementation 'org.apache.commons:commons-lang3:3.17.0'
 
     // .\gradlew licenseReleaseReport
     implementation 'com.jaredsburrows:gradle-license-plugin:0.9.8'
 
-    implementation 'androidx.activity:activity-ktx:1.9.3'
+    implementation 'androidx.activity:activity-ktx:1.10.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
 
     testImplementation 'junit:junit:4.13.2'

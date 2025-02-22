@@ -3,7 +3,7 @@ package com.android.alftendev.utils
 import android.content.Context
 import com.android.alftendev.models.MyObjectBox
 import io.objectbox.BoxStore
-import io.objectbox.model.ValidateOnOpenMode
+import io.objectbox.config.ValidateOnOpenModePages
 import java.io.File
 
 object DatabaseFactory {
@@ -14,7 +14,7 @@ object DatabaseFactory {
             .builder()
             .androidContext(context)
             .baseDirectory(store)
-            .validateOnOpen(ValidateOnOpenMode.WithLeaves)
+            .validateOnOpen(ValidateOnOpenModePages.WithLeaves)
             .validateOnOpenPageLimit(20)
             .maxReaders(200)
 

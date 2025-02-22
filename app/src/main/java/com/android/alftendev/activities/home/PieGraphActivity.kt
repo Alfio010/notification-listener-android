@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.android.alftendev.R
 import com.android.alftendev.activities.specificactivity.SpecificGraphActivity
@@ -168,7 +167,7 @@ class PieGraphActivity : AppCompatActivity() {
                             Intent.ACTION_MAIN
                         )
                     intentChat.putExtra("appLabel", pieEntry.label)
-                    ContextCompat.startActivity(this@PieGraphActivity, intentChat, null)
+                    this@PieGraphActivity.startActivity(intentChat)
                 } catch (e: NullPointerException) {
                     UiUtils.showToast("Error", this@PieGraphActivity)
                     Log.d("aaa-error", e.stackTraceToString())
