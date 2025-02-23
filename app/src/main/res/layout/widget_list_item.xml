@@ -19,6 +19,7 @@
 
     <TextView
         android:id="@+id/noti_date"
+        android:text="@string/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -30,6 +31,7 @@
 
     <TextView
         android:id="@+id/item_text"
+        android:text="@string/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -43,6 +45,7 @@
 
     <TextView
         android:id="@+id/item_description"
+        android:text="@string/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_text"

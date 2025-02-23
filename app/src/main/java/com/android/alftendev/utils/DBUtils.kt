@@ -47,7 +47,7 @@ object DBUtils {
             .findLazy()
     }
 
-    fun isChatNotifications(): List<Notifications> {
+    fun getChatNotifications(): List<Notifications> {
         return notifications
             .query()
             .orderDesc(Notifications_.time)

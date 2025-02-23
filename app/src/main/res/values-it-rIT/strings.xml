@@ -74,4 +74,5 @@
     <string name="add_widget">Aggiungi widget</string>
     <string name="last_noti_widget_description">Mostra le ultime 20 notifiche ricevute</string>
     <string name="last_noti_title">Ultime notifiche</string>
+    <string name="chat_noti_widget_title">Notifiche delle chat</string>
 </resources>

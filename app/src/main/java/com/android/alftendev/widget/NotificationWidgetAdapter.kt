@@ -54,7 +54,7 @@ class NotificationWidgetAdapter(
 
         views.setTextViewText(R.id.item_description, text)
 
-        views.setTextViewText(R.id.tvDate, dateFormatter(notification.time))
+        views.setTextViewText(R.id.noti_date, dateFormatter(notification.time))
 
         val icon = AppIcon.compute(notification.packageName.target.pkg)
 

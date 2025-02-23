@@ -8,16 +8,20 @@ import android.os.Bundle
 import android.widget.RemoteViews
 import com.android.alftendev.R
 
-class LastNotiWidgetProvider : AppWidgetProvider() {
+class ChatNotiWidgetProvider : AppWidgetProvider() {
     companion object {
-        private fun updateAppWidget(
+        internal fun updateAppWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,
             appWidgetId: Int
         ) {
             val views = RemoteViews(context.packageName, R.layout.widget_layout)
-            val intent = Intent(context, LastNotiWidgetService::class.java)
+            val intent = Intent(context, ChatNotiWidgetService::class.java)
             views.setRemoteAdapter(R.id.widget_list, intent)
+            views.setTextViewText(
+                R.id.widgetTitleTv,
+                context.getString(R.string.chat_noti_widget_title)
+            )
 
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.widget_list)
 

@@ -98,4 +98,5 @@
     <string name="add_widget">Add widget</string>
     <string name="last_noti_widget_description">Show the last 20 notifications received</string>
     <string name="last_noti_title">Latest notifications</string>
+    <string name="chat_noti_widget_title">Chat notifications</string>
 </resources>

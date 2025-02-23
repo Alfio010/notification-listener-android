@@ -2,11 +2,11 @@ package com.android.alftendev.activities.home
 
 import com.android.alftendev.activities.NotificationListViewerBaseActivity
 import com.android.alftendev.models.Notifications
-import com.android.alftendev.utils.DBUtils.isChatNotifications
+import com.android.alftendev.utils.DBUtils.getChatNotifications
 
 class GroupChatActivity : NotificationListViewerBaseActivity() {
     override fun getNotifications(): List<Notifications> {
-        return isChatNotifications().onEach {
+        return getChatNotifications().onEach {
             if (it.conversationTitle.isNullOrBlank()) {
                 it.conversationTitle = it.title
             } else {
