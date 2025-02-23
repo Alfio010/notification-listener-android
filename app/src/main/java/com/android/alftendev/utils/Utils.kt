@@ -6,9 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import android.net.Uri
+import android.os.Build
 import android.service.notification.StatusBarNotification
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toIcon
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication.Companion.pm
 import java.util.Random
@@ -110,5 +116,21 @@ object Utils {
         val color = newBitmap.getPixel(0, 0)
         newBitmap.recycle()
         return color
+    }
+
+    fun getIconFromDrawable(drawable: Drawable): Icon {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return drawable.toBitmap().toIcon()
+        }
+
+        val bitmap = Bitmap.createBitmap(
+            drawable.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return Icon.createWithBitmap(bitmap)
     }
 }

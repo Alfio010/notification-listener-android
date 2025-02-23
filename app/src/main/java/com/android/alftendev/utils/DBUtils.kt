@@ -181,6 +181,14 @@ object DBUtils {
             .find().firstOrNull { it.packageName.target.pkg == pkgName }
     }
 
+    fun lastNotificationWithLimit(): List<Notifications> {
+        return notifications
+            .query()
+            .orderDesc(Notifications_.entityId)
+            .build()
+            .find(0, 20)
+    }
+
     fun createNotification(
         pkgName: String,
         title: String,

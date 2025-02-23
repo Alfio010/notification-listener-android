@@ -95,4 +95,7 @@
     <string name="notification_recovery_service" translatable="false">Notification Recovery service</string>
     <string name="enable_notifications_recording">Enable notifications recording</string>
     <string name="notification_recording_description">Enables the recording of notifications. When disabled, notifications will not be saved by the app.</string>
+    <string name="add_widget">Add widget</string>
+    <string name="last_noti_widget_description">Show the last 20 notifications received</string>
+    <string name="last_noti_title">Latest notifications</string>
 </resources>

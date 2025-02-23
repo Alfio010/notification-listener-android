@@ -71,4 +71,7 @@
     <string name="click_to_change">clicca per modificare</string>
     <string name="enable_notifications_recording">Abilita la registrazione delle notifiche</string>
     <string name="notification_recording_description">Abilita la registrazione delle notifiche. Quando disattivato le notifiche non verranno salvate dall`app.</string>
+    <string name="add_widget">Aggiungi widget</string>
+    <string name="last_noti_widget_description">Mostra le ultime 20 notifiche ricevute</string>
+    <string name="last_noti_title">Ultime notifiche</string>
 </resources>

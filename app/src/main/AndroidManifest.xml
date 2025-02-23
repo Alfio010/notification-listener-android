@@ -43,6 +43,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
+
+        <receiver
+            android:name=".widget.LastNotiWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/last_noti_widget_info" />
+        </receiver>
+
         <activity
             android:name=".activities.home.LicensesActivity"
             android:exported="false"
@@ -112,6 +125,15 @@
             android:stopWithTask="false">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".widget.LastNotiWidgetService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+            <intent-filter>
+                <action android:name="android.widget.RemoteViewsService" />
             </intent-filter>
         </service>
     </application>
