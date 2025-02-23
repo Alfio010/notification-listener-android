@@ -47,12 +47,30 @@ object DBUtils {
             .findLazy()
     }
 
+    fun deletedNotificationForWidget(): List<Notifications> {
+        return notifications
+            .query()
+            .equal(Notifications_.isDeleted, true)
+            .orderDesc(Notifications_.time)
+            .build()
+            .find(0, 50)
+    }
+
     fun getChatNotifications(): List<Notifications> {
         return notifications
             .query()
             .orderDesc(Notifications_.time)
             .build()
             .findLazy()
+            .filter { it.packageName.target.isChat }
+    }
+
+    fun getChatNotificationsForWidget(): List<Notifications> {
+        return notifications
+            .query()
+            .orderDesc(Notifications_.time)
+            .build()
+            .find(0, 65)
             .filter { it.packageName.target.isChat }
     }
 
@@ -186,7 +204,7 @@ object DBUtils {
             .query()
             .orderDesc(Notifications_.entityId)
             .build()
-            .find(0, 20)
+            .find(0, 50)
     }
 
     fun createNotification(

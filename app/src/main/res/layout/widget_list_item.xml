@@ -19,19 +19,18 @@
 
     <TextView
         android:id="@+id/noti_date"
-        android:text="@string/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="-4dp"
+        android:text="@string/textview"
         android:textColor="@android:color/white"
         android:textSize="12sp"
         tools:ignore="RelativeOverlap" />
 
     <TextView
         android:id="@+id/item_text"
-        android:text="@string/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -40,12 +39,12 @@
         android:layout_toEndOf="@id/item_image"
         android:ellipsize="end"
         android:maxLines="1"
+        android:text="@string/textview"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/item_description"
-        android:text="@string/textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_text"
@@ -53,6 +52,7 @@
         android:layout_toEndOf="@id/item_image"
         android:ellipsize="end"
         android:maxLines="2"
+        android:text="@string/textview"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp" />
 

@@ -75,4 +75,7 @@
     <string name="last_noti_widget_description">Mostra le ultime 20 notifiche ricevute</string>
     <string name="last_noti_title">Ultime notifiche</string>
     <string name="chat_noti_widget_title">Notifiche delle chat</string>
+    <string name="chat_noti_widget_description">Mostra le notifiche delle chat</string>
+    <string name="deleted_noti_widget_title">Notifiche cancellate</string>
+    <string name="deleted_noti_widget_description">Mostra le notifiche cancellate</string>
 </resources>

@@ -99,4 +99,7 @@
     <string name="last_noti_widget_description">Show the last 20 notifications received</string>
     <string name="last_noti_title">Latest notifications</string>
     <string name="chat_noti_widget_title">Chat notifications</string>
+    <string name="chat_noti_widget_description">Show chat notifications</string>
+    <string name="deleted_noti_widget_title">Deleted notifications</string>
+    <string name="deleted_noti_widget_description">Show deleted notifications</string>
 </resources>
