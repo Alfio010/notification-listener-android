@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.Simplenotlistener" parent="Theme.Material3.DynamicColors.DayNight">
 
@@ -13,6 +13,6 @@
         <item name="android:statusBarColor">@color/background_dark_cardview</item>
 
         <item name="backgroundColor">@color/background_dark</item>
-
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 </resources>
