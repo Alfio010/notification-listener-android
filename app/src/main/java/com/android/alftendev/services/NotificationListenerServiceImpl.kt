@@ -12,7 +12,7 @@ import com.android.alftendev.utils.DBUtils.createNotification
 import com.android.alftendev.utils.DBUtils.createNotificationDeleted
 import com.android.alftendev.utils.DBUtils.createPackageName
 import com.android.alftendev.utils.DBUtils.lastNotification
-import com.android.alftendev.utils.DBUtils.packageNameExists
+import com.android.alftendev.utils.DBUtils.getPackageName
 import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
@@ -103,7 +103,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (packageNameExists(sbn.packageName) == null) {
+        if (getPackageName(sbn.packageName) == null) {
             MyApplication.packageNames.put(createPackageName(sbn.packageName))
         }
 

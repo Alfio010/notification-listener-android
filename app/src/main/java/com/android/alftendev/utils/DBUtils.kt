@@ -218,7 +218,7 @@ object DBUtils {
         peopleList: String,
         titleBig: String
     ): Notifications? {
-        val packageName = packageNameExists(pkgName) ?: return null
+        val packageName = getPackageName(pkgName) ?: return null
 
         val notifications = Notifications(
             0,
@@ -248,7 +248,7 @@ object DBUtils {
         peopleList: String,
         titleBig: String
     ): Notifications? {
-        val packageName = packageNameExists(pkgName) ?: return null
+        val packageName = getPackageName(pkgName) ?: return null
 
         val notification = Notifications(
             0,
@@ -296,7 +296,7 @@ object DBUtils {
         )
     }
 
-    fun packageNameExists(pkgName: String): PackageName? {
+    fun getPackageName(pkgName: String): PackageName? {
         return packageNames
             .query()
             .equal(

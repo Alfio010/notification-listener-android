@@ -44,20 +44,20 @@ class IsChatAdapter(private val packageNames: List<PackageName>) :
             packageName.name
         }
 
+        viewHolder.swIsChat.setOnCheckedChangeListener(null)
+
         viewHolder.swIsChat.isChecked = packageName.isChat
 
         viewHolder.swIsChat.setOnCheckedChangeListener { _, isChecked ->
-            val entity = DBUtils.packageNameExists(packageName.pkg)
+            val entity = DBUtils.getPackageName(packageName.pkg)
             if (entity != null) {
                 entity.isChat = isChecked
                 MyApplication.packageNames.put(entity)
 
-                DBUtils.packageNameExists(packageName.pkg)
+                DBUtils.getPackageName(packageName.pkg)
                     ?.let { viewHolder.swIsChat.isChecked = it.isChat }
 
                 MyApplication.executor.submit { notifyItemChanged(position) }
-            } else {
-                viewHolder.swIsChat.isChecked = packageName.isChat
             }
         }
 
