@@ -316,8 +316,8 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(
                         Intent(
                             this.requireContext(),
-                            LicensesActivity::class.java
-                        ).setAction(Intent.ACTION_MAIN)
+                            WebViewActivity()::class.java
+                        ).setAction(Intent.ACTION_MAIN).putExtra("filePath", "file:///android_asset/open_source_licenses.html")
                     )
                     true
                 }
@@ -334,6 +334,18 @@ class SettingsActivity : AppCompatActivity() {
                         )
                         true
                     }
+            }
+
+            val privacyPolicy = findPreference<Preference>("privacyPolicy")
+
+            if (privacyPolicy != null) {
+                privacyPolicy.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    Utils.openLink(
+                        requireContext(),
+                        "https://alfio010.github.io/"
+                    )
+                    true
+                }
             }
 
             val version = findPreference<Preference>("version")

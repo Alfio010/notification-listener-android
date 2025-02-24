@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".activities.home.LicensesActivity">
+    tools:context=".activities.home.WebViewActivity">
 
     <WebView
         android:id="@+id/license_webview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="40sp" />
 </LinearLayout>

@@ -45,7 +45,7 @@
         tools:targetApi="tiramisu">
 
         <activity
-            android:name=".activities.home.LicensesActivity"
+            android:name=".activities.home.WebViewActivity"
             android:exported="false"
             android:label="@string/licenses" />
         <activity

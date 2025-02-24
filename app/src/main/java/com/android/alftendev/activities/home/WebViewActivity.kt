@@ -10,21 +10,27 @@ import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 
-class LicensesActivity : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         runOnUiThread {
-            setContentView(R.layout.activity_license)
+            setContentView(R.layout.activity_webview)
             uiDefaultSettings(this, true)
+            supportActionBar?.hide()
         }
 
         val webView = findViewById<WebView>(R.id.license_webview)
 
+        val filePath = intent.extras!!.getString("filePath")
+
         webView.webChromeClient = WebChromeClient()
         webView.settings.setSupportZoom(true)
-        webView.loadUrl("file:///android_asset/open_source_licenses.html")
+
+        if (filePath != null) {
+            webView.loadUrl(filePath)
+        }
     }
 }
