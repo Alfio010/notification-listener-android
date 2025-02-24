@@ -11,8 +11,8 @@ import com.android.alftendev.utils.DBUtils.createBlackListPackageName
 import com.android.alftendev.utils.DBUtils.createNotification
 import com.android.alftendev.utils.DBUtils.createNotificationDeleted
 import com.android.alftendev.utils.DBUtils.createPackageName
-import com.android.alftendev.utils.DBUtils.lastNotification
 import com.android.alftendev.utils.DBUtils.getPackageName
+import com.android.alftendev.utils.DBUtils.lastNotification
 import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref

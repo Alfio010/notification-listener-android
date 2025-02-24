@@ -142,7 +142,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeBiometricAuth() {
         if (haveToAskAuth()) {
-            val biometricPrompt = BiometricPrompt(this, executor,
+            val biometricPrompt = BiometricPrompt(
+                this, executor,
                 object : BiometricPrompt.AuthenticationCallback() {
                     override fun onAuthenticationError(
                         errorCode: Int,

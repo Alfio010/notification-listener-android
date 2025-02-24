@@ -317,7 +317,8 @@ class SettingsActivity : AppCompatActivity() {
                         Intent(
                             this.requireContext(),
                             WebViewActivity()::class.java
-                        ).setAction(Intent.ACTION_MAIN).putExtra("filePath", "file:///android_asset/open_source_licenses.html")
+                        ).setAction(Intent.ACTION_MAIN)
+                            .putExtra("filePath", "file:///android_asset/open_source_licenses.html")
                     )
                     true
                 }
