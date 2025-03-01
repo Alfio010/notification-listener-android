@@ -102,27 +102,28 @@ class NotificationsAdapter(
                     context.getString(R.string.no)
                 }
 
-                customAlertDialogView.findViewById<Button>(R.id.bNotiAdapterDelete).setOnClickListener {
-                    val builderDelete = MaterialAlertDialogBuilder(context)
-                    builderDelete.setTitle(context.getString(R.string.confirm_delete_noti_warning))
+                customAlertDialogView.findViewById<Button>(R.id.bNotiAdapterDelete)
+                    .setOnClickListener {
+                        val builderDelete = MaterialAlertDialogBuilder(context)
+                        builderDelete.setTitle(context.getString(R.string.confirm_delete_noti_warning))
 
-                    if (icon != null) {
-                        builderDelete.setIcon(icon)
-                    } else {
-                        builderDelete.setIcon(R.mipmap.ic_launcher)
+                        if (icon != null) {
+                            builderDelete.setIcon(icon)
+                        } else {
+                            builderDelete.setIcon(R.mipmap.ic_launcher)
+                        }
+
+                        builderDelete.setPositiveButton(
+                            context.getString(R.string.confirm)
+                        ) { _, _ ->
+                            DBUtils.deleteNotificationById(notificationItem.entityId)
+                        }
+
+                        builderDelete.setNegativeButton(R.string.cancel) { _, _ -> }
+                        builderDelete.setOnCancelListener { it.dismiss() }
+                        builderDelete.create()
+                        builderDelete.show()
                     }
-
-                    builderDelete.setPositiveButton(
-                        context.getString(R.string.confirm)
-                    ) { _, _ ->
-                        DBUtils.deleteNotificationById(notificationItem.entityId)
-                    }
-
-                    builderDelete.setNegativeButton(R.string.cancel) { _, _ -> }
-                    builderDelete.setOnCancelListener { it.dismiss() }
-                    builderDelete.create()
-                    builderDelete.show()
-                }
 
                 val builder = MaterialAlertDialogBuilder(context)
                 builder.setTitle(notificationItem.title)
