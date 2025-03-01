@@ -103,4 +103,7 @@
     <string name="deleted_noti_widget_title">Deleted notifications</string>
     <string name="deleted_noti_widget_description">Show deleted notifications</string>
     <string name="privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="delete_notification">Delete notification</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_delete_noti_warning">Are you sure you want to delete the notification? This action is irreversible</string>
 </resources>

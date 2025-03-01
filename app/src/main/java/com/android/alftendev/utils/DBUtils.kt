@@ -444,4 +444,12 @@ object DBUtils {
 
         return notificationItemList
     }
+
+    fun deleteNotificationById(id: Long) {
+        notifications
+            .query()
+            .equal(Notifications_.entityId, id)
+            .build()
+            .remove()
+    }
 }

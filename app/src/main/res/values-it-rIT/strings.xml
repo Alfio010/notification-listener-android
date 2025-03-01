@@ -78,4 +78,7 @@
     <string name="chat_noti_widget_description">Mostra le notifiche delle chat</string>
     <string name="deleted_noti_widget_title">Notifiche cancellate</string>
     <string name="deleted_noti_widget_description">Mostra le notifiche cancellate</string>
+    <string name="delete_notification">Cancella la notifica</string>
+    <string name="confirm">Conferma</string>
+    <string name="confirm_delete_noti_warning">Sei sicuro di voler eliminare la notifica? Questa azione è irreversibile</string>
 </resources>

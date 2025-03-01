@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.alftendev.R
 import com.android.alftendev.activities.specificactivity.SpecificChatActivity
 import com.android.alftendev.models.Notifications
+import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.UiUtils.dateFormatter
 import com.android.alftendev.utils.Utils
 import com.android.alftendev.utils.computables.AppIcon
@@ -98,6 +100,28 @@ class NotificationsAdapter(
                     context.getString(R.string.yes)
                 } else {
                     context.getString(R.string.no)
+                }
+
+                customAlertDialogView.findViewById<Button>(R.id.bNotiAdapterDelete).setOnClickListener {
+                    val builderDelete = MaterialAlertDialogBuilder(context)
+                    builderDelete.setTitle(context.getString(R.string.confirm_delete_noti_warning))
+
+                    if (icon != null) {
+                        builderDelete.setIcon(icon)
+                    } else {
+                        builderDelete.setIcon(R.mipmap.ic_launcher)
+                    }
+
+                    builderDelete.setPositiveButton(
+                        context.getString(R.string.confirm)
+                    ) { _, _ ->
+                        DBUtils.deleteNotificationById(notificationItem.entityId)
+                    }
+
+                    builderDelete.setNegativeButton(R.string.cancel) { _, _ -> }
+                    builderDelete.setOnCancelListener { it.dismiss() }
+                    builderDelete.create()
+                    builderDelete.show()
                 }
 
                 val builder = MaterialAlertDialogBuilder(context)
