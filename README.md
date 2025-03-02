@@ -15,17 +15,15 @@
 
 This app saves your Android device`s notifications and allows you not to miss notifications that are accidentally deleted or that are deleted by the apps themselves. Feel free to recommend new features.
 
-<h2>📲 Notification Saver - Features</h2>
+<h2>📲 Features</h2>
 
-    <ul>
-        <li><strong>✅ Save Notifications</strong> – Automatically stores notifications received on your Android device.</li>
-        <li><strong>🔍 Search Notifications</strong> – Easily find past notifications using keywords.</li>
-        <li><strong>📂 Organized History</strong> – View notifications grouped by apps for better readability.</li>
-        <li><strong>🕒 Detailed Log</strong> – See timestamps, app names, and notification content.</li>
-        <li><strong>📊 Graphs</strong> – See some notifications' stats from graph.</li>
-        <li><strong>🔔 See Deleted Notifications</strong> – See notifications that were accidentally or automatically deleted.</li>
-        <li><strong>🌓 Dark Mode</strong> – Enjoy a sleek UI with dark mode support.</li>
-    </ul>
+- **✅ Save Notifications** – Automatically stores notifications received on your Android device.  
+- **🔍 Search Notifications** – Easily find past notifications using keywords.  
+- **📂 Organized History** – View notifications grouped by apps for better readability.  
+- **🕒 Detailed Log** – See timestamps, app names, and notification content.  
+- **📊 Graphs** – See some notifications' stats from graph.  
+- **🔔 See Deleted Notifications** – See notifications that were accidentally or automatically deleted.  
+- **🌓 Dark Mode** – Enjoy a sleek UI with dark mode support.  
 
 <h2> Requirements </h2>
 
