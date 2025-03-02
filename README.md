@@ -36,6 +36,14 @@ This project use <a href="https://github.com/PhilJay/MPAndroidChart">MPAndroidCh
 
 <h2> Download </h2>
 
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" width="240" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.alftendev.notlistener)  
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" width="240" height="80">](https://play.google.com/store/apps/details?id=com.alftendev.notlistener)  
-[<img src="img/get-it-on-github.png" alt="Get it on GitHub" width="240" height="80">](https://github.com/Alfio010/notification-listener-android/releases/latest)
+<p align="center">
+    <a href="https://apt.izzysoft.de/fdroid/index/apk/com.alftendev.notlistener">
+        <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" width="240" height="80">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.alftendev.notlistener">
+        <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" width="240" height="80">
+    </a>
+    <a href="https://github.com/Alfio010/notification-listener-android/releases/latest">
+        <img src="img/get-it-on-github.png" alt="Get it on GitHub" width="240" height="80">
+    </a>
+</p>
