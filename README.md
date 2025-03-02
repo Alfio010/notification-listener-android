@@ -23,7 +23,8 @@ This app saves your Android device`s notifications and allows you not to miss no
 - **🕒 Detailed Log** – See timestamps, app names, and notification content.  
 - **📊 Graphs** – See some notifications' stats from graph.  
 - **🔔 See Deleted Notifications** – See notifications that were accidentally or automatically deleted.  
-- **🌓 Dark Mode** – Enjoy a sleek UI with dark mode support.  
+- **🌓 Dark Mode** – Enjoy a sleek UI with dark mode support.
+- **🔒 Secure Access** – Enable password or fingerprint authentication to access the app.
 
 <h2> Requirements </h2>
 
