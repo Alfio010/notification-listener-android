@@ -58,7 +58,7 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         askAuth(this)
 
         runOnUiThread {
-            uiDefaultSettings(this, true)
+            uiDefaultSettings(this, false)
             setContentView(R.layout.activity_notification_list)
         }
 
@@ -107,76 +107,94 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
                     if (javaClass.simpleName == "AllNotificationsActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, AllNotificationsActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent = Intent(
+                        this,
+                        AllNotificationsActivity::class.java
+                    ).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     true
                 }
+
                 R.id.navChats -> {
                     if (javaClass.simpleName == "ChatsActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, ChatsActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent =
+                        Intent(this, ChatsActivity::class.java).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     if (javaClass.simpleName != "AllNotificationsActivity") {
                         finishAndRemoveTask()
                     }
                     true
                 }
+
                 R.id.navGroupChat -> {
                     if (javaClass.simpleName == "GroupChatActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, GroupChatActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent =
+                        Intent(this, GroupChatActivity::class.java).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     if (javaClass.simpleName != "AllNotificationsActivity") {
                         finishAndRemoveTask()
                     }
                     true
                 }
+
                 R.id.navDeletedNotification -> {
                     if (javaClass.simpleName == "DeletedNotificationsActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, DeletedNotificationsActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent = Intent(
+                        this,
+                        DeletedNotificationsActivity::class.java
+                    ).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     if (javaClass.simpleName != "AllNotificationsActivity") {
                         finishAndRemoveTask()
                     }
                     true
                 }
+
                 R.id.navGraph -> {
                     if (javaClass.simpleName == "PieGraphActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, PieGraphActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent =
+                        Intent(this, PieGraphActivity::class.java).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     if (javaClass.simpleName != "AllNotificationsActivity") {
                         finishAndRemoveTask()
                     }
                     true
                 }
+
                 R.id.navAdvancedSearch -> {
                     if (javaClass.simpleName == "SearchActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, SearchActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent =
+                        Intent(this, SearchActivity::class.java).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     if (javaClass.simpleName != "AllNotificationsActivity") {
                         finishAndRemoveTask()
                     }
                     true
                 }
+
                 R.id.navSettings -> {
                     if (javaClass.simpleName == "SettingsActivity") {
                         return@setNavigationItemSelectedListener true
                     }
-                    val navIntent = Intent(this, SettingsActivity::class.java).setAction(Intent.ACTION_MAIN)
+                    val navIntent =
+                        Intent(this, SettingsActivity::class.java).setAction(Intent.ACTION_MAIN)
                     startActivity(navIntent)
                     if (javaClass.simpleName != "AllNotificationsActivity") {
                         finishAndRemoveTask()
                     }
                     true
                 }
+
                 else -> {
                     false
                 }
