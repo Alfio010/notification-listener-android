@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navAllNotification"
+        android:icon="@drawable/baseline_home_24"
+        android:title="@string/all_notification" />
+    <item
+        android:id="@+id/navChats"
+        android:icon="@drawable/baseline_chat_24"
+        android:title="@string/chat" />
+    <item
+        android:id="@+id/navGroupChat"
+        android:icon="@drawable/baseline_groups_24"
+        android:title="@string/group_chat" />
+    <item
+        android:id="@+id/navDeletedNotification"
+        android:icon="@drawable/baseline_delete_outline_24"
+        android:title="@string/deleted_notification" />
+    <item
+        android:id="@+id/navGraph"
+        android:icon="@drawable/baseline_pie_chart_outline_24"
+        android:title="@string/graph" />
+    <item
+        android:id="@+id/navAdvancedSearch"
+        android:icon="@drawable/baseline_delete_outline_24"
+        android:title="@string/advanced_search" />
+    <item
+        android:id="@+id/navSettings"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/settings" />
+</menu>

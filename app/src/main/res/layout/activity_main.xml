@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,302 +7,6 @@
     android:gravity="center|center_horizontal|center_vertical"
     android:orientation="vertical"
     tools:context=".activities.MainActivity">
-
-    <GridLayout
-        android:id="@+id/cardViewGrid"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="80sp"
-        android:layout_marginBottom="80sp"
-        android:layout_weight="3"
-        android:alignmentMode="alignMargins"
-        android:columnCount="2"
-        android:columnOrderPreserved="true"
-        android:padding="14dp"
-        android:rowCount="3">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bChats"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5sp"
-            app:cardBackgroundColor="?colorPrimary"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="1sp"
-                android:paddingEnd="1sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/baseline_chat_24">
-
-                </com.google.android.material.imageview.ShapeableImageView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center|center_vertical"
-                    android:layout_marginBottom="20sp"
-                    android:shadowColor="#FFFFFF"
-                    android:text="@string/chat"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textIsSelectable="false"
-                    android:textStyle="bold"
-                    app:textAllCaps="true">
-
-                </com.google.android.material.textview.MaterialTextView>
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bGroupChats"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5sp"
-            android:foregroundGravity="center"
-            app:cardBackgroundColor="?colorPrimary"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="1sp"
-                android:paddingEnd="1sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/baseline_groups_24">
-
-                </com.google.android.material.imageview.ShapeableImageView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center|center_vertical"
-                    android:layout_marginBottom="20sp"
-                    android:shadowColor="#FFFFFF"
-                    android:text="@string/group_chat"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textIsSelectable="false"
-                    android:textStyle="bold"
-                    app:textAllCaps="true">
-
-                </com.google.android.material.textview.MaterialTextView>
-            </LinearLayout>
-
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bHome"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5sp"
-            app:cardBackgroundColor="?colorPrimary"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="1sp"
-                android:paddingEnd="1sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/baseline_home_24">
-
-                </com.google.android.material.imageview.ShapeableImageView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center|center_vertical"
-                    android:layout_marginBottom="20sp"
-                    android:shadowColor="#FFFFFF"
-                    android:text="@string/all_notification"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textIsSelectable="false"
-                    android:textStyle="bold"
-                    app:textAllCaps="true">
-
-                </com.google.android.material.textview.MaterialTextView>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bDeletedNotifications"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5sp"
-            app:cardBackgroundColor="?colorPrimary"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="1sp"
-                android:paddingEnd="1sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/baseline_delete_outline_24">
-
-                </com.google.android.material.imageview.ShapeableImageView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center|center_vertical"
-                    android:layout_marginBottom="20sp"
-                    android:shadowColor="#FFFFFF"
-                    android:text="@string/deleted_notification"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textIsSelectable="false"
-                    android:textStyle="bold"
-                    app:textAllCaps="true">
-
-                </com.google.android.material.textview.MaterialTextView>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bGraph"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5sp"
-            app:cardBackgroundColor="?colorPrimary"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="1sp"
-                android:paddingEnd="1sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/baseline_pie_chart_outline_24">
-
-                </com.google.android.material.imageview.ShapeableImageView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center|center_vertical"
-                    android:layout_marginBottom="20sp"
-                    android:shadowColor="#FFFFFF"
-                    android:text="@string/graph"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textIsSelectable="false"
-                    android:textStyle="bold"
-                    app:textAllCaps="true">
-
-                </com.google.android.material.textview.MaterialTextView>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/bAdvancedSearchActivity"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5sp"
-            app:cardBackgroundColor="?colorPrimary"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:paddingStart="1sp"
-                android:paddingEnd="1sp">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/baseline_manage_search_24">
-
-                </com.google.android.material.imageview.ShapeableImageView>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|center|center_vertical"
-                    android:layout_marginBottom="20sp"
-                    android:shadowColor="#FFFFFF"
-                    android:text="@string/advanced_search"
-                    android:textAlignment="center"
-                    android:textColor="#000000"
-                    android:textIsSelectable="false"
-                    android:textStyle="bold"
-                    app:textAllCaps="true">
-
-                </com.google.android.material.textview.MaterialTextView>
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-    </GridLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bReAuth"
@@ -314,5 +17,24 @@
         android:gravity="center"
         android:text="@string/reauth"
         android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bNotiServicePermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/ask_not_permission"
+        android:visibility="gone" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="@string/continuee" />
 
 </LinearLayout>

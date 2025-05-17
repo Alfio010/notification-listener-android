@@ -159,8 +159,6 @@ class PieGraphActivity : AppCompatActivity() {
                     return
                 }
 
-                Log.d("aaa-test", pieEntry.label)
-
                 try {
                     val intentChat =
                         Intent(this@PieGraphActivity, SpecificGraphActivity::class.java).setAction(
