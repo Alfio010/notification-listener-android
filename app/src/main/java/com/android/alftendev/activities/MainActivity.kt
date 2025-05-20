@@ -3,9 +3,6 @@ package com.android.alftendev.activities
 import android.app.KeyguardManager
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
@@ -14,7 +11,6 @@ import com.android.alftendev.MyApplication.Companion.authSuccess
 import com.android.alftendev.MyApplication.Companion.executor
 import com.android.alftendev.R
 import com.android.alftendev.activities.home.AllNotificationsActivity
-import com.android.alftendev.activities.home.SettingsActivity
 import com.android.alftendev.utils.AuthUtils.haveToAskAuth
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.PermissionUtils.askNotificationServicePermission
@@ -77,28 +73,6 @@ class MainActivity : AppCompatActivity() {
                 bReAuth.text = getString(R.string.reauth)
             }
             initializeBiometricAuth()
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.settigs_menu -> {
-                if (MySharedPref.getAuthState() && !authSuccess.get()) {
-                    return true
-                }
-                val intent =
-                    Intent(this, SettingsActivity::class.java).setAction(Intent.ACTION_MAIN)
-                startActivity(intent)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
         }
     }
 
