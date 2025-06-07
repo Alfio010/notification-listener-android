@@ -15,8 +15,15 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="isRecordNotificationEnabled"
-            app:summary="@string/notification_recording_description"
+            app:summary="@string/ask_not_permission"
             app:title="@string/enable_notifications_recording" />
+
+        <Preference
+            app:key="delete_all_data"
+            app:summary="@string/clear_all_data_summary"
+            app:title="@string/clear_all_data_title">
+
+        </Preference>
 
     </PreferenceCategory>
     <PreferenceCategory app:title="@string/blacklist">

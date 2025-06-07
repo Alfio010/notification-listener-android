@@ -22,7 +22,7 @@ object PermissionUtils {
     fun askNotificationServicePermission(context: Context) {
         if (!isNotificationServiceEnabled(context)) {
             UiUtils.showToast(
-                context.getString(R.string.ask_not_permission),
+                context.getString(R.string.explain_not_permission),
                 context as AppCompatActivity
             )
 

@@ -10,7 +10,7 @@ internal object AppIconComputable : Computable<String, Drawable?> {
     override fun compute(packageName: String): Drawable? {
         return try {
             pm.getApplicationIcon(packageName)
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             null
         }
     }

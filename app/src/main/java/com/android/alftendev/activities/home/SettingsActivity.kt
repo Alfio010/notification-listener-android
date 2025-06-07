@@ -32,6 +32,7 @@ import com.android.alftendev.utils.UiUtils.setTheme
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlin.system.exitProcess
 
 class SettingsActivity : AppCompatActivity() {
     companion object {
@@ -85,7 +86,7 @@ class SettingsActivity : AppCompatActivity() {
             if (isNotificationServiceEnabled != null) {
                 val notificationEnabled =
                     requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                        .getBoolean(RECORD_NOTIFICATIONS_ENABLED, true)
+                        .getBoolean(RECORD_NOTIFICATIONS_ENABLED, false)
 
                 isNotificationServiceEnabled.isChecked = notificationEnabled
                 isNotificationServiceEnabled.onPreferenceChangeListener =
@@ -97,6 +98,27 @@ class SettingsActivity : AppCompatActivity() {
 
                         true
                     }
+            }
+
+            val clearAllData = findPreference<Preference>("delete_all_data")
+
+            if (clearAllData != null) {
+                clearAllData.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    val builder = MaterialAlertDialogBuilder(requireContext())
+                    builder.setTitle(getString(R.string.clear_all_data_title))
+                    builder.setMessage(getString(R.string.clear_all_data_confirm))
+                    builder.setPositiveButton(
+                        getString(R.string.yes)
+                    ) { _, _ ->
+                        MyApplication.database.removeAllObjects()
+                        exitProcess(0)
+                    }
+                    builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                    builder.setOnCancelListener { it.dismiss() }
+                    builder.create()
+                    builder.show()
+                    true
+                }
             }
 
             val blackListAuto =

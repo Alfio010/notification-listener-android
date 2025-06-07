@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.alftendev.MyApplication
 import com.android.alftendev.MyApplication.Companion.authSuccess
+import com.android.alftendev.MyApplication.Companion.sharedPrefName
 import com.android.alftendev.R
 import com.android.alftendev.activities.home.AllNotificationsActivity
 import com.android.alftendev.activities.home.ChatsActivity
@@ -26,9 +27,13 @@ import com.android.alftendev.adapters.NotificationsAdapter
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.MySharedPref
+import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
+import com.android.alftendev.utils.MySharedPref.getIsRecordNotificationsEnabled
+import com.android.alftendev.utils.PermissionUtils.askNotificationServicePermission
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 
 abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
@@ -78,9 +83,27 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         if (javaClass.simpleName == "AllNotificationsActivity") {
-            if (!isNotificationServiceEnabled(this)) {
+            if (!getIsRecordNotificationsEnabled()) {
                 runOnUiThread {
-                    UiUtils.showToast(getString(R.string.ask_not_permission), this)
+                    val builder = MaterialAlertDialogBuilder(this)
+                    builder.setTitle(getString(R.string.ask_not_permission_title))
+                    builder.setMessage(getString(R.string.ask_not_permission))
+                    builder.setPositiveButton(
+                        getString(R.string.yes)
+                    ) { _, _ ->
+                        val sharedPref = this.getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit()
+                            .putBoolean(RECORD_NOTIFICATIONS_ENABLED, true).commit()
+                        askNotificationServicePermission(this)
+                    }
+                    builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                    builder.setOnCancelListener { it.dismiss() }
+                    builder.create()
+                    builder.show()
+                }
+            } else if (!isNotificationServiceEnabled(this)) {
+                runOnUiThread {
+                    UiUtils.showToast(getString(R.string.explain_not_permission), this)
                 }
             }
         }
@@ -200,6 +223,11 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MyApplication.executor.submit { refreshList(getNotifications()) }
     }
 
     override fun onDestroy() {

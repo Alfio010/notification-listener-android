@@ -15,7 +15,7 @@
     <string name="blacklist_reset_confirm">Sei sicuro di voler resettare la blacklist?</string>
     <string name="blacklist_info">Tutte le app attivate nella blacklist verranno escluse dal notification listener</string>
     <string name="blacklist_auto">Blacklist app di sistema</string>
-    <string name="ask_not_permission">È necessario concedere il permesso di lettura notifiche</string>
+    <string name="ask_not_permission">Per offrirti una panoramica delle notifiche ricevute, questa app potrà accedere al contenuto delle notifiche e salvarle localmente sul tuo dispositivo. I tuoi dati non verranno condivisi con terzi e potrai cancellarli in ogni momento.</string>
     <string name="notification_name">Avvertimento cancellazione notifiche</string>
     <string name="notification_title">Notifica eliminata</string>
     <string name="enable_notification">Attiva notifiche</string>
@@ -82,4 +82,9 @@
     <string name="delete_notification">Cancella la notifica</string>
     <string name="confirm">Conferma</string>
     <string name="confirm_delete_noti_warning">Sei sicuro di voler eliminare la notifica? Questa azione è irreversibile</string>
+    <string name="ask_not_permission_title">Vuoi attivare la raccolta delle notifiche?</string>
+    <string name="explain_not_permission">L\'accesso alle notifiche richiede l\'autorizzazione dell\'app.</string>
+    <string name="clear_all_data_title">Cancella tutti i dati</string>
+    <string name="clear_all_data_summary">Tutti i dati acquisiti dall\'app verranno cancellati.</string>
+    <string name="clear_all_data_confirm">Sei sicuro di voler cancellare tutti i dati? L\'applicazione verrà riavviata.</string>
 </resources>

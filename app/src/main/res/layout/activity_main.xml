@@ -19,16 +19,6 @@
         android:visibility="gone" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/bNotiServicePermission"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="@string/ask_not_permission"
-        android:visibility="gone" />
-
-    <com.google.android.material.button.MaterialButton
         android:id="@+id/bContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

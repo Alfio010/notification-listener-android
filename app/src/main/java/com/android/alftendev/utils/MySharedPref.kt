@@ -24,6 +24,6 @@ object MySharedPref {
     }
 
     fun getIsRecordNotificationsEnabled(): Boolean {
-        return MyApplication.sharedPref.getBoolean(RECORD_NOTIFICATIONS_ENABLED, true)
+        return MyApplication.sharedPref.getBoolean(RECORD_NOTIFICATIONS_ENABLED, false)
     }
 }

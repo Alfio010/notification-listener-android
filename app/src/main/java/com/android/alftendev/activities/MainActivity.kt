@@ -22,7 +22,6 @@ import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bReAuth: MaterialButton
-    private lateinit var bNotiPermission: MaterialButton
     private lateinit var bContinue: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,18 +42,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         bReAuth = findViewById(R.id.bReAuth)
-        bNotiPermission = findViewById(R.id.bNotiServicePermission)
         bContinue = findViewById(R.id.bContinue)
-
-        if (!isNotificationServiceEnabled(this)) {
-            runOnUiThread {
-                bNotiPermission.visibility = View.VISIBLE
-                bNotiPermission.text = getString(R.string.ask_not_permission)
-                bNotiPermission.setOnClickListener {
-                    askNotificationServicePermission(this)
-                }
-            }
-        }
 
         bContinue.setOnClickListener {
             val intent = Intent(this, AllNotificationsActivity::class.java)
