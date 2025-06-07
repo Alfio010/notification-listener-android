@@ -108,7 +108,7 @@
     <string name="confirm">Confirm</string>
     <string name="confirm_delete_noti_warning">Are you sure you want to delete the notification? This action is irreversible</string>
     <string name="ask_not_permission_title">Do you want to enable notification collection?</string>
-    <string name="explain_not_permission">Accessing notifications requires giving permission to the app.</string>
+    <string name="explain_not_permission">To capture notifications it is necessary to grant access to the app.</string>
     <string name="clear_all_data_title">Clear all data</string>
     <string name="clear_all_data_summary">All data captured by the app will be deleted.</string>
     <string name="clear_all_data_confirm">Are you sure you want to delete all the data? The app will be restarted.</string>

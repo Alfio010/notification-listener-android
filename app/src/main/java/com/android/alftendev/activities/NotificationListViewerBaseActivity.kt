@@ -27,7 +27,9 @@ import com.android.alftendev.adapters.NotificationsAdapter
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.MySharedPref
+import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ALREADY_ASKED
 import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
+import com.android.alftendev.utils.MySharedPref.getIsRecordNotificationsAlreadyAsked
 import com.android.alftendev.utils.MySharedPref.getIsRecordNotificationsEnabled
 import com.android.alftendev.utils.PermissionUtils.askNotificationServicePermission
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
@@ -83,7 +85,10 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         if (javaClass.simpleName == "AllNotificationsActivity") {
-            if (!getIsRecordNotificationsEnabled()) {
+            if (!getIsRecordNotificationsEnabled() && !getIsRecordNotificationsAlreadyAsked()) {
+                val sharedPref = this.getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                sharedPref.edit()
+                    .putBoolean(RECORD_NOTIFICATIONS_ALREADY_ASKED, true).commit()
                 runOnUiThread {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle(getString(R.string.ask_not_permission_title))
@@ -91,7 +96,6 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
                     builder.setPositiveButton(
                         getString(R.string.yes)
                     ) { _, _ ->
-                        val sharedPref = this.getSharedPreferences(sharedPrefName, MODE_PRIVATE)
                         sharedPref.edit()
                             .putBoolean(RECORD_NOTIFICATIONS_ENABLED, true).commit()
                         askNotificationServicePermission(this)

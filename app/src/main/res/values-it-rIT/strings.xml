@@ -83,7 +83,7 @@
     <string name="confirm">Conferma</string>
     <string name="confirm_delete_noti_warning">Sei sicuro di voler eliminare la notifica? Questa azione è irreversibile</string>
     <string name="ask_not_permission_title">Vuoi attivare la raccolta delle notifiche?</string>
-    <string name="explain_not_permission">L\'accesso alle notifiche richiede l\'autorizzazione dell\'app.</string>
+    <string name="explain_not_permission">Per catturare le notifiche è necessario concedere l\'accesso all\' app.</string>
     <string name="clear_all_data_title">Cancella tutti i dati</string>
     <string name="clear_all_data_summary">Tutti i dati acquisiti dall\'app verranno cancellati.</string>
     <string name="clear_all_data_confirm">Sei sicuro di voler cancellare tutti i dati? L\'applicazione verrà riavviata.</string>

@@ -10,11 +10,14 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
-import android.net.Uri
 import android.os.Build
 import android.service.notification.StatusBarNotification
+import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toIcon
+import androidx.core.graphics.get
+import androidx.core.graphics.scale
+import androidx.core.net.toUri
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication.Companion.pm
 import java.util.Random
@@ -55,12 +58,12 @@ object Utils {
 
     fun openPlayStore(context: Context, pkg: String) {
         try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$pkg")))
-        } catch (e: ActivityNotFoundException) {
+            context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
+        } catch (_: ActivityNotFoundException) {
             context.startActivity(
                 Intent(
                     Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=$pkg")
+                    "https://play.google.com/store/apps/details?id=$pkg".toUri()
                 )
             )
         }
@@ -77,7 +80,7 @@ object Utils {
         return try {
             pm.getApplicationLabel(pm.getApplicationInfo(pkgName, 0))
                 .toString()
-        } catch (e: java.lang.Exception) {
+        } catch (_: java.lang.Exception) {
             String()
         }
     }
@@ -101,7 +104,7 @@ object Utils {
     }
 
     fun openLink(context: Context, uri: String) {
-        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+        context.startActivity(Intent(Intent.ACTION_VIEW, uri.toUri()))
     }
 
     fun generateRandomColor(): Int {
@@ -112,8 +115,8 @@ object Utils {
     }
 
     fun getDominantColor(bitmap: Bitmap): Int {
-        val newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true)
-        val color = newBitmap.getPixel(0, 0)
+        val newBitmap = bitmap.scale(1, 1)
+        val color = newBitmap[0, 0]
         newBitmap.recycle()
         return color
     }
@@ -123,11 +126,7 @@ object Utils {
             return drawable.toBitmap().toIcon()
         }
 
-        val bitmap = Bitmap.createBitmap(
-            drawable.intrinsicWidth,
-            drawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
+        val bitmap = createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight)
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, canvas.width, canvas.height)
         drawable.draw(canvas)

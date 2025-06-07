@@ -10,6 +10,7 @@ object MySharedPref {
     const val AUTH_ENABLED_STRING = "isAuthEnabled"
     const val THEME_OPTIONS_ENABLED = "isAutoTheme"
     const val RECORD_NOTIFICATIONS_ENABLED = "isRecordNotificationEnabled"
+    const val RECORD_NOTIFICATIONS_ALREADY_ASKED = "isRecordNotificationAlreadyAsked"
 
     fun getAutoBlacklistOn(): Boolean {
         return MyApplication.sharedPref.getBoolean(AUTO_BLACKLIST_ENABLED_STRING, true)
@@ -25,5 +26,9 @@ object MySharedPref {
 
     fun getIsRecordNotificationsEnabled(): Boolean {
         return MyApplication.sharedPref.getBoolean(RECORD_NOTIFICATIONS_ENABLED, false)
+    }
+
+    fun getIsRecordNotificationsAlreadyAsked(): Boolean {
+        return MyApplication.sharedPref.getBoolean(RECORD_NOTIFICATIONS_ALREADY_ASKED, false)
     }
 }
