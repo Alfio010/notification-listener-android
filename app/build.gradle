@@ -24,8 +24,8 @@ android {
         applicationId "com.alftendev.notlistener"
         minSdk 24
         targetSdk 35
-        versionCode 31
-        versionName "2.3.3"
+        versionCode 32
+        versionName "2.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
