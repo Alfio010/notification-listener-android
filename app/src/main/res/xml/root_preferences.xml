@@ -75,6 +75,27 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:title="@string/export_import">
+
+        <Preference
+            app:key="export_db"
+            app:summary="@string/exports_the_notification_database_to_a_password_encrypted_file"
+            app:title="@string/export">
+
+        </Preference>
+
+        <Preference
+            app:key="import_db"
+            app:summary="@string/import_notification_database_password_generated_during_export_required"
+            app:title="@string/import_string">
+
+        </Preference>
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/security">
 
         <SwitchPreferenceCompat

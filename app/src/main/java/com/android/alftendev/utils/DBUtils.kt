@@ -179,6 +179,20 @@ object DBUtils {
             .find()
     }
 
+    fun allPackageNameLazy(): LazyList<PackageName> {
+        return packageNames
+            .query()
+            .build()
+            .findLazy()
+    }
+
+    fun allNotifications(): LazyList<Notifications> {
+        return notifications
+            .query()
+            .build()
+            .findLazy()
+    }
+
     fun deletedNotificationSearch(string: String): List<Notifications> {
         return notifications
             .query()
@@ -237,6 +251,40 @@ object DBUtils {
         return notifications
     }
 
+    fun createNotificationFromJson(
+        pkgName: String,
+        title: String,
+        date: Long,
+        text: String,
+        bigText: String?,
+        conversationTitle: String?,
+        infoText: String?,
+        peopleList: String?,
+        titleBig: String?,
+        isDeleted: Boolean
+    ) {
+        val packageName = getPackageName(pkgName)
+
+        val notification = Notifications(
+            0,
+            title,
+            Date(date),
+            text,
+            bigText,
+            conversationTitle,
+            infoText,
+            peopleList,
+            titleBig,
+            isDeleted
+        )
+
+        notification.packageName.target = packageName
+
+        if (packageName != null) {
+            notifications.put(notification)
+        }
+    }
+
     fun createNotificationDeleted(
         pkgName: String,
         title: String,
@@ -283,6 +331,21 @@ object DBUtils {
             Utils.getAppNameFromPackageName(pkgName),
             pkgName
         )
+    }
+
+    fun createPackageNameFromJson(
+        pkgName: String,
+        name: String?,
+        isBlacklist: Boolean,
+        isChat: Boolean
+    ) {
+        packageNames.put(PackageName(
+            0,
+            name,
+            pkgName,
+            isBlacklist,
+            isChat
+        ))
     }
 
     fun createBlackListPackageName(

@@ -1,8 +1,11 @@
 package com.android.alftendev.activities.home
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.ListPreference
@@ -15,9 +18,11 @@ import com.android.alftendev.MyApplication.Companion.sharedPrefName
 import com.android.alftendev.R
 import com.android.alftendev.activities.adaptersactivity.BlackListActivity
 import com.android.alftendev.activities.adaptersactivity.IsChatActivity
+import com.android.alftendev.activities.otheractivity.ImportActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.AuthUtils.isBiometricAuthAvailable
 import com.android.alftendev.utils.DBUtils
+import com.android.alftendev.utils.ImportExport
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
@@ -33,6 +38,8 @@ import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.system.exitProcess
+import androidx.core.content.edit
+
 
 class SettingsActivity : AppCompatActivity() {
     companion object {
@@ -93,8 +100,9 @@ class SettingsActivity : AppCompatActivity() {
                     Preference.OnPreferenceChangeListener { _, newValue ->
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                        sharedPref.edit()
-                            .putBoolean(RECORD_NOTIFICATIONS_ENABLED, newValue as Boolean).commit()
+                        sharedPref.edit(commit = true) {
+                            putBoolean(RECORD_NOTIFICATIONS_ENABLED, newValue as Boolean)
+                        }
 
                         true
                     }
@@ -130,8 +138,9 @@ class SettingsActivity : AppCompatActivity() {
                     Preference.OnPreferenceChangeListener { _, newValue ->
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                        sharedPref.edit()
-                            .putBoolean(AUTO_BLACKLIST_ENABLED_STRING, newValue as Boolean).commit()
+                        sharedPref.edit(commit = true) {
+                            putBoolean(AUTO_BLACKLIST_ENABLED_STRING, newValue as Boolean)
+                        }
                         true
                     }
             }
@@ -146,11 +155,17 @@ class SettingsActivity : AppCompatActivity() {
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
                         if (isBiometricAuthAvailable(requireContext(), myActivity)) {
-                            sharedPref.edit().putBoolean(AUTH_ENABLED_STRING, newValue as Boolean)
-                                .commit()
+                            sharedPref.edit(commit = true) {
+                                putBoolean(AUTH_ENABLED_STRING, newValue as Boolean)
+                            }
                         } else {
                             isAuthEnabled.isChecked = false
-                            sharedPref.edit().putBoolean(AUTH_ENABLED_STRING, false).commit()
+                            sharedPref.edit(commit = true) {
+                                putBoolean(
+                                    AUTH_ENABLED_STRING,
+                                    false
+                                )
+                            }
                         }
                         true
                     }
@@ -172,14 +187,15 @@ class SettingsActivity : AppCompatActivity() {
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
 
-                        sharedPref.edit().putInt(
-                            THEME_OPTIONS_ENABLED,
-                            UiUtils.themeStringToValue(
-                                this.requireContext(),
-                                newValue.toString()
+                        sharedPref.edit(commit = true) {
+                            putInt(
+                                THEME_OPTIONS_ENABLED,
+                                UiUtils.themeStringToValue(
+                                    requireContext(),
+                                    newValue.toString()
+                                )
                             )
-                        )
-                            .commit()
+                        }
 
                         setTheme(myActivity)
                         myActivity.recreate()
@@ -282,11 +298,55 @@ class SettingsActivity : AppCompatActivity() {
 
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                        sharedPref.edit()
-                            .putBoolean(NOTIFICATION_ENABLED_STRING, newValue).commit()
+                        sharedPref.edit(commit = true) {
+                            putBoolean(NOTIFICATION_ENABLED_STRING, newValue)
+                        }
 
                         true
                     }
+            }
+
+            val exportDb = findPreference<Preference>("export_db")
+
+            if (exportDb != null) {
+                exportDb.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    MyApplication.executor.submit {
+                        try {
+                            val result = ImportExport.exportDbZipEncrypted(requireContext())
+
+                            activity?.runOnUiThread {
+                                val builder = MaterialAlertDialogBuilder(requireContext())
+                                builder.setTitle(R.string.zip_password)
+                                builder.setMessage(result.second)
+                                builder.setPositiveButton(
+                                    getString(R.string.copy_string)
+                                ) { _, _ ->
+                                    val clipboard: ClipboardManager =
+                                        requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                                    val clip = ClipData.newPlainText(getString(R.string.zip_password), result.second)
+                                    clipboard.setPrimaryClip(clip)
+                                }
+                                builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+                                builder.setOnCancelListener { it.dismiss() }
+                                builder.create()
+                                builder.show()
+                            }
+                        } catch (e: Exception) {
+                            Log.d("export-error", e.stackTraceToString())
+                        }
+                    }
+                    true
+                }
+            }
+
+            val importDb = findPreference<Preference>("import_db")
+
+            if (importDb != null) {
+                importDb.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    val intent = Intent(requireContext(), ImportActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
             }
 
             val notificationCount = findPreference<Preference>("notification_count")

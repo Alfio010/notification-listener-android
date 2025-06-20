@@ -43,7 +43,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Simplenotlistener"
         tools:targetApi="tiramisu">
-
+        <activity
+            android:name=".activities.otheractivity.ImportActivity"
+            android:exported="false" />
         <activity
             android:name=".activities.home.WebViewActivity"
             android:exported="false"
@@ -117,7 +119,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/last_noti_widget_info" />
         </receiver>
-
         <receiver
             android:name=".widget.ChatNotiWidgetProvider"
             android:exported="false">
@@ -129,7 +130,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/chat_noti_widget_info" />
         </receiver>
-
         <receiver
             android:name=".widget.DeletedNotiWidgetProvider"
             android:exported="false">
@@ -151,7 +151,6 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
         <service
             android:name=".widget.LastNotiWidgetService"
             android:exported="false"
@@ -160,7 +159,6 @@
                 <action android:name="android.widget.RemoteViewsService" />
             </intent-filter>
         </service>
-
         <service
             android:name=".widget.ChatNotiWidgetService"
             android:exported="false"
@@ -169,7 +167,6 @@
                 <action android:name="android.widget.RemoteViewsService" />
             </intent-filter>
         </service>
-
         <service
             android:name=".widget.DeletedNotiWidgetService"
             android:exported="false"
@@ -178,6 +175,16 @@
                 <action android:name="android.widget.RemoteViewsService" />
             </intent-filter>
         </service>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

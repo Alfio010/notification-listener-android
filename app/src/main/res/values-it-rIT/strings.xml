@@ -87,4 +87,14 @@
     <string name="clear_all_data_title">Cancella tutti i dati</string>
     <string name="clear_all_data_summary">Tutti i dati acquisiti dall\'app verranno cancellati.</string>
     <string name="clear_all_data_confirm">Sei sicuro di voler cancellare tutti i dati? L\'applicazione verrà riavviata.</string>
+    <string name="export_import">Esportazione/Importazione</string>
+    <string name="exports_the_notification_database_to_a_password_encrypted_file">Esporta il database delle notifiche in un file cifrato con password.</string>
+    <string name="export">Esporta</string>
+    <string name="import_string">Importa</string>
+    <string name="import_notification_database_password_generated_during_export_required">Importa il database delle notifiche (è necessaria la password generata durante l\'esportazione)</string>
+    <string name="copy_string">Copia</string>
+    <string name="enter_zip_password">Inserire la password dello zip</string>
+    <string name="zip_does_not_exist">Il file Zip non esiste</string>
+    <string name="select_the_zip">Seleziona lo zip</string>
+    <string name="import_the_zip">Importa lo zip</string>
 </resources>

@@ -112,4 +112,15 @@
     <string name="clear_all_data_title">Clear all data</string>
     <string name="clear_all_data_summary">All data captured by the app will be deleted.</string>
     <string name="clear_all_data_confirm">Are you sure you want to delete all the data? The app will be restarted.</string>
+    <string name="export_import">Export/Import</string>
+    <string name="exports_the_notification_database_to_a_password_encrypted_file">Exports the notification database to a password encrypted file.</string>
+    <string name="export">Export</string>
+    <string name="import_string">Import</string>
+    <string name="import_notification_database_password_generated_during_export_required">Import notification database (password generated during export required)</string>
+    <string name="copy_string">Copy</string>
+    <string name="zip_password" translatable="false">Zip password</string>
+    <string name="enter_zip_password">Enter zip password</string>
+    <string name="zip_does_not_exist">Zip file does not exist</string>
+    <string name="select_the_zip">Select the zip</string>
+    <string name="import_the_zip">Import the zip</string>
 </resources>
