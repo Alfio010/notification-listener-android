@@ -38,6 +38,7 @@ import com.android.alftendev.utils.UiUtils.setTheme
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.io.File
 import kotlin.system.exitProcess
 
 
@@ -313,6 +314,7 @@ class SettingsActivity : AppCompatActivity() {
                     MyApplication.executor.submit {
                         try {
                             val result = ImportExport.exportDbZipEncrypted(requireContext())
+                            val zip = File(result.first)
 
                             activity?.runOnUiThread {
                                 val builder = MaterialAlertDialogBuilder(requireContext())
@@ -328,9 +330,23 @@ class SettingsActivity : AppCompatActivity() {
                                         result.second
                                     )
                                     clipboard.setPrimaryClip(clip)
+
+                                    if (zip.exists()) {
+                                        zip.delete()
+                                    }
                                 }
-                                builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }
-                                builder.setOnCancelListener { it.dismiss() }
+                                builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                                    if (zip.exists()) {
+                                        zip.delete()
+                                    }
+                                }
+                                builder.setOnCancelListener {
+                                    if (zip.exists()) {
+                                        zip.delete()
+                                    }
+
+                                    it.dismiss()
+                                }
                                 builder.create()
                                 builder.show()
                             }
