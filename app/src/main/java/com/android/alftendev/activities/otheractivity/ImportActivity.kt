@@ -50,11 +50,17 @@ class ImportActivity : AppCompatActivity() {
                             }
 
                             LOGGER.log("processing zip")
+                            UiUtils.showToast(getString(R.string.importing_zip), this)
+
                             MyApplication.executor.submit {
                                 ImportExport.importZipDecryptAndPrintStreaming(
                                     zipFile,
                                     zipPassword
                                 )
+
+                                runOnUiThread {
+                                    UiUtils.showToast(getString(R.string.import_completed), this)
+                                }
                             }
                         } else {
                             UiUtils.showToast(getString(R.string.zip_does_not_exist), this)

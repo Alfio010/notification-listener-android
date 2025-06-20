@@ -148,7 +148,7 @@ object ImportExport {
         val json = JSONObject(jsonString)
 
         createPackageNameFromJson(
-            json.optString("packageName", ""),
+            json.optString("pkg", ""),
             json.optString("name", ""),
             json.optBoolean("isBlacklist", false),
             json.optBoolean("isChat", false),

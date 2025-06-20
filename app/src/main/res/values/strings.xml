@@ -123,4 +123,6 @@
     <string name="zip_does_not_exist">Zip file does not exist</string>
     <string name="select_the_zip">Select the zip</string>
     <string name="import_the_zip">Import the zip</string>
+    <string name="import_completed">Import completed</string>
+    <string name="importing_zip">Importing zip</string>
 </resources>

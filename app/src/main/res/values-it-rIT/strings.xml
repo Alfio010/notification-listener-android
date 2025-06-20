@@ -97,4 +97,6 @@
     <string name="zip_does_not_exist">Il file Zip non esiste</string>
     <string name="select_the_zip">Seleziona lo zip</string>
     <string name="import_the_zip">Importa lo zip</string>
+    <string name="import_completed">Importazione completata</string>
+    <string name="importing_zip">Sto importando lo zip</string>
 </resources>
