@@ -37,7 +37,9 @@ object ImportExport {
     }
 
     fun exportDbZipEncrypted(context: Context): Pair<String, String> {
-        val formatter = SimpleDateFormat("MM-dd-yyyy-HH-mm", Locale.getDefault()).apply { timeZone = TimeZone.getDefault() }
+        val formatter = SimpleDateFormat("MM-dd-yyyy-HH-mm", Locale.getDefault()).apply {
+            timeZone = TimeZone.getDefault()
+        }
         val timestamp = formatter.format(Date())
 
         val zipFileName = "$timestamp.zip"
@@ -84,7 +86,8 @@ object ImportExport {
             if (!tempDir.exists()) tempDir.mkdirs()
             zipFile.extractAll(tempDir.absolutePath)
 
-            packageJsonFile = tempDir.listFiles()?.firstOrNull { it.name.startsWith("package") && it.extension == "json" }
+            packageJsonFile = tempDir.listFiles()
+                ?.firstOrNull { it.name.startsWith("package") && it.extension == "json" }
                 ?: run {
                     LOGGER.log("File JSON packageJsonFile package not found")
                     return
@@ -98,7 +101,8 @@ object ImportExport {
                 }
             }
 
-            notificationsJsonFile = tempDir.listFiles()?.firstOrNull { it.name.startsWith("notification") && it.extension == "json" }
+            notificationsJsonFile = tempDir.listFiles()
+                ?.firstOrNull { it.name.startsWith("notification") && it.extension == "json" }
                 ?: run {
                     LOGGER.log("File JSON notificationsJsonFile package not found")
                     return
@@ -167,7 +171,7 @@ object ImportExport {
         context.startActivity(Intent.createChooser(shareIntent, "Share zip via"))
     }
 
-    fun <T: IJsonSerializable> writeTmpJsonFile(file: File, list: LazyList<T>) {
+    fun <T : IJsonSerializable> writeTmpJsonFile(file: File, list: LazyList<T>) {
         FileWriter(file).use { writer ->
             var first = true
             for (element in list) {

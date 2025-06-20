@@ -28,38 +28,44 @@ class ImportActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_import)
 
-        filePickerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            LOGGER.log("received resultCode ${result.resultCode}")
-            if (result.resultCode == RESULT_OK) {
-                val uri = result.data?.data
+        filePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                LOGGER.log("received resultCode ${result.resultCode}")
+                if (result.resultCode == RESULT_OK) {
+                    val uri = result.data?.data
 
-                if (uri == null) {
-                    LOGGER.log("uri is null")
-                    return@registerForActivityResult
-                }
-
-                val zipFile = copyUriToFile(this, uri)
-
-                if (zipFile != null) {
-                    if (zipFile.exists()) {
-                        if (zipPassword.isEmpty()) {
-                            UiUtils.showToast(getString(R.string.enter_zip_password), this)
-                            LOGGER.log("zip password empty")
-                            return@registerForActivityResult
-                        }
-
-                        LOGGER.log("processing zip")
-                        MyApplication.executor.submit { ImportExport.importZipDecryptAndPrintStreaming(zipFile, zipPassword) }
-                    } else {
-                        UiUtils.showToast(getString(R.string.zip_does_not_exist), this)
-                        LOGGER.log(getString(R.string.zip_does_not_exist))
+                    if (uri == null) {
+                        LOGGER.log("uri is null")
+                        return@registerForActivityResult
                     }
-                } else {
-                    UiUtils.showToast("zip null", this)
-                    LOGGER.log("zip null")
+
+                    val zipFile = copyUriToFile(this, uri)
+
+                    if (zipFile != null) {
+                        if (zipFile.exists()) {
+                            if (zipPassword.isEmpty()) {
+                                UiUtils.showToast(getString(R.string.enter_zip_password), this)
+                                LOGGER.log("zip password empty")
+                                return@registerForActivityResult
+                            }
+
+                            LOGGER.log("processing zip")
+                            MyApplication.executor.submit {
+                                ImportExport.importZipDecryptAndPrintStreaming(
+                                    zipFile,
+                                    zipPassword
+                                )
+                            }
+                        } else {
+                            UiUtils.showToast(getString(R.string.zip_does_not_exist), this)
+                            LOGGER.log(getString(R.string.zip_does_not_exist))
+                        }
+                    } else {
+                        UiUtils.showToast("zip null", this)
+                        LOGGER.log("zip null")
+                    }
                 }
             }
-        }
 
         val etZipPassword = findViewById<EditText>(R.id.etZipPassword)
         val bSelectZipFile = findViewById<MaterialButton>(R.id.bSelectZipFile)
@@ -76,8 +82,12 @@ class ImportActivity : AppCompatActivity() {
                 type = "*/*"
                 addCategory(Intent.CATEGORY_OPENABLE)
             }
-            filePickerLauncher.launch(Intent.createChooser(intent,
-                getString(R.string.select_the_zip)))
+            filePickerLauncher.launch(
+                Intent.createChooser(
+                    intent,
+                    getString(R.string.select_the_zip)
+                )
+            )
         }
     }
 }

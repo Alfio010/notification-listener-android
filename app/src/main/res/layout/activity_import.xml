@@ -12,11 +12,11 @@
         android:id="@+id/etZipPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_margin="20sp"
+        android:ems="10"
+        android:hint="@string/enter_zip_password"
         android:inputType="text"
         android:minHeight="48dp"
-        android:hint="@string/enter_zip_password"
         tools:ignore="TextFields" />
 
     <com.google.android.material.button.MaterialButton

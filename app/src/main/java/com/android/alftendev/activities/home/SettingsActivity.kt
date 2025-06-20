@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -38,7 +39,6 @@ import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.system.exitProcess
-import androidx.core.content.edit
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -323,7 +323,10 @@ class SettingsActivity : AppCompatActivity() {
                                 ) { _, _ ->
                                     val clipboard: ClipboardManager =
                                         requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-                                    val clip = ClipData.newPlainText(getString(R.string.zip_password), result.second)
+                                    val clip = ClipData.newPlainText(
+                                        getString(R.string.zip_password),
+                                        result.second
+                                    )
                                     clipboard.setPrimaryClip(clip)
                                 }
                                 builder.setNegativeButton(getString(R.string.cancel)) { _, _ -> }

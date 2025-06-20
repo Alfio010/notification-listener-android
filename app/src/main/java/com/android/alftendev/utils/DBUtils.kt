@@ -339,13 +339,15 @@ object DBUtils {
         isBlacklist: Boolean,
         isChat: Boolean
     ) {
-        packageNames.put(PackageName(
-            0,
-            name,
-            pkgName,
-            isBlacklist,
-            isChat
-        ))
+        packageNames.put(
+            PackageName(
+                0,
+                name,
+                pkgName,
+                isBlacklist,
+                isChat
+            )
+        )
     }
 
     fun createBlackListPackageName(

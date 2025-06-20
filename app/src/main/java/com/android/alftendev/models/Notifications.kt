@@ -19,7 +19,7 @@ data class Notifications(
     var peopleList: String? = null,
     var titleBig: String? = null,
     var isDeleted: Boolean = false
-): IJsonSerializable {
+) : IJsonSerializable {
     lateinit var packageName: ToOne<PackageName>
 
     override fun toString(): String {
