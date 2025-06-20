@@ -125,4 +125,5 @@
     <string name="import_the_zip">Import the zip</string>
     <string name="import_completed">Import completed</string>
     <string name="importing_zip">Importing zip</string>
+    <string name="loading">Loading…</string>
 </resources>

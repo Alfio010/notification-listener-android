@@ -1,5 +1,6 @@
 package com.android.alftendev.activities.otheractivity
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
@@ -13,6 +14,7 @@ import com.android.alftendev.utils.CustomLog
 import com.android.alftendev.utils.ImportExport
 import com.android.alftendev.utils.ImportExport.copyUriToFile
 import com.android.alftendev.utils.UiUtils
+import com.android.alftendev.utils.UiUtils.showLoadingDialog
 import com.google.android.material.button.MaterialButton
 
 class ImportActivity : AppCompatActivity() {
@@ -52,6 +54,12 @@ class ImportActivity : AppCompatActivity() {
                             LOGGER.log("processing zip")
                             UiUtils.showToast(getString(R.string.importing_zip), this)
 
+                            var loadingDialog: Dialog? = null
+
+                            runOnUiThread {
+                                loadingDialog = showLoadingDialog(this)
+                            }
+
                             MyApplication.executor.submit {
                                 ImportExport.importZipDecryptAndPrintStreaming(
                                     zipFile,
@@ -60,6 +68,7 @@ class ImportActivity : AppCompatActivity() {
 
                                 runOnUiThread {
                                     UiUtils.showToast(getString(R.string.import_completed), this)
+                                    loadingDialog?.dismiss()
                                 }
                             }
                         } else {

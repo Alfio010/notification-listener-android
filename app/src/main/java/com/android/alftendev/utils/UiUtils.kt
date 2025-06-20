@@ -3,8 +3,10 @@ package com.android.alftendev.utils
 import android.content.Context
 import android.content.res.Configuration
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.android.alftendev.R
@@ -84,5 +86,16 @@ object UiUtils {
 
     fun setTheme(context: Context) {
         context.setTheme(themeValueToTheme(context, MySharedPref.getThemeOptions()))
+    }
+
+    fun showLoadingDialog(context: Context): AlertDialog {
+        val dialogView =
+            LayoutInflater.from(context).inflate(R.layout.layout_progress_loading, null)
+        val dialog = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+        dialog.show()
+        return dialog
     }
 }
