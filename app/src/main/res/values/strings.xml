@@ -126,4 +126,6 @@
     <string name="import_completed">Import completed</string>
     <string name="importing_zip">Importing zip</string>
     <string name="loading">Loading…</string>
+    <string name="password_should_copy">This password is only visible in this menu, you should copy it or it will be lost.</string>
+    <string name="import_failed">Import failed</string>
 </resources>

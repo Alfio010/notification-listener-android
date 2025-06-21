@@ -61,14 +61,22 @@ class ImportActivity : AppCompatActivity() {
                             }
 
                             MyApplication.executor.submit {
-                                ImportExport.importZipDecryptAndPrintStreaming(
+                                val result = ImportExport.importZipDecryptAndPrintStreaming(
                                     zipFile,
                                     zipPassword
                                 )
 
                                 runOnUiThread {
-                                    UiUtils.showToast(getString(R.string.import_completed), this)
                                     loadingDialog?.dismiss()
+
+                                    if (result) {
+                                        UiUtils.showToast(
+                                            getString(R.string.import_completed),
+                                            this
+                                        )
+                                    } else {
+                                        UiUtils.showToast(getString(R.string.import_failed), this)
+                                    }
                                 }
                             }
                         } else {

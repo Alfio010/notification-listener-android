@@ -18,7 +18,6 @@ import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.NotificationsUtils.sendNotification
 import com.android.alftendev.utils.Utils.isBlacklistedNotification
-import com.android.alftendev.utils.Utils.isDiscordAndBlank
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
     companion object {
@@ -87,10 +86,6 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 text
             ) != null
         ) {
-            return
-        }
-
-        if (isDiscordAndBlank(sbn.packageName, text)) {
             return
         }
 
@@ -197,10 +192,6 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
 
         if (entity != null) {
-            return
-        }
-
-        if (isDiscordAndBlank(sbn.packageName, text)) {
             return
         }
 

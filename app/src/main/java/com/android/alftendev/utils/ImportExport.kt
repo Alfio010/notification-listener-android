@@ -72,7 +72,7 @@ object ImportExport {
         return Pair(zipFile.absolutePath, password)
     }
 
-    fun importZipDecryptAndPrintStreaming(tmpZipFile: File, password: String) {
+    fun importZipDecryptAndPrintStreaming(tmpZipFile: File, password: String): Boolean {
         var zipFile: ZipFile? = null
         var tempDir: File? = null
         var packageJsonFile: File? = null
@@ -90,7 +90,7 @@ object ImportExport {
                 ?.firstOrNull { it.name.startsWith("package") && it.extension == "json" }
                 ?: run {
                     LOGGER.log("File JSON packageJsonFile package not found")
-                    return
+                    return false
                 }
 
             Scanner(packageJsonFile).use {
@@ -105,7 +105,7 @@ object ImportExport {
                 ?.firstOrNull { it.name.startsWith("notification") && it.extension == "json" }
                 ?: run {
                     LOGGER.log("File JSON notificationsJsonFile package not found")
-                    return
+                    return false
                 }
 
             Scanner(notificationsJsonFile).use {
@@ -116,8 +116,10 @@ object ImportExport {
                 }
             }
 
+            return true
         } catch (e: Exception) {
             LOGGER.log(e.stackTraceToString())
+            return false
         } finally {
             tmpZipFile.delete()
             zipFile?.file?.delete()

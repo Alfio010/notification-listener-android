@@ -52,10 +52,6 @@ object Utils {
         return sbn.key == "com.sec.android.app.samsungapps|121314|null|10091"
     }
 
-    fun isDiscordAndBlank(pkgName: String, text: String): Boolean {
-        return pkgName == "com.discord" && text.isBlank()
-    }
-
     fun openPlayStore(context: Context, pkg: String) {
         try {
             context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
@@ -86,6 +82,7 @@ object Utils {
     }
 
     @SuppressLint("QueryPermissionsNeeded")
+    @Suppress("Unused")
     fun getPackageNameFromAppName(appName: String): String? {
         val apps by lazy { pm.getInstalledApplications(PackageManager.GET_META_DATA) }
 

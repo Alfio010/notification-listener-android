@@ -100,4 +100,6 @@
     <string name="import_completed">Importazione completata</string>
     <string name="importing_zip">Sto importando lo zip</string>
     <string name="loading">Caricamento…</string>
+    <string name="password_should_copy">Questa password è visibile solo in questo menu; è necessario copiarla o andrà persa.</string>
+    <string name="import_failed">Importazione non riuscita</string>
 </resources>

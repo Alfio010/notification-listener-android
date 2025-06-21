@@ -1,6 +1,7 @@
 package com.android.alftendev.activities.home
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
@@ -35,6 +36,7 @@ import com.android.alftendev.utils.PermissionUtils.isNotificationPostPermissionE
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.setTheme
+import com.android.alftendev.utils.UiUtils.showLoadingDialog
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -313,13 +315,21 @@ class SettingsActivity : AppCompatActivity() {
                 exportDb.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     MyApplication.executor.submit {
                         try {
+                            var loadingDialog: Dialog? = null
+
+                            activity?.runOnUiThread {
+                                loadingDialog = showLoadingDialog(requireContext())
+                            }
+
                             val result = ImportExport.exportDbZipEncrypted(requireContext())
                             val zip = File(result.first)
 
                             activity?.runOnUiThread {
+                                loadingDialog?.dismiss()
+
                                 val builder = MaterialAlertDialogBuilder(requireContext())
                                 builder.setTitle(R.string.zip_password)
-                                builder.setMessage(result.second)
+                                builder.setMessage(getString(R.string.password_should_copy) + "\n${result.second}")
                                 builder.setPositiveButton(
                                     getString(R.string.copy_string)
                                 ) { _, _ ->
@@ -331,11 +341,6 @@ class SettingsActivity : AppCompatActivity() {
                                     )
                                     clipboard.setPrimaryClip(clip)
 
-                                    if (zip.exists()) {
-                                        zip.delete()
-                                    }
-                                }
-                                builder.setNegativeButton(getString(R.string.cancel)) { _, _ ->
                                     if (zip.exists()) {
                                         zip.delete()
                                     }
