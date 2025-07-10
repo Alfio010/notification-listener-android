@@ -7,6 +7,7 @@ import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
@@ -460,5 +461,13 @@ class SettingsActivity : AppCompatActivity() {
                 version.title = "${version.title} ${BuildConfig.VERSION_NAME}"
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            this.onBackPressedDispatcher.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
