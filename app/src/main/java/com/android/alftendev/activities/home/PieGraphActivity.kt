@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.ListView
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
 import com.android.alftendev.R
 import com.android.alftendev.activities.specificactivity.SpecificGraphActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
@@ -96,13 +95,17 @@ class PieGraphActivity : AppCompatActivity() {
         val colors: ArrayList<Int> = ArrayList()
 
         percentageMap.forEach {
+            if (it.key == this.getString(R.string.others)) {
+                colors.add(Color.WHITE)
+            }
+
             val packageName = DBUtils.nameToPackageName(it.key)
 
             if (packageName.isNotBlank()) {
                 val icon = AppIcon.compute(packageName)
 
                 if (icon != null) {
-                    colors.add(getDominantColor(icon.toBitmap()))
+                    colors.add(getDominantColor(icon))
                     return@forEach
                 }
             }

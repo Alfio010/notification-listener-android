@@ -5,7 +5,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -15,9 +14,8 @@ import android.service.notification.StatusBarNotification
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toIcon
-import androidx.core.graphics.get
-import androidx.core.graphics.scale
 import androidx.core.net.toUri
+import androidx.palette.graphics.Palette
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication.Companion.pm
 import java.util.Random
@@ -111,11 +109,23 @@ object Utils {
         )
     }
 
-    fun getDominantColor(bitmap: Bitmap): Int {
-        val newBitmap = bitmap.scale(1, 1)
-        val color = newBitmap[0, 0]
-        newBitmap.recycle()
-        return color
+    fun getDominantColor(drawable: Drawable): Int {
+        val bitmap = drawable.toBitmap()
+        val palette = Palette.from(bitmap).generate()
+        val swatches = palette.swatches.sortedByDescending { it.population }
+        for (swatch in swatches) {
+            if (!isWhiteOrNearWhite(swatch.rgb)) {
+                return swatch.rgb
+            }
+        }
+        return 0xFFFFFFFF.toInt()
+    }
+
+    fun isWhiteOrNearWhite(color: Int): Boolean {
+        val red = (color shr 16) and 0xFF
+        val green = (color shr 8) and 0xFF
+        val blue = color and 0xFF
+        return red > 240 && green > 240 && blue > 240
     }
 
     fun getIconFromDrawable(drawable: Drawable): Icon {
