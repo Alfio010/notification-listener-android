@@ -13,3 +13,36 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+#built application files
+*.apk
+*.ap_
+*.aab
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+
+# Windows thumbnail db
+Thumbs.db
+
+# Android Studio
+.idea
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+build/
+.navigation
+captures/
+output.json
+
+#NDK
+obj/
+
+*.dm
+output-metadata.json
