@@ -24,7 +24,8 @@
     <string name="icon" translatable="false">icon</string>
 
     <string name="textview" translatable="false">TextView</string>
-    <string name="ask_not_permission">To give you an overview of the notifications you receive, this app will be able to access the contents of the notifications and save them locally on your device. Your data will not be shared with third parties and you can delete it at any time.</string>
+    <string name="ask_not_permission">To help you track the notifications you receive, this app can access and store the content of your notifications locally on your device. Your data will not be shared with third parties, and you can delete it at any time.\n You can disable notification collection at any moment directly from the app settings.\n By enabling this feature, you consent to the local processing of your notification data. For more details, please refer to our Privacy Policy.</string>
+    <string name="ask_not_permission_setting_summary">To help you track the notifications you receive, this app can access and store the content of your notifications locally on your device. Your data will not be shared with third parties, and you can delete it at any time. By enabling this feature, you consent to the local processing of your notification data. Refer to our Privacy Policy.</string>
     <string name="notification_name">Notification cancellation</string>
     <string name="notification_title">Notification deleted</string>
 

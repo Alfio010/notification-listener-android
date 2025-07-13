@@ -1,5 +1,6 @@
 package com.android.alftendev.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -35,6 +36,7 @@ import com.android.alftendev.utils.PermissionUtils.askNotificationServicePermiss
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
+import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 
@@ -58,6 +60,7 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ApplySharedPref")
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
@@ -101,6 +104,12 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
                         askNotificationServicePermission(this)
                     }
                     builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                    builder.setNeutralButton(getString(R.string.privacy_policy)) { _, _ ->
+                        Utils.openLink(
+                            this,
+                            "https://alfio010.github.io/"
+                        )
+                    }
                     builder.setOnCancelListener { it.dismiss() }
                     builder.create()
                     builder.show()

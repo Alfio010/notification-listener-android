@@ -15,7 +15,7 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:key="isRecordNotificationEnabled"
-            app:summary="@string/ask_not_permission"
+            app:summary="@string/ask_not_permission_setting_summary"
             app:title="@string/enable_notifications_recording" />
 
         <Preference
