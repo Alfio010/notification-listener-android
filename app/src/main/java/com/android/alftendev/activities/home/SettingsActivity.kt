@@ -104,41 +104,42 @@ class SettingsActivity : AppCompatActivity() {
                     false
                 }
 
-                isNotificationServiceEnabled.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    val builder = MaterialAlertDialogBuilder(requireContext())
-                    builder.setTitle(getString(R.string.ask_not_permission_title))
-                    builder.setMessage(getString(R.string.ask_not_permission))
-                    builder.setPositiveButton(
-                        getString(R.string.yes)
-                    ) { _, _ ->
-                        val sharedPref =
-                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                        sharedPref.edit(commit = true) {
-                            putBoolean(RECORD_NOTIFICATIONS_ENABLED, true)
-                        }
+                isNotificationServiceEnabled.onPreferenceClickListener =
+                    Preference.OnPreferenceClickListener {
+                        val builder = MaterialAlertDialogBuilder(requireContext())
+                        builder.setTitle(getString(R.string.ask_not_permission_title))
+                        builder.setMessage(getString(R.string.ask_not_permission))
+                        builder.setPositiveButton(
+                            getString(R.string.yes)
+                        ) { _, _ ->
+                            val sharedPref =
+                                requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                            sharedPref.edit(commit = true) {
+                                putBoolean(RECORD_NOTIFICATIONS_ENABLED, true)
+                            }
 
-                        isNotificationServiceEnabled.isChecked = true
-                    }
-                    builder.setNegativeButton(getString(R.string.no)) { _, _ ->
-                        val sharedPref =
-                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
-                        sharedPref.edit(commit = true) {
-                            putBoolean(RECORD_NOTIFICATIONS_ENABLED, false)
+                            isNotificationServiceEnabled.isChecked = true
                         }
+                        builder.setNegativeButton(getString(R.string.no)) { _, _ ->
+                            val sharedPref =
+                                requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                            sharedPref.edit(commit = true) {
+                                putBoolean(RECORD_NOTIFICATIONS_ENABLED, false)
+                            }
 
-                        isNotificationServiceEnabled.isChecked = false
+                            isNotificationServiceEnabled.isChecked = false
+                        }
+                        builder.setNeutralButton(getString(R.string.privacy_policy)) { _, _ ->
+                            Utils.openLink(
+                                requireContext(),
+                                "https://alfio010.github.io/"
+                            )
+                        }
+                        builder.setOnCancelListener { it.dismiss() }
+                        builder.create()
+                        builder.show()
+                        true
                     }
-                    builder.setNeutralButton(getString(R.string.privacy_policy)) { _, _ ->
-                        Utils.openLink(
-                            requireContext(),
-                            "https://alfio010.github.io/"
-                        )
-                    }
-                    builder.setOnCancelListener { it.dismiss() }
-                    builder.create()
-                    builder.show()
-                    true
-                }
             }
 
             val clearAllData = findPreference<Preference>("delete_all_data")
