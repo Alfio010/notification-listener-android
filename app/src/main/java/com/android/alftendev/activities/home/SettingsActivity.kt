@@ -235,6 +235,7 @@ class SettingsActivity : AppCompatActivity() {
                         myActivity.recreate()
                         UiUtils.showToast(getString(R.string.theme_changed), myActivity)
                         true
+                        exitProcess(0)
                     }
             }
 
