@@ -6,8 +6,6 @@ import android.content.pm.PackageManager
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.utils.DatabaseFactory
-import com.google.android.material.color.DynamicColors
-import com.google.android.material.color.DynamicColorsOptions
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import java.util.concurrent.ExecutorService
