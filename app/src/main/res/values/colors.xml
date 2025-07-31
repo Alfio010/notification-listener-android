@@ -3,6 +3,7 @@
 
     <color name="background">#eff0fa</color>
     <color name="background_dark">#191b23</color>
+    <color name="top_bar_background">#eeecf0</color>
 
     <color name="cyan_light">#baddf9</color>
     <color name="cyan_white">#edffff</color>
@@ -11,6 +12,11 @@
     <color name="blue">#42a5f5</color>
     <color name="blue_white">#80d6ff</color>
     <color name="blue_dark">#0077c2</color>
+    <color name="top_bar_dark_background">#1f1f23</color>
 
     <color name="background_dark_cardview">#424242</color>
+    <color name="background_light_cardview">#F5F5F5</color>
+
+    <color name="text_color_light_mode">#212121</color>
+    <color name="text_color_dark_mode">#FFFFFF</color>
 </resources>

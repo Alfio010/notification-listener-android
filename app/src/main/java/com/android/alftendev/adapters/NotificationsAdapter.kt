@@ -14,10 +14,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.alftendev.R
-import com.android.alftendev.activities.specificactivity.SpecificChatActivity
+import com.android.alftendev.jetpackactivities.ChatUIActivity
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.utils.DBUtils
-import com.android.alftendev.utils.UiUtils.dateFormatter
+import com.android.alftendev.utils.DateUtils.dateFormatter
 import com.android.alftendev.utils.Utils
 import com.android.alftendev.utils.computables.AppIcon
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -73,7 +73,7 @@ class NotificationsAdapter(
 
                 if (!notificationItem.bigText.isNullOrBlank()) {
                     customAlertDialogView.findViewById<TextView>(R.id.tvDialogBigText)
-                        .text = notificationItem.bigText
+                        .text = notificationItem.bigText!!.trim()
                 } else {
                     customAlertDialogView.findViewById<LinearLayout>(R.id.llDialogBigText)
                         .visibility = View.GONE
@@ -140,7 +140,7 @@ class NotificationsAdapter(
                 ) { _, _ ->
                     val intentChat = Intent(
                         context,
-                        SpecificChatActivity::class.java
+                        ChatUIActivity::class.java
                     ).setAction(Intent.ACTION_MAIN)
                     intentChat.putExtra("pkgName", notificationItem.packageName.target.pkg)
                     intentChat.putExtra("title", notificationItem.title)

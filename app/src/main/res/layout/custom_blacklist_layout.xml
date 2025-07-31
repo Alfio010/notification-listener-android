@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
-        app:cardBackgroundColor="?android:statusBarColor"
+        app:cardBackgroundColor="?cardBackgroundColor"
         app:cardCornerRadius="8dp"
         app:cardElevation="2dp"
         app:strokeWidth="1dp">

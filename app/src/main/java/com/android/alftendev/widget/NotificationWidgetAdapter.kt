@@ -6,7 +6,7 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.android.alftendev.R
 import com.android.alftendev.models.Notifications
-import com.android.alftendev.utils.UiUtils.dateFormatter
+import com.android.alftendev.utils.DateUtils.dateFormatter
 import com.android.alftendev.utils.Utils.getIconFromDrawable
 import com.android.alftendev.utils.computables.AppIcon
 

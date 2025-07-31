@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20sp"
+        android:autofillHints="@string/enter_zip_password"
         android:ems="10"
         android:hint="@string/enter_zip_password"
         android:inputType="text"

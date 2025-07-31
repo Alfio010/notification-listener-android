@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="show_chat">Mostra chat</string>
+    <string name="show_chat">Mostra come chat</string>
     <string name="all_notification">Tutte le notifiche</string>
     <string name="deleted_notification">Notifiche eliminate</string>
     <string name="advanced_search">Ricerca avanzata</string>
@@ -103,4 +103,7 @@
     <string name="loading">Caricamento…</string>
     <string name="password_should_copy">Questa password è visibile solo in questo menu; è necessario copiarla o andrà persa.</string>
     <string name="import_failed">Importazione non riuscita</string>
+    <string name="filters_label">Filtri</string>
+    <string name="apply_label">Applica</string>
+    <string name="file_not_found">File non trovato</string>
 </resources>

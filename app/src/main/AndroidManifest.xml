@@ -95,7 +95,7 @@
             android:exported="false"
             android:label="@string/search" />
         <activity
-            android:name=".activities.specificactivity.SpecificChatActivity"
+            android:name=".jetpackactivities.ChatUIActivity"
             android:exported="false"
             android:label="@string/chat" />
         <activity

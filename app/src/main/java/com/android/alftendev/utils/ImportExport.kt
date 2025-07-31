@@ -25,7 +25,7 @@ import java.util.Scanner
 import java.util.TimeZone
 
 object ImportExport {
-    val LOGGER = CustomLog("not-importer-export")
+    val LOGGER = CustomLog("noti-importer-export")
 
     private fun generateSecurePassword(length: Int = 16): String {
         val chars =
@@ -44,32 +44,38 @@ object ImportExport {
 
         val zipFileName = "$timestamp.zip"
 
-        val notificationsJsonFile = File(context.filesDir, "notifications-$timestamp.json")
+        var notificationsJsonFile: File? = null
+        var packageNameJsonFile: File? = null
 
-        writeTmpJsonFile(notificationsJsonFile, allNotifications())
+        try {
+            notificationsJsonFile = File(context.filesDir, "notifications-$timestamp.json")
+            writeTmpJsonFile(notificationsJsonFile, allNotifications())
 
-        val packageNameJsonFile = File(context.filesDir, "packagename-$timestamp.json")
+            packageNameJsonFile = File(context.filesDir, "packagename-$timestamp.json")
+            writeTmpJsonFile(packageNameJsonFile, allPackageNameLazy())
 
-        writeTmpJsonFile(packageNameJsonFile, allPackageNameLazy())
+            val password = generateSecurePassword()
 
-        val password = generateSecurePassword()
-
-        val zipFile = File(context.filesDir, zipFileName)
-        ZipFile(zipFile, password.toCharArray()).use { zip ->
-            val parameters = ZipParameters().apply {
-                isEncryptFiles = true
-                encryptionMethod = EncryptionMethod.AES
+            val zipFile = File(context.filesDir, zipFileName)
+            ZipFile(zipFile, password.toCharArray()).use { zip ->
+                val parameters = ZipParameters().apply {
+                    isEncryptFiles = true
+                    encryptionMethod = EncryptionMethod.AES
+                }
+                zip.addFile(notificationsJsonFile, parameters)
+                zip.addFile(packageNameJsonFile, parameters)
             }
-            zip.addFile(notificationsJsonFile, parameters)
-            zip.addFile(packageNameJsonFile, parameters)
+
+            shareZip(context, zipFile)
+
+            return Pair(zipFile.absolutePath, password)
+        } catch (e: Exception) {
+            LOGGER.log("exportDbZip error: ${e.stackTraceToString()}")
+            return Pair("error", e.stackTraceToString())
+        } finally {
+            notificationsJsonFile?.delete()
+            packageNameJsonFile?.delete()
         }
-
-        notificationsJsonFile.delete()
-        packageNameJsonFile.delete()
-
-        shareZip(context, zipFile)
-
-        return Pair(zipFile.absolutePath, password)
     }
 
     fun importZipDecryptAndPrintStreaming(tmpZipFile: File, password: String): Boolean {

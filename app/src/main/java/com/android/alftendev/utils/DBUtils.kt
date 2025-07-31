@@ -82,7 +82,7 @@ object DBUtils {
                 title,
                 QueryBuilder.StringOrder.CASE_SENSITIVE
             )
-            .orderDesc(Notifications_.time)
+            .order(Notifications_.time)
             .build()
             .findLazy()
             .filter { it.packageName.target.pkg == pkgName }

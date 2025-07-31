@@ -19,7 +19,7 @@ import com.google.android.material.button.MaterialButton
 
 class ImportActivity : AppCompatActivity() {
     companion object {
-        val LOGGER = CustomLog("not-importer-activity")
+        val LOGGER = CustomLog("noti-importer-activity")
 
         private lateinit var filePickerLauncher: ActivityResultLauncher<Intent>
         private var zipPassword = ""
@@ -38,6 +38,7 @@ class ImportActivity : AppCompatActivity() {
 
                     if (uri == null) {
                         LOGGER.log("uri is null")
+                        UiUtils.showToast(getString(R.string.file_not_found), this)
                         return@registerForActivityResult
                     }
 
@@ -47,7 +48,7 @@ class ImportActivity : AppCompatActivity() {
                         if (zipFile.exists()) {
                             if (zipPassword.isEmpty()) {
                                 UiUtils.showToast(getString(R.string.enter_zip_password), this)
-                                LOGGER.log("zip password empty")
+                                LOGGER.log("Zip password is empty")
                                 return@registerForActivityResult
                             }
 
@@ -84,9 +85,11 @@ class ImportActivity : AppCompatActivity() {
                             LOGGER.log(getString(R.string.zip_does_not_exist))
                         }
                     } else {
-                        UiUtils.showToast("zip null", this)
+                        UiUtils.showToast("Zip null", this)
                         LOGGER.log("zip null")
                     }
+                } else {
+                    UiUtils.showToast("Error result code ${result.resultCode}", this)
                 }
             }
 
@@ -102,7 +105,7 @@ class ImportActivity : AppCompatActivity() {
             zipPassword = etZipPassword.text.toString()
 
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-                type = "*/*"
+                type = "application/zip"
                 addCategory(Intent.CATEGORY_OPENABLE)
             }
             filePickerLauncher.launch(

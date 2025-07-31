@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.Simplenotlistener" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="Theme.Simplenotlistener" parent="Theme.Material3.DayNight">
 
         <item name="colorPrimary">@color/cyan_light</item>
         <item name="colorPrimaryVariant">@color/cyan_dark</item>
@@ -10,39 +10,42 @@
         <item name="colorSecondaryVariant">@color/blue_white</item>
         <item name="colorOnSecondary">@color/blue_dark</item>
 
-        <item name="android:statusBarColor">@color/background_dark_cardview</item>
+        <item name="cardBackgroundColor">@color/background_light_cardview</item>
+        <item name="android:textColor">@color/text_color_light_mode</item>
 
         <item name="backgroundColor">@color/background</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
-    <style name="Theme.light" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="Theme.light" parent="Theme.Material3.DayNight">
 
-        <item name="colorPrimary">@color/cyan_light</item>
+        <item name="colorPrimary">@color/blue_dark</item>
         <item name="colorPrimaryVariant">@color/cyan_dark</item>
         <item name="colorOnPrimary">@color/cyan_white</item>
 
         <item name="colorSecondary">@color/blue</item>
         <item name="colorSecondaryVariant">@color/blue_white</item>
-        <item name="colorOnSecondary">@color/blue_dark</item>
+        <item name="colorOnSecondary">@color/cyan_light</item>
 
-        <item name="android:statusBarColor">@color/background_dark_cardview</item>
+        <item name="cardBackgroundColor">@color/background_light_cardview</item>
+        <item name="android:textColor">@color/text_color_light_mode</item>
 
         <item name="backgroundColor">@color/background</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
-    <style name="Theme.dark" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="Theme.dark" parent="Theme.Material3.DayNight">
 
-        <item name="colorPrimary">@color/cyan_light</item>
+        <item name="colorPrimary">@color/blue_dark</item>
         <item name="colorPrimaryVariant">@color/cyan_dark</item>
         <item name="colorOnPrimary">@color/cyan_white</item>
 
         <item name="colorSecondary">@color/blue</item>
         <item name="colorSecondaryVariant">@color/blue_white</item>
-        <item name="colorOnSecondary">@color/blue_dark</item>
+        <item name="colorOnSecondary">@color/cyan_light</item>
 
-        <item name="android:statusBarColor">@color/background_dark_cardview</item>
+        <item name="cardBackgroundColor">@color/background_dark_cardview</item>
+        <item name="android:textColor">@color/text_color_dark_mode</item>
 
         <item name="backgroundColor">@color/background_dark</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
