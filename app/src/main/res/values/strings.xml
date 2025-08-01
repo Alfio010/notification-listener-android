@@ -133,4 +133,5 @@
     <string name="app_label" translatable="false">App</string>
     <string name="apply_label">Apply</string>
     <string name="file_not_found">File not found</string>
+    <string name="block_screenshots">Block screenshots</string>
 </resources>

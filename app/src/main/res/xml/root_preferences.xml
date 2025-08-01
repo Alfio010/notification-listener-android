@@ -103,6 +103,11 @@
             app:key="isAuthEnabled"
             app:title="@string/authInfo" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="areScreenshotBlocked"
+            app:title="@string/block_screenshots" />
+
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/theme">

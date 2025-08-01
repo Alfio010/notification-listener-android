@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -39,7 +40,9 @@ fun CustomAlertDialog(
                 onDismiss()
             },
             title = {
-                Text(text = notification.title)
+                SelectionContainer {
+                    Text(text = notification.title)
+                }
             },
             icon = {
                 icon?.let {
@@ -53,37 +56,39 @@ fun CustomAlertDialog(
                 )
             },
             text = {
-                Column {
-                    Text(text = "${LocalContext.current.getString(R.string.text)} ${notification.text}")
-                    Spacer(modifier = Modifier.height(8.dp))
+                SelectionContainer {
+                    Column {
+                        Text(text = "${LocalContext.current.getString(R.string.text)} ${notification.text}")
+                        Spacer(modifier = Modifier.height(8.dp))
 
-                    if (!notification.titleBig.isNullOrBlank()) {
-                        Text(text = "${LocalContext.current.getString(R.string.titleBig)} ${notification.titleBig}")
+                        if (!notification.titleBig.isNullOrBlank()) {
+                            Text(text = "${LocalContext.current.getString(R.string.titleBig)} ${notification.titleBig}")
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        if (!notification.conversationTitle.isNullOrBlank()) {
+                            Text(text = "${LocalContext.current.getString(R.string.conversationTitle)} ${notification.conversationTitle}")
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        if (!notification.bigText.isNullOrBlank()) {
+                            Text(text = "${LocalContext.current.getString(R.string.textBig)} ${notification.bigText!!.trim()}")
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        if (!notification.infoText.isNullOrBlank()) {
+                            Text(text = "${LocalContext.current.getString(R.string.infoText)} ${notification.infoText}")
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        if (!notification.peopleList.isNullOrBlank()) {
+                            Text(text = "${LocalContext.current.getString(R.string.peopleList)} ${notification.peopleList}")
+                            Spacer(modifier = Modifier.height(8.dp))
+                        }
+
+                        Text(text = "${LocalContext.current.getString(R.string.isDeleted)} ${notification.isDeleted}")
                         Spacer(modifier = Modifier.height(8.dp))
                     }
-
-                    if (!notification.conversationTitle.isNullOrBlank()) {
-                        Text(text = "${LocalContext.current.getString(R.string.conversationTitle)} ${notification.conversationTitle}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-
-                    if (!notification.bigText.isNullOrBlank()) {
-                        Text(text = "${LocalContext.current.getString(R.string.textBig)} ${notification.bigText!!.trim()}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-
-                    if (!notification.infoText.isNullOrBlank()) {
-                        Text(text = "${LocalContext.current.getString(R.string.infoText)} ${notification.infoText}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-
-                    if (!notification.peopleList.isNullOrBlank()) {
-                        Text(text = "${LocalContext.current.getString(R.string.peopleList)} ${notification.peopleList}")
-                        Spacer(modifier = Modifier.height(8.dp))
-                    }
-
-                    Text(text = "${LocalContext.current.getString(R.string.isDeleted)} ${notification.isDeleted}")
-                    Spacer(modifier = Modifier.height(8.dp))
                 }
             },
             confirmButton = {

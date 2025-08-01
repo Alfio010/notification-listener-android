@@ -29,6 +29,7 @@ import com.android.alftendev.utils.ImportExport
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
+import com.android.alftendev.utils.MySharedPref.BLOCK_SCREENSHOT
 import com.android.alftendev.utils.MySharedPref.NOTIFICATION_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
 import com.android.alftendev.utils.MySharedPref.THEME_OPTIONS_ENABLED
@@ -202,6 +203,23 @@ class SettingsActivity : AppCompatActivity() {
                             }
                         }
                         true
+                    }
+            }
+
+            val areScreenshotBlocked =
+                findPreference<SwitchPreferenceCompat>("areScreenshotBlocked")
+
+            if (areScreenshotBlocked != null) {
+                areScreenshotBlocked.isChecked = MySharedPref.getAreScreenshotBlocked()
+                areScreenshotBlocked.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit(commit = true) {
+                            putBoolean(BLOCK_SCREENSHOT, newValue as Boolean)
+                        }
+                        true
+                        exitProcess(0)
                     }
             }
 

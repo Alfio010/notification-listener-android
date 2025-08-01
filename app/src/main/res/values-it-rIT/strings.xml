@@ -106,4 +106,5 @@
     <string name="filters_label">Filtri</string>
     <string name="apply_label">Applica</string>
     <string name="file_not_found">File non trovato</string>
+    <string name="block_screenshots">Blocca gli screenshot</string>
 </resources>

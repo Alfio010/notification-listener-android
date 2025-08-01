@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -45,46 +46,48 @@ fun ChatMessageBubble(
         )
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 4.dp),
-        horizontalAlignment = Alignment.Start
-    ) {
-        Box(
+    SelectionContainer {
+        Column(
             modifier = Modifier
-                .background(
-                    androidx.compose.material3.MaterialTheme.colorScheme.onBackground,
-                    shape = MaterialTheme.shapes.medium
-                )
-                .padding(12.dp)
-                .widthIn(max = 280.dp)
-                .clickable { onDialogChange(true) }
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp, vertical = 4.dp),
+            horizontalAlignment = Alignment.Start
         ) {
-            Column {
-                Text(
-                    text = displayText,
-                    fontSize = 16.sp,
-                    color = androidx.compose.material3.MaterialTheme.colorScheme.tertiary
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    if (message.isDeleted) {
+            Box(
+                modifier = Modifier
+                    .background(
+                        androidx.compose.material3.MaterialTheme.colorScheme.onBackground,
+                        shape = MaterialTheme.shapes.medium
+                    )
+                    .padding(12.dp)
+                    .widthIn(max = 280.dp)
+                    .clickable { onDialogChange(true) }
+            ) {
+                Column {
+                    Text(
+                        text = displayText,
+                        fontSize = 16.sp,
+                        color = androidx.compose.material3.MaterialTheme.colorScheme.tertiary
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        if (message.isDeleted) {
+                            Text(
+                                text = LocalContext.current.getString(R.string.deleted),
+                                fontSize = 16.sp,
+                                color = Color.Gray
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = LocalContext.current.getString(R.string.deleted),
-                            fontSize = 16.sp,
+                            text = timestamp,
+                            fontSize = 12.sp,
                             color = Color.Gray
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = timestamp,
-                        fontSize = 12.sp,
-                        color = Color.Gray
-                    )
                 }
             }
         }
