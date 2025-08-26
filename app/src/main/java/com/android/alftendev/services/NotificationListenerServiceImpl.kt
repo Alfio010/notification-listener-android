@@ -16,8 +16,9 @@ import com.android.alftendev.utils.DBUtils.lastNotification
 import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
+import com.android.alftendev.utils.MySharedPref.isBlacklistEnabled
 import com.android.alftendev.utils.NotificationsUtils.sendNotification
-import com.android.alftendev.utils.Utils.isBlacklistedNotification
+import com.android.alftendev.utils.Utils.isAutoBlacklistedNotification
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
     companion object {
@@ -31,12 +32,22 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (isBlacklistedNotification(sbn)) {
+        if (isAutoBlacklistedNotification(sbn)) {
             return
         }
 
-        if (DBUtils.allPackageNameFromTable().any { it.pkg == sbn.packageName && it.isBlackList }) {
-            return
+        if (isBlacklistEnabled()) {
+            if (DBUtils.allPackageNameFromTable()
+                    .any { it.pkg == sbn.packageName && it.isBlackList }
+            ) {
+                return
+            }
+        } else {
+            if (DBUtils.allPackageNameFromTable()
+                    .any { it.pkg == sbn.packageName && !it.isWhiteList }
+            ) {
+                return
+            }
         }
 
         if (MySharedPref.getAutoBlacklistOn() &&
@@ -138,7 +149,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (isBlacklistedNotification(sbn)) {
+        if (isAutoBlacklistedNotification(sbn)) {
             return
         }
 

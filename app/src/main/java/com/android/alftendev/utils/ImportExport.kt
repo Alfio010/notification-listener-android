@@ -159,6 +159,7 @@ object ImportExport {
             json.optString("pkg", ""),
             json.optString("name", ""),
             json.optBoolean("isBlacklist", false),
+            json.optBoolean("isWhiteList", false),
             json.optBoolean("isChat", false),
         )
     }

@@ -107,4 +107,8 @@
     <string name="apply_label">Applica</string>
     <string name="file_not_found">File non trovato</string>
     <string name="block_screenshots">Blocca gli screenshot</string>
+    <string name="when_on_only_apps_in_the_blacklist_are_blocked_when_off_only_apps_in_the_whitelist_are_allowed">Se attivo, verranno bloccate solo le app nella blacklist. Se disattivo, verranno permesse solo le app nella whitelist.</string>
+    <string name="open_whitelist">Apri whitelist</string>
+    <string name="whitelist_info">Tutte le app attivate presenti nella whitelist saranno incluse dal listener delle notifiche.</string>
+    <string name="whitelist_reset_confirm">Sei sicuro di voler resettare la whitelist?</string>
 </resources>

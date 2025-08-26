@@ -14,17 +14,20 @@ import com.android.alftendev.utils.computables.AppIcon
 import com.google.android.material.textview.MaterialTextView
 
 // TODO specificGraph in alert
-class BlacklistAdapter(private val packageNames: List<PackageName>) :
-    RecyclerView.Adapter<BlacklistAdapter.ViewHolder>() {
+class BlackWhitelistAdapter(
+    private val packageNames: List<PackageName>,
+    private val blacklistMode: Boolean
+) :
+    RecyclerView.Adapter<BlackWhitelistAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNamePackage: MaterialTextView
-        val swIsBlackListed: SwitchCompat
-        val ivBlacklist: ImageView
+        val swIsBlackWhiteListed: SwitchCompat
+        val ivBlackWhitelist: ImageView
 
         init {
             tvNamePackage = view.findViewById(R.id.tvPackageName)
-            swIsBlackListed = view.findViewById(R.id.swIsBlackListed)
-            ivBlacklist = view.findViewById(R.id.ivBlacklist)
+            swIsBlackWhiteListed = view.findViewById(R.id.swIsBlackListed)
+            ivBlackWhitelist = view.findViewById(R.id.ivBlacklist)
         }
     }
 
@@ -44,18 +47,30 @@ class BlacklistAdapter(private val packageNames: List<PackageName>) :
             packageName.name
         }
 
-        viewHolder.swIsBlackListed.setOnCheckedChangeListener(null)
+        viewHolder.swIsBlackWhiteListed.setOnCheckedChangeListener(null)
 
-        viewHolder.swIsBlackListed.isChecked = packageName.isBlackList
+        viewHolder.swIsBlackWhiteListed.isChecked = if (blacklistMode) {
+            packageName.isBlackList
+        } else {
+            packageName.isWhiteList
+        }
 
-        viewHolder.swIsBlackListed.setOnCheckedChangeListener { _, isChecked ->
+        viewHolder.swIsBlackWhiteListed.setOnCheckedChangeListener { _, isChecked ->
             val entity = DBUtils.getPackageName(packageName.pkg)
             if (entity != null) {
-                entity.isBlackList = isChecked
-                MyApplication.packageNames.put(entity)
+                if (blacklistMode) {
+                    entity.isBlackList = isChecked
+                    MyApplication.packageNames.put(entity)
 
-                DBUtils.getPackageName(packageName.pkg)
-                    ?.let { viewHolder.swIsBlackListed.isChecked = it.isBlackList }
+                    DBUtils.getPackageName(packageName.pkg)
+                        ?.let { viewHolder.swIsBlackWhiteListed.isChecked = it.isBlackList }
+                } else {
+                    entity.isWhiteList = isChecked
+                    MyApplication.packageNames.put(entity)
+
+                    DBUtils.getPackageName(packageName.pkg)
+                        ?.let { viewHolder.swIsBlackWhiteListed.isChecked = it.isWhiteList }
+                }
 
                 MyApplication.executor.submit { notifyItemChanged(position) }
             }
@@ -64,9 +79,9 @@ class BlacklistAdapter(private val packageNames: List<PackageName>) :
         val icon = AppIcon.compute(packageName.pkg)
 
         if (icon != null) {
-            viewHolder.ivBlacklist.setImageDrawable(icon)
+            viewHolder.ivBlackWhitelist.setImageDrawable(icon)
         } else {
-            viewHolder.ivBlacklist.setImageResource(R.drawable.baseline_android_24)
+            viewHolder.ivBlackWhitelist.setImageResource(R.drawable.baseline_android_24)
         }
     }
 

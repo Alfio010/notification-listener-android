@@ -6,6 +6,7 @@
     <string name="no" translatable="false">No</string>
     <string name="back">Back</string>
     <string name="blacklist_reset_confirm">Are you sure you want to reset the blacklist?</string>
+    <string name="whitelist_reset_confirm">Are you sure you want to reset the whitelist?</string>
 
     <string name="isAutoBlacklistOn" translatable="false">isAutoBlacklistOn</string>
     <string name="isNotificationEnabled" translatable="false">isNotificationEnabled</string>
@@ -134,4 +135,10 @@
     <string name="apply_label">Apply</string>
     <string name="file_not_found">File not found</string>
     <string name="block_screenshots">Block screenshots</string>
+    <string name="when_on_only_apps_in_the_blacklist_are_blocked_when_off_only_apps_in_the_whitelist_are_allowed">When ON, only apps in the blacklist are blocked. When OFF, only apps in the whitelist are allowed.</string>
+    <string name="blacklist_mode" translatable="false">Blacklist mode</string>
+    <string name="whitelist_mode" translatable="false">Whitelist mode</string>
+    <string name="open_whitelist">Open whitelist</string>
+    <string name="whitelist_info">All activated whitelisted apps will be included from the notification listener</string>
+    <string name="reset_whitelist" translatable="false">Reset whitelist</string>
 </resources>

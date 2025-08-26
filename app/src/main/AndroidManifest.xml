@@ -67,7 +67,7 @@
             android:exported="false"
             android:label="@string/settings" />
         <activity
-            android:name=".activities.adaptersactivity.BlackListActivity"
+            android:name=".activities.adaptersactivity.BlackWhiteListActivity"
             android:exported="false"
             android:label="@string/blacklist" />
         <activity

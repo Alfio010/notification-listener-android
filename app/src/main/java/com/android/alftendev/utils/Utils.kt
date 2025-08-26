@@ -22,7 +22,7 @@ import java.util.Random
 
 
 object Utils {
-    fun isBlacklistedNotification(sbn: StatusBarNotification?): Boolean {
+    fun isAutoBlacklistedNotification(sbn: StatusBarNotification?): Boolean {
         if (sbn == null) {
             return true
         }

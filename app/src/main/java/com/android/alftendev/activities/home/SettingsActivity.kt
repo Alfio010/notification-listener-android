@@ -19,7 +19,7 @@ import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication
 import com.android.alftendev.MyApplication.Companion.sharedPrefName
 import com.android.alftendev.R
-import com.android.alftendev.activities.adaptersactivity.BlackListActivity
+import com.android.alftendev.activities.adaptersactivity.BlackWhiteListActivity
 import com.android.alftendev.activities.adaptersactivity.IsChatActivity
 import com.android.alftendev.activities.otheractivity.ImportActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
@@ -30,6 +30,7 @@ import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.BLOCK_SCREENSHOT
+import com.android.alftendev.utils.MySharedPref.IS_BLACKLIST_ENABLED
 import com.android.alftendev.utils.MySharedPref.NOTIFICATION_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
 import com.android.alftendev.utils.MySharedPref.THEME_OPTIONS_ENABLED
@@ -260,14 +261,59 @@ class SettingsActivity : AppCompatActivity() {
             val openBlacklist = findPreference<Preference>("open_blacklist")
 
             if (openBlacklist != null) {
+                if (MySharedPref.isBlacklistEnabled()) {
+                    openBlacklist.title = getString(R.string.open_blacklist)
+                    openBlacklist.summary = getString(R.string.blacklist_info)
+                } else {
+                    openBlacklist.title = getString(R.string.open_whitelist)
+                    openBlacklist.summary = getString(R.string.whitelist_info)
+                }
+
                 openBlacklist.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     val intent = Intent(
                         requireContext(),
-                        BlackListActivity::class.java
+                        BlackWhiteListActivity::class.java
                     ).setAction(Intent.ACTION_MAIN)
+                    intent.putExtra("blacklistMode", MySharedPref.isBlacklistEnabled())
                     startActivity(intent)
                     true
                 }
+            }
+
+            val isBlacklistEnabled =
+                findPreference<SwitchPreferenceCompat>(IS_BLACKLIST_ENABLED)
+
+            if (isBlacklistEnabled != null) {
+                isBlacklistEnabled.isChecked = MySharedPref.isBlacklistEnabled()
+                if (isBlacklistEnabled.isChecked) {
+                    isBlacklistEnabled.title = getString(R.string.blacklist_mode)
+                } else {
+                    isBlacklistEnabled.title = getString(R.string.whitelist_mode)
+                }
+
+                isBlacklistEnabled.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit(commit = true) {
+                            putBoolean(IS_BLACKLIST_ENABLED, newValue as Boolean)
+                        }
+
+                        if (newValue as Boolean) {
+                            isBlacklistEnabled.title = getString(R.string.blacklist_mode)
+                        } else {
+                            isBlacklistEnabled.title = getString(R.string.whitelist_mode)
+                        }
+
+                        if (MySharedPref.isBlacklistEnabled()) {
+                            openBlacklist?.title = getString(R.string.open_blacklist)
+                            openBlacklist?.summary = getString(R.string.blacklist_info)
+                        } else {
+                            openBlacklist?.title = getString(R.string.open_whitelist)
+                            openBlacklist?.summary = getString(R.string.whitelist_info)
+                        }
+                        true
+                    }
             }
 
             val resetBlacklist = findPreference<Preference>("reset_blacklist")
@@ -282,6 +328,30 @@ class SettingsActivity : AppCompatActivity() {
 
                         MyApplication.packageNames.all.forEach {
                             it.isBlackList = false
+                            MyApplication.packageNames.put(it)
+                        }
+
+                    }
+                    builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                    builder.setOnCancelListener { it.dismiss() }
+                    builder.create()
+                    builder.show()
+                    true
+                }
+            }
+
+            val resetWhitelist = findPreference<Preference>("reset_whitelist")
+
+            if (resetWhitelist != null) {
+                resetWhitelist.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    val builder = MaterialAlertDialogBuilder(requireContext())
+                    builder.setMessage(getString(R.string.whitelist_reset_confirm))
+                    builder.setPositiveButton(
+                        getString(R.string.yes)
+                    ) { _, _ ->
+
+                        MyApplication.packageNames.all.forEach {
+                            it.isWhiteList = false
                             MyApplication.packageNames.put(it)
                         }
 

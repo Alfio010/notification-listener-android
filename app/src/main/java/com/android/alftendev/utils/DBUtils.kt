@@ -337,6 +337,7 @@ object DBUtils {
         pkgName: String,
         name: String?,
         isBlacklist: Boolean,
+        isWhiteList: Boolean,
         isChat: Boolean
     ) {
         if (getPackageName(pkgName) == null) {
@@ -346,6 +347,7 @@ object DBUtils {
                     name,
                     pkgName,
                     isBlacklist,
+                    isWhiteList,
                     isChat
                 )
             )

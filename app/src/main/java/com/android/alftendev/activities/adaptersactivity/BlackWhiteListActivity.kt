@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.alftendev.MyApplication
 import com.android.alftendev.R
-import com.android.alftendev.adapters.BlacklistAdapter
+import com.android.alftendev.adapters.BlackWhitelistAdapter
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.utils.AuthUtils
 import com.android.alftendev.utils.DBUtils
@@ -18,15 +18,16 @@ import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 
-class BlackListActivity : AppCompatActivity() {
+class BlackWhiteListActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var etSearchSettings: EditText
-    private lateinit var adapter: BlacklistAdapter
+    private lateinit var adapter: BlackWhitelistAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
+    private var blacklistMode: Boolean = true
 
-    private fun refreshList(packagesName: List<PackageName>) {
+    private fun refreshList(packagesName: List<PackageName>, blacklistMode: Boolean) {
         runOnUiThread {
-            adapter = BlacklistAdapter(packagesName)
+            adapter = BlackWhitelistAdapter(packagesName, blacklistMode)
             recyclerView.layoutManager = linearLayoutManager
             recyclerView.adapter = adapter
         }
@@ -43,18 +44,34 @@ class BlackListActivity : AppCompatActivity() {
             uiDefaultSettings(this, true)
         }
 
-        adapter = BlacklistAdapter(DBUtils.allPackageNameFromTable())
+        blacklistMode = intent.extras!!.getBoolean("blacklistMode", true)
+
+        adapter = if (blacklistMode) {
+            BlackWhitelistAdapter(DBUtils.allPackageNameFromTable(), true)
+        } else {
+            BlackWhitelistAdapter(DBUtils.allPackageNameFromTable(), false)
+        }
 
         etSearchSettings = findViewById(R.id.etSearchSettings)
         recyclerView = findViewById(R.id.lvSettings)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
+        MyApplication.executor.submit {
+            refreshList(
+                DBUtils.allPackageNameFromTable(),
+                blacklistMode
+            )
+        }
 
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
-                MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
+                MyApplication.executor.submit {
+                    refreshList(
+                        DBUtils.allPackageNameFromTable(),
+                        blacklistMode
+                    )
+                }
             }
         })
 
@@ -64,7 +81,12 @@ class BlackListActivity : AppCompatActivity() {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                MyApplication.executor.submit { refreshList(DBUtils.packageNameSearch(s.toString())) }
+                MyApplication.executor.submit {
+                    refreshList(
+                        DBUtils.packageNameSearch(s.toString()),
+                        blacklistMode
+                    )
+                }
             }
         })
 
@@ -73,4 +95,10 @@ class BlackListActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        MyApplication.executor.submit {
+            refreshList(DBUtils.allPackageNameFromTable(), blacklistMode)
+        }
+    }
 }

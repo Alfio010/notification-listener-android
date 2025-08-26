@@ -33,6 +33,12 @@
             app:key="@string/isAutoBlacklistOn"
             app:title="@string/blacklist_auto" />
 
+        <SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:summary="@string/when_on_only_apps_in_the_blacklist_are_blocked_when_off_only_apps_in_the_whitelist_are_allowed"
+            app:key="isBlacklistEnabled"
+            app:title="@string/blacklist_mode" />
+
         <Preference
             app:key="open_blacklist"
             app:summary="@string/blacklist_info"
@@ -43,6 +49,12 @@
         <Preference
             app:key="reset_blacklist"
             app:title="@string/reset_blacklist">
+
+        </Preference>
+
+        <Preference
+            app:key="reset_whitelist"
+            app:title="@string/reset_whitelist">
 
         </Preference>
 

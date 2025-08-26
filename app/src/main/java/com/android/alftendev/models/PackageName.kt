@@ -15,11 +15,12 @@ data class PackageName(
     @Unique
     var pkg: String = String(),
     var isBlackList: Boolean = false,
+    var isWhiteList: Boolean = false,
     var isChat: Boolean = false
 ) : IJsonSerializable {
     override fun toString(): String {
         return "PackageName(entityId=$entityId, name=$name, pkg='$pkg', " +
-                "isBlackList=$isBlackList, isChat=$isChat)"
+                "isBlackList=$isBlackList, isWhiteList=$isWhiteList, isChat=$isChat)"
     }
 
     override fun toJson(): JSONObject {
@@ -29,6 +30,7 @@ data class PackageName(
         json.put("name", name)
         json.put("pkg", pkg)
         json.put("isBlackList", isBlackList)
+        json.put("isWhiteList", isWhiteList)
         json.put("isChat", isChat)
 
         return json

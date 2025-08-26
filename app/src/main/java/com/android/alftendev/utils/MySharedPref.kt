@@ -12,6 +12,7 @@ object MySharedPref {
     const val RECORD_NOTIFICATIONS_ENABLED = "isRecordNotificationEnabled"
     const val RECORD_NOTIFICATIONS_ALREADY_ASKED = "isRecordNotificationAlreadyAsked"
     const val BLOCK_SCREENSHOT = "areScreenshotBlocked"
+    const val IS_BLACKLIST_ENABLED = "isBlacklistEnabled"
 
     fun getAutoBlacklistOn(): Boolean {
         return MyApplication.sharedPref.getBoolean(AUTO_BLACKLIST_ENABLED_STRING, true)
@@ -35,5 +36,9 @@ object MySharedPref {
 
     fun getAreScreenshotBlocked(): Boolean {
         return MyApplication.sharedPref.getBoolean(BLOCK_SCREENSHOT, false)
+    }
+
+    fun isBlacklistEnabled(): Boolean {
+        return MyApplication.sharedPref.getBoolean(IS_BLACKLIST_ENABLED, true)
     }
 }
