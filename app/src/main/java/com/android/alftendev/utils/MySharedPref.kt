@@ -2,7 +2,7 @@ package com.android.alftendev.utils
 
 import android.annotation.SuppressLint
 import com.android.alftendev.MyApplication
-
+//
 @SuppressLint("ApplySharedPref")
 object MySharedPref {
     const val AUTO_BLACKLIST_ENABLED_STRING = "isAutoBlacklistOn"
