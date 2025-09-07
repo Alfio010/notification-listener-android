@@ -141,4 +141,5 @@
     <string name="open_whitelist">Open whitelist</string>
     <string name="whitelist_info">All activated whitelisted apps will be included from the notification listener</string>
     <string name="reset_whitelist" translatable="false">Reset whitelist</string>
+    <string name="whitelist" translatable="false">Whitelist</string>
 </resources>

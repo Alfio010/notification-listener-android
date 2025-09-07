@@ -47,8 +47,10 @@ class BlackWhiteListActivity : AppCompatActivity() {
         blacklistMode = intent.extras!!.getBoolean("blacklistMode", true)
 
         adapter = if (blacklistMode) {
+            setTitle(getString(R.string.blacklist))
             BlackWhitelistAdapter(DBUtils.allPackageNameFromTable(), true)
         } else {
+            setTitle(getString(R.string.whitelist))
             BlackWhitelistAdapter(DBUtils.allPackageNameFromTable(), false)
         }
 
