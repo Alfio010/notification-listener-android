@@ -5,8 +5,8 @@ import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.MyApplication
+import com.android.alftendev.services.utils.NotiUtils.shouldDropByPackage
 import com.android.alftendev.utils.CustomLog
-import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.DBUtils.createBlackListPackageName
 import com.android.alftendev.utils.DBUtils.createNotification
 import com.android.alftendev.utils.DBUtils.createNotificationDeleted
@@ -16,7 +16,6 @@ import com.android.alftendev.utils.DBUtils.lastNotification
 import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
-import com.android.alftendev.utils.MySharedPref.isBlacklistEnabled
 import com.android.alftendev.utils.NotificationsUtils.sendNotification
 import com.android.alftendev.utils.Utils.isAutoBlacklistedNotification
 
@@ -36,18 +35,8 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (isBlacklistEnabled()) {
-            if (DBUtils.allPackageNameFromTable()
-                    .any { it.pkg == sbn.packageName && it.isBlackList }
-            ) {
-                return
-            }
-        } else {
-            if (DBUtils.allPackageNameFromTable()
-                    .any { it.pkg == sbn.packageName && !it.isWhiteList }
-            ) {
-                return
-            }
+        if (shouldDropByPackage(sbn.packageName)) {
+            return
         }
 
         if (MySharedPref.getAutoBlacklistOn() &&
@@ -154,9 +143,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         }
 
         if (sbn != null) {
-            if (DBUtils.allPackageNameFromTable()
-                    .any { it.pkg == sbn.packageName && it.isBlackList }
-            ) {
+            if (shouldDropByPackage(sbn.packageName)) {
                 return
             }
 
