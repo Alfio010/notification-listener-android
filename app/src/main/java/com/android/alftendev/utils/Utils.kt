@@ -103,7 +103,7 @@ object Utils {
     fun isAppInstalled(packageName: String): Boolean {
         val apps by lazy { pm.getInstalledApplications(PackageManager.GET_META_DATA) }
 
-        return  apps.any { it.packageName == packageName }
+        return apps.any { it.packageName == packageName }
     }
 
     fun openLink(context: Context, uri: String) {

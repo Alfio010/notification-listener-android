@@ -103,7 +103,7 @@ class BlackWhiteListActivity : AppCompatActivity() {
             )
         }
 
-        installedSwitch.setOnCheckedChangeListener {_, isChecked ->
+        installedSwitch.setOnCheckedChangeListener { _, isChecked ->
             onlyInstalledApps = isChecked
             refreshList(
                 DBUtils.allPackageName(),
@@ -115,13 +115,15 @@ class BlackWhiteListActivity : AppCompatActivity() {
             val customAlertDialogView = LayoutInflater.from(this)
                 .inflate(R.layout.custom_blacklist_settings_dialog, null, false)
 
-            customAlertDialogView.findViewById<MaterialButton>(R.id.bToggleAllBlacklisted).setOnClickListener {
-                selectOrDeselectAll(onlyInstalledApps, true)
-            }
+            customAlertDialogView.findViewById<MaterialButton>(R.id.bToggleAllBlacklisted)
+                .setOnClickListener {
+                    selectOrDeselectAll(onlyInstalledApps, true)
+                }
 
-            customAlertDialogView.findViewById<MaterialButton>(R.id.bDeToggleAllBlacklisted).setOnClickListener {
-                selectOrDeselectAll(onlyInstalledApps, false)
-            }
+            customAlertDialogView.findViewById<MaterialButton>(R.id.bDeToggleAllBlacklisted)
+                .setOnClickListener {
+                    selectOrDeselectAll(onlyInstalledApps, false)
+                }
 
             val builder = MaterialAlertDialogBuilder(this)
             if (blacklistMode) {

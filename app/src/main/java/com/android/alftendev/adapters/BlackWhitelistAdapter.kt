@@ -12,7 +12,6 @@ import com.android.alftendev.R
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.computables.AppIcon
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.textview.MaterialTextView
@@ -94,7 +93,8 @@ class BlackWhitelistAdapter(
             val customAlertDialogView = LayoutInflater.from(viewHolder.itemView.context)
                 .inflate(R.layout.custom_packagecard_dialog, null, false)
 
-            val chatSwitch = customAlertDialogView.findViewById<MaterialSwitch>(R.id.packageDialogIsChat)
+            val chatSwitch =
+                customAlertDialogView.findViewById<MaterialSwitch>(R.id.packageDialogIsChat)
 
             val entity = DBUtils.getPackageName(packageName.pkg)
 

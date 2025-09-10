@@ -525,8 +525,10 @@ object DBUtils {
     }
 
     fun getInstalledPackageNamesFromList(packageName: List<PackageName>): MutableList<PackageName> {
-        return packageName.toMutableList().apply { removeAll {
-            !isAppInstalled(it.pkg)
-        }}
+        return packageName.toMutableList().apply {
+            removeAll {
+                !isAppInstalled(it.pkg)
+            }
+        }
     }
 }
