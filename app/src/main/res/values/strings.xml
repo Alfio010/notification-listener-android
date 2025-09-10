@@ -17,6 +17,7 @@
     <string name="chat" translatable="false">Chats</string>
     <string name="group_chat">Group chats</string>
     <string name="isChatActivity" translatable="false">Chat apps</string>
+    <string name="isChatApp" translatable="false">Chat app</string>
 
     <string name="title_text">Title/Text</string>
     <string name="deleted">Deleted</string>
@@ -142,4 +143,7 @@
     <string name="whitelist_info">All activated whitelisted apps will be included from the notification listener</string>
     <string name="reset_whitelist" translatable="false">Reset whitelist</string>
     <string name="whitelist" translatable="false">Whitelist</string>
+    <string name="installed">Installed</string>
+    <string name="select_all">Select All</string>
+    <string name="deselect_all">Deselect All</string>
 </resources>

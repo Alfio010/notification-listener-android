@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.android.alftendev.MyApplication
@@ -11,6 +12,9 @@ import com.android.alftendev.R
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.computables.AppIcon
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.textview.MaterialTextView
 
 // TODO specificGraph in alert
@@ -23,11 +27,13 @@ class BlackWhitelistAdapter(
         val tvNamePackage: MaterialTextView
         val swIsBlackWhiteListed: SwitchCompat
         val ivBlackWhitelist: ImageView
+        val llCustomBlacklistCard: LinearLayout
 
         init {
             tvNamePackage = view.findViewById(R.id.tvPackageName)
             swIsBlackWhiteListed = view.findViewById(R.id.swIsBlackListed)
             ivBlackWhitelist = view.findViewById(R.id.ivBlacklist)
+            llCustomBlacklistCard = view.findViewById(R.id.llCustomBlacklistCard)
         }
     }
 
@@ -82,6 +88,43 @@ class BlackWhitelistAdapter(
             viewHolder.ivBlackWhitelist.setImageDrawable(icon)
         } else {
             viewHolder.ivBlackWhitelist.setImageResource(R.drawable.baseline_android_24)
+        }
+
+        val showSettingDialog = {
+            val customAlertDialogView = LayoutInflater.from(viewHolder.itemView.context)
+                .inflate(R.layout.custom_packagecard_dialog, null, false)
+
+            val chatSwitch = customAlertDialogView.findViewById<MaterialSwitch>(R.id.packageDialogIsChat)
+
+            val entity = DBUtils.getPackageName(packageName.pkg)
+
+            if (entity != null) {
+                chatSwitch.isChecked = entity.isChat
+            }
+
+            chatSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (entity != null) {
+                    entity.isChat = isChecked
+                    MyApplication.packageNames.put(entity)
+                }
+            }
+
+            val builder = MaterialAlertDialogBuilder(viewHolder.itemView.context)
+            builder.setTitle(viewHolder.itemView.context.getString(R.string.settings))
+            builder.setView(customAlertDialogView)
+            builder.setIcon(R.mipmap.ic_launcher)
+            builder.setNeutralButton(R.string.back) { _, _ -> }
+            builder.setOnCancelListener { it.dismiss() }
+            builder.create()
+            builder.show()
+        }
+
+        viewHolder.llCustomBlacklistCard.setOnClickListener {
+            showSettingDialog()
+        }
+
+        viewHolder.ivBlackWhitelist.setOnClickListener {
+            showSettingDialog()
         }
     }
 

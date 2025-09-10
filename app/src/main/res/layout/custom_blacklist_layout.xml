@@ -31,20 +31,36 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
+                android:id="@+id/llCustomBlacklistCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.25"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvPackageName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="7"
                     android:text="@string/textview"
                     android:textColor="@color/cyan_white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/perPackageBlackWhitelistSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3sp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/settings"
+                    android:foregroundGravity="center"
+                    android:gravity="center"
+                    android:src="@drawable/baseline_settings_24"
+                    app:icon="@drawable/baseline_settings_24" />
 
             </LinearLayout>
 
@@ -53,7 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/swIsBlackListed"
@@ -62,6 +78,7 @@
                     android:minHeight="48sp"
                     android:textAlignment="textStart"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
+
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -11,6 +11,7 @@ import com.android.alftendev.models.Notifications
 import com.android.alftendev.models.Notifications_
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.models.PackageName_
+import com.android.alftendev.utils.Utils.isAppInstalled
 import io.objectbox.query.LazyList
 import io.objectbox.query.QueryBuilder
 import java.util.Date
@@ -175,6 +176,7 @@ object DBUtils {
     fun allPackageName(): List<PackageName> {
         return packageNames
             .query()
+            .order(PackageName_.name)
             .build()
             .find()
     }
@@ -380,7 +382,7 @@ object DBUtils {
     fun allPackageNameFromTable(): LazyList<PackageName> {
         return packageNames
             .query()
-            .orderDesc(PackageName_.entityId)
+            .order(PackageName_.name)
             .build()
             .findLazy()
     }
@@ -520,5 +522,11 @@ object DBUtils {
             .equal(Notifications_.entityId, id)
             .build()
             .remove()
+    }
+
+    fun getInstalledPackageNamesFromList(packageName: List<PackageName>): MutableList<PackageName> {
+        return packageName.toMutableList().apply { removeAll {
+            !isAppInstalled(it.pkg)
+        }}
     }
 }

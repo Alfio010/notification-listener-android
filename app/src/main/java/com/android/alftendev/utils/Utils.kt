@@ -98,6 +98,14 @@ object Utils {
         return null
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
+    @Suppress("Unused")
+    fun isAppInstalled(packageName: String): Boolean {
+        val apps by lazy { pm.getInstalledApplications(PackageManager.GET_META_DATA) }
+
+        return  apps.any { it.packageName == packageName }
+    }
+
     fun openLink(context: Context, uri: String) {
         context.startActivity(Intent(Intent.ACTION_VIEW, uri.toUri()))
     }
