@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?backgroundColor"
@@ -8,59 +7,53 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginRight="5sp"
-        android:layout_marginBottom="5sp"
-        android:layout_weight="8"
-        android:background="@drawable/rounded_background"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="5sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="5sp"
+    android:background="@drawable/rounded_background"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etSearchSettings"
-            android:layout_width="0sp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:ems="10"
-            android:hint="@string/search"
-            android:inputType="textPersonName"
-            android:minHeight="52sp"
-            tools:ignore="NestedWeights" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etSearchSettings"
+        android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:ems="10"
+    android:hint="@string/search"
+    android:inputType="textPersonName"
+    android:minHeight="52sp" />
 
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/swShowOnlyInstalledApps"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2.7"
-            android:foregroundGravity="center"
-            android:text="@string/installed"
-            android:textAlignment="viewEnd" />
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/swShowOnlyInstalledApps"
+        android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:text="@string/installed" />
 
-        <ImageButton
-            android:id="@+id/bBlackWhitelistSettings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.3"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/settings"
-            android:foregroundGravity="center"
-            android:gravity="center"
-            android:src="@drawable/baseline_settings_24"
-            app:icon="@drawable/baseline_settings_24" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lvSettings"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+    <ImageButton
+        android:id="@+id/bBlackWhitelistSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/settings"
+        android:padding="8dp"
+    android:src="@drawable/baseline_settings_24"
+    app:icon="@drawable/baseline_settings_24" />
 </LinearLayout>
+
+<FrameLayout
+android:layout_width="match_parent"
+android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="vertical">
+
+<androidx.recyclerview.widget.RecyclerView
+android:id="@+id/lvSettings"
+android:layout_width="match_parent"
+android:layout_height="match_parent" />
+    </FrameLayout>
+    </LinearLayout>
