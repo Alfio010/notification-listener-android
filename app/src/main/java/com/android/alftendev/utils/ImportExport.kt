@@ -36,7 +36,7 @@ object ImportExport {
             .joinToString("")
     }
 
-    fun exportDbZipEncrypted(context: Context): Pair<String, String> {
+    fun exportDbZipEncrypted(context: Context, enteredPassword: String): Pair<String, String> {
         val formatter = SimpleDateFormat("MM-dd-yyyy-HH-mm", Locale.getDefault()).apply {
             timeZone = TimeZone.getDefault()
         }
@@ -54,7 +54,9 @@ object ImportExport {
             packageNameJsonFile = File(context.filesDir, "packagename-$timestamp.json")
             writeTmpJsonFile(packageNameJsonFile, allPackageNameLazy())
 
-            val password = generateSecurePassword()
+            val password = enteredPassword.ifBlank {
+                generateSecurePassword()
+            }
 
             val zipFile = File(context.filesDir, zipFileName)
             ZipFile(zipFile, password.toCharArray()).use { zip ->

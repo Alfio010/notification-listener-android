@@ -114,4 +114,7 @@
     <string name="installed">Installate</string>
     <string name="select_all">Seleziona Tutti</string>
     <string name="deselect_all">Deseleziona Tutti</string>
+    <string name="enter_password_encrypt_zip_or_leave_empty">Inserisci una password per crittografare il file ZIP. Se lasci questo campo vuoto, verrà generata una password casuale.</string>
+    <string name="password_invalid_alert">Password non valida (almeno 8 caratteri e 1 numero)</string>
+    <string name="create_zip">Crea ZIP</string>
 </resources>

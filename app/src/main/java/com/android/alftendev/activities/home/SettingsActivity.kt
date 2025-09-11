@@ -1,9 +1,6 @@
 package com.android.alftendev.activities.home
 
 import android.annotation.SuppressLint
-import android.app.Dialog
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -25,7 +22,7 @@ import com.android.alftendev.activities.otheractivity.ImportActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.AuthUtils.isBiometricAuthAvailable
 import com.android.alftendev.utils.DBUtils
-import com.android.alftendev.utils.ImportExport
+import com.android.alftendev.utils.DialogUtils.askPasswordForZipDialog
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
@@ -39,11 +36,9 @@ import com.android.alftendev.utils.PermissionUtils.isNotificationPostPermissionE
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.setTheme
-import com.android.alftendev.utils.UiUtils.showLoadingDialog
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.io.File
 import kotlin.system.exitProcess
 
 
@@ -435,45 +430,8 @@ class SettingsActivity : AppCompatActivity() {
                 exportDb.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                     MyApplication.executor.submit {
                         try {
-                            var loadingDialog: Dialog? = null
-
                             activity?.runOnUiThread {
-                                loadingDialog = showLoadingDialog(requireContext())
-                            }
-
-                            val result = ImportExport.exportDbZipEncrypted(requireContext())
-                            val zip = File(result.first)
-
-                            activity?.runOnUiThread {
-                                loadingDialog?.dismiss()
-
-                                val builder = MaterialAlertDialogBuilder(requireContext())
-                                builder.setTitle(R.string.zip_password)
-                                builder.setMessage(getString(R.string.password_should_copy) + "\n${result.second}")
-                                builder.setPositiveButton(
-                                    getString(R.string.copy_string)
-                                ) { _, _ ->
-                                    val clipboard: ClipboardManager =
-                                        requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-                                    val clip = ClipData.newPlainText(
-                                        getString(R.string.zip_password),
-                                        result.second
-                                    )
-                                    clipboard.setPrimaryClip(clip)
-
-                                    if (zip.exists()) {
-                                        zip.delete()
-                                    }
-                                }
-                                builder.setOnCancelListener {
-                                    if (zip.exists()) {
-                                        zip.delete()
-                                    }
-
-                                    it.dismiss()
-                                }
-                                builder.create()
-                                builder.show()
+                                askPasswordForZipDialog(requireContext(), activity)
                             }
                         } catch (e: Exception) {
                             Log.d("export-error", e.stackTraceToString())
