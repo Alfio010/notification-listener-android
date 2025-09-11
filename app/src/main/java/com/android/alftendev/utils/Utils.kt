@@ -18,6 +18,7 @@ import androidx.core.net.toUri
 import androidx.palette.graphics.Palette
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication.Companion.pm
+import com.android.alftendev.utils.computables.AppListCache
 import java.util.Random
 
 
@@ -101,9 +102,7 @@ object Utils {
     @SuppressLint("QueryPermissionsNeeded")
     @Suppress("Unused")
     fun isAppInstalled(packageName: String): Boolean {
-        val apps by lazy { pm.getInstalledApplications(PackageManager.GET_META_DATA) }
-
-        return apps.any { it.packageName == packageName }
+        return AppListCache.getInstalledApps().any { it.packageName == packageName }
     }
 
     fun openLink(context: Context, uri: String) {

@@ -48,24 +48,26 @@ class BlackWhiteListActivity : AppCompatActivity() {
     }
 
     private fun selectOrDeselectAll(installedSwitchChecked: Boolean, select: Boolean) {
-        val allPackages = if (installedSwitchChecked) {
-            getInstalledPackageNamesFromList(DBUtils.allPackageName())
-        } else {
-            DBUtils.allPackageName().toList()
-        }
+        runOnUiThread {
+            val allPackages = if (installedSwitchChecked) {
+                getInstalledPackageNamesFromList(DBUtils.allPackageName())
+            } else {
+                DBUtils.allPackageName().toList()
+            }
 
-        if (blacklistMode) {
-            allPackages.forEach { it.isBlackList = select }
-            MyApplication.packageNames.put(allPackages)
-        } else {
-            allPackages.forEach { it.isWhiteList = select }
-            MyApplication.packageNames.put(allPackages)
-        }
+            if (blacklistMode) {
+                allPackages.forEach { it.isBlackList = select }
+                MyApplication.packageNames.put(allPackages)
+            } else {
+                allPackages.forEach { it.isWhiteList = select }
+                MyApplication.packageNames.put(allPackages)
+            }
 
-        refreshList(
-            DBUtils.allPackageName(),
-            blacklistMode
-        )
+            refreshList(
+                DBUtils.allPackageName(),
+                blacklistMode
+            )
+        }
     }
 
     @SuppressLint("InflateParams")
@@ -105,10 +107,12 @@ class BlackWhiteListActivity : AppCompatActivity() {
 
         installedSwitch.setOnCheckedChangeListener { _, isChecked ->
             onlyInstalledApps = isChecked
-            refreshList(
-                DBUtils.allPackageName(),
-                blacklistMode
-            )
+            runOnUiThread {
+                refreshList(
+                    DBUtils.allPackageName(),
+                    blacklistMode
+                )
+            }
         }
 
         settingButton.setOnClickListener {
