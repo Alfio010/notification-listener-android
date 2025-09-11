@@ -5,6 +5,7 @@ import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.MyApplication
+import com.android.alftendev.services.utils.NotiUtils.isAutoBlacklistedNotification
 import com.android.alftendev.services.utils.NotiUtils.shouldDropByPackage
 import com.android.alftendev.utils.CustomLog
 import com.android.alftendev.utils.DBUtils.createBlackListPackageName
@@ -17,7 +18,6 @@ import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.NotificationsUtils.sendNotification
-import com.android.alftendev.utils.Utils.isAutoBlacklistedNotification
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
     companion object {

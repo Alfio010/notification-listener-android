@@ -4,53 +4,22 @@ import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.os.Build
-import android.service.notification.StatusBarNotification
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toIcon
 import androidx.core.net.toUri
 import androidx.palette.graphics.Palette
-import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication.Companion.pm
 import com.android.alftendev.utils.computables.AppListCache
 import java.util.Random
 
 
 object Utils {
-    fun isAutoBlacklistedNotification(sbn: StatusBarNotification?): Boolean {
-        if (sbn == null) {
-            return true
-        }
-
-        if (sbn.packageName.startsWith("com.whatsapp") && sbn.key!!.contains("null")) {
-            return true
-        }
-
-        if (sbn.packageName == "com.sec.android.app.clock.package") {
-            return true
-        }
-
-        if (sbn.packageName == BuildConfig.APPLICATION_ID) {
-            return true
-        }
-
-        if (sbn.key == "-1|android|27|null|1000") {
-            return true
-        }
-
-        if (sbn.key == "charging_state") {
-            return true
-        }
-
-        return sbn.key == "com.sec.android.app.samsungapps|121314|null|10091"
-    }
-
     fun openPlayStore(context: Context, pkg: String) {
         try {
             context.startActivity(Intent(Intent.ACTION_VIEW, "market://details?id=$pkg".toUri()))
@@ -83,7 +52,7 @@ object Utils {
     @SuppressLint("QueryPermissionsNeeded")
     @Suppress("Unused")
     fun getPackageNameFromAppName(appName: String): String? {
-        val apps by lazy { pm.getInstalledApplications(PackageManager.GET_META_DATA) }
+        val apps = AppListCache.getInstalledApps()
 
         for (appInfo in apps) {
             val label = pm.getApplicationLabel(appInfo).toString()
