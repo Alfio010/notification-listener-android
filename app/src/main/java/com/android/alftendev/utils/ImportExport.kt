@@ -187,7 +187,14 @@ object ImportExport {
             var first = true
             for (element in list) {
                 if (!first) writer.write("\n")
-                writer.write(element.toJson().toString())
+
+                var jsonString = element.toJson().toString()
+
+                jsonString = jsonString
+                    .replace("\u2028", "\\u2028")
+                    .replace("\u2029", "\\u2029")
+
+                writer.write(jsonString)
                 first = false
             }
         }

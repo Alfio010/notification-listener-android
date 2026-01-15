@@ -6,9 +6,9 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.MyApplication
 import com.android.alftendev.services.utils.NotiUtils.isAutoBlacklistedNotification
+import com.android.alftendev.services.utils.NotiUtils.shouldDropByDefaultBlacklist
 import com.android.alftendev.services.utils.NotiUtils.shouldDropByPackage
 import com.android.alftendev.utils.CustomLog
-import com.android.alftendev.utils.DBUtils.createBlackListPackageName
 import com.android.alftendev.utils.DBUtils.createNotification
 import com.android.alftendev.utils.DBUtils.createNotificationDeleted
 import com.android.alftendev.utils.DBUtils.createPackageName
@@ -24,8 +24,12 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         val LOGGER = CustomLog("not-listener")
     }
 
-    override fun onNotificationPosted(sbn: StatusBarNotification) {
+    override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
+
+        if (sbn == null) {
+            return
+        }
 
         if (!MySharedPref.getIsRecordNotificationsEnabled()) {
             return
@@ -39,10 +43,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (MySharedPref.getAutoBlacklistOn() &&
-            sbn.notification.category == Notification.CATEGORY_SYSTEM
-        ) {
-            createBlackListPackageName(sbn.packageName)
+        if (shouldDropByDefaultBlacklist(sbn)) {
             return
         }
 
@@ -134,6 +135,10 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
+        if (sbn == null) {
+            return
+        }
+
         if (!MySharedPref.getIsRecordNotificationsEnabled()) {
             return
         }
@@ -142,20 +147,15 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        if (sbn != null) {
-            if (shouldDropByPackage(sbn.packageName)) {
-                return
-            }
-
-            if (MySharedPref.getAutoBlacklistOn() &&
-                sbn.notification.category == Notification.CATEGORY_SYSTEM
-            ) {
-                createBlackListPackageName(sbn.packageName)
-                return
-            }
+        if (shouldDropByPackage(sbn.packageName)) {
+            return
         }
 
-        val notificationExtras = sbn?.notification?.extras ?: return
+        if (shouldDropByDefaultBlacklist(sbn)) {
+            return
+        }
+
+        val notificationExtras = sbn.notification?.extras ?: return
 
         val title =
             notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()

@@ -1,8 +1,11 @@
 package com.android.alftendev.services.utils
 
+import android.app.Notification
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.BuildConfig
+import com.android.alftendev.utils.DBUtils.createBlackListPackageName
 import com.android.alftendev.utils.DBUtils.getPackageName
+import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.isBlacklistEnabled
 
 object NotiUtils {
@@ -18,6 +21,21 @@ object NotiUtils {
                 if (!packageName.isWhiteList) {
                     return true
                 }
+            }
+        }
+
+        return false
+    }
+
+    fun shouldDropByDefaultBlacklist(sbn: StatusBarNotification): Boolean {
+        if (MySharedPref.getAutoBlacklistOn()) {
+            if (sbn.isOngoing) {
+                return true
+            }
+
+            if (sbn.notification.category == Notification.CATEGORY_SYSTEM) {
+                createBlackListPackageName(sbn.packageName)
+                return true
             }
         }
 
