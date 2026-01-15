@@ -1,0 +1,56 @@
+name: Android Signed Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-sign-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Estrai numero versione
+        run: echo "VERSION_NUMBER=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - name: Decodifica Keystore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > app/release-key.jks
+
+      - name: Build Signed Release APK
+        run: ./gradlew assembleRelease
+        env:
+          SIGNING_STORE_FILE: release-key.jks
+          SIGNING_STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Rinomina APK
+        run: |
+          mv app/build/outputs/apk/release/app-release.apk notifications-recovery-${{ env.VERSION_NUMBER }}.apk
+
+      - name: Pubblica Release su GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ env.VERSION_NUMBER }}
+          tag_name: ${{ github.ref_name }}
+          body: "Release ${{ env.VERSION_NUMBER }}"
+          files: |
+            notifications-recovery-${{ env.VERSION_NUMBER }}.apk
+          draft: false
+          prerelease: false
