@@ -26,6 +26,7 @@ import java.util.TimeZone
 
 object ImportExport {
     val LOGGER = CustomLog("noti-importer-export")
+
     //TODO
     private fun generateSecurePassword(length: Int = 16): String {
         val chars =
