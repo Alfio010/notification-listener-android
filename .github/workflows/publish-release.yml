@@ -45,7 +45,7 @@ jobs:
 
       - name: Rinomina APK
         run: |
-          mv app/build/outputs/apk/release/app-release.apk notifications-recovery-${{ env.VERSION_NUMBER }}.apk
+          mv app/build/outputs/apk/release/app-release.apk noti-${{ env.VERSION_NUMBER }}.apk
 
       - name: Pubblica Release su GitHub
         uses: softprops/action-gh-release@v1
@@ -54,6 +54,6 @@ jobs:
           tag_name: ${{ github.ref_name }}
           body: "Release ${{ env.VERSION_NUMBER }}"
           files: |
-            notifications-recovery-${{ env.VERSION_NUMBER }}.apk
+            noti-${{ env.VERSION_NUMBER }}.apk
           draft: false
           prerelease: false
