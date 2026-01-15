@@ -30,7 +30,7 @@ android {
         versionName "2.6.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+//
     signingConfigs {
         release {
             storeFile = file(System.getenv("SIGNING_STORE_FILE") ?: "notificationlistener.jks")
