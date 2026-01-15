@@ -25,6 +25,9 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Dai permessi di esecuzione a Gradlew
+        run: chmod +x gradlew
+
       - name: Estrai numero versione
         run: echo "VERSION_NUMBER=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
 
