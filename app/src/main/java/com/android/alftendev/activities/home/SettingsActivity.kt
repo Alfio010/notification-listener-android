@@ -520,7 +520,10 @@ class SettingsActivity : AppCompatActivity() {
                             this.requireContext(),
                             WebViewActivity()::class.java
                         ).setAction(Intent.ACTION_MAIN)
-                            .putExtra("filePath", "file:///android_asset/material_icon_license.html")
+                            .putExtra(
+                                "filePath",
+                                "file:///android_asset/material_icon_license.html"
+                            )
                     )
                     true
                 }
