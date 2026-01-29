@@ -534,9 +534,15 @@ class SettingsActivity : AppCompatActivity() {
             if (licenseMPAndroidChart != null) {
                 licenseMPAndroidChart.onPreferenceClickListener =
                     Preference.OnPreferenceClickListener {
-                        Utils.openLink(
-                            requireContext(),
-                            "http://www.apache.org/licenses/LICENSE-2.0"
+                        startActivity(
+                            Intent(
+                                this.requireContext(),
+                                WebViewActivity()::class.java
+                            ).setAction(Intent.ACTION_MAIN)
+                                .putExtra(
+                                    "filePath",
+                                    "file:///android_asset/apache_license.html"
+                                )
                         )
                         true
                     }
