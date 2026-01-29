@@ -485,9 +485,12 @@ class SettingsActivity : AppCompatActivity() {
 
             if (appLicense != null) {
                 appLicense.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    Utils.openLink(
-                        requireContext(),
-                        "https://www.gnu.org/licenses/gpl-3.0.html"
+                    startActivity(
+                        Intent(
+                            this.requireContext(),
+                            WebViewActivity()::class.java
+                        ).setAction(Intent.ACTION_MAIN)
+                            .putExtra("filePath", "file:///android_asset/gnu_license.html")
                     )
                     true
                 }
@@ -503,6 +506,21 @@ class SettingsActivity : AppCompatActivity() {
                             WebViewActivity()::class.java
                         ).setAction(Intent.ACTION_MAIN)
                             .putExtra("filePath", "file:///android_asset/open_source_licenses.html")
+                    )
+                    true
+                }
+            }
+
+            val iconLicenses = findPreference<Preference>("iconLicenses")
+
+            if (iconLicenses != null) {
+                iconLicenses.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                    startActivity(
+                        Intent(
+                            this.requireContext(),
+                            WebViewActivity()::class.java
+                        ).setAction(Intent.ACTION_MAIN)
+                            .putExtra("filePath", "file:///android_asset/material_icon_license.html")
                     )
                     true
                 }

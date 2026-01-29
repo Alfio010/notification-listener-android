@@ -166,6 +166,12 @@
         </Preference>
 
         <Preference
+            app:key="iconLicenses"
+            app:title="@string/icon_licenses">
+
+        </Preference>
+
+        <Preference
             app:key="licenseMPAndroidChart"
             app:title="@string/MPAndroidChart_license">
 

@@ -150,4 +150,5 @@
     <string name="enter_password_encrypt_zip_or_leave_empty">Enter a password to encrypt the ZIP file. If you leave this field empty, a random password will be generated.</string>
     <string name="password_invalid_alert">Invalid password (at least 8 characters and 1 number)</string>
     <string name="create_zip">Create ZIP</string>
+    <string name="icon_licenses">Icon licenses</string>
 </resources>

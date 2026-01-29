@@ -63,7 +63,7 @@
     <string name="light">Chiaro</string>
     <string name="change_theme">Cambia tema</string>
     <string name="theme_changed">Il tema è stato cambiato, riavviare l`app per applicare i cambiamenti</string>
-    <string name="open_source_licenses">"Licenze open source "</string>
+    <string name="open_source_licenses">"Licenze open source"</string>
     <string name="MPAndroidChart_license">Licenza MPAndroidChart</string>
     <string name="app_license">Licenza dell\'app</string>
     <string name="licenses">Licenze</string>
@@ -117,4 +117,5 @@
     <string name="enter_password_encrypt_zip_or_leave_empty">Inserisci una password per crittografare il file ZIP. Se lasci questo campo vuoto, verrà generata una password casuale.</string>
     <string name="password_invalid_alert">Password non valida (almeno 8 caratteri e 1 numero)</string>
     <string name="create_zip">Crea ZIP</string>
+    <string name="icon_licenses">Licenze icone</string>
 </resources>
