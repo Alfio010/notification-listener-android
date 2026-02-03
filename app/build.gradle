@@ -30,7 +30,7 @@ android {
         versionName "2.6.11" // git tag v2.6.1 -> git push origin tag v2.6.1 -> git push --follow-tags origin tag v2.6.1
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-////
+/////
     signingConfigs {
         release {
             def keystorePath = System.getenv("SIGNING_STORE_FILE") ?: "notificationlistener.jks"
