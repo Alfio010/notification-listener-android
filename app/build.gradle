@@ -26,8 +26,8 @@ android {
         applicationId "com.alftendev.notlistener"
         minSdk 24
         targetSdk 36
-        versionCode 45
-        versionName "2.6.10" // git tag v2.6.1 -> git push origin tag v2.6.1 -> git push --follow-tags origin tag v2.6.1
+        versionCode 46
+        versionName "2.6.11" // git tag v2.6.1 -> git push origin tag v2.6.1 -> git push --follow-tags origin tag v2.6.1
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 ////
