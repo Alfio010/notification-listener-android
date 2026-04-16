@@ -59,19 +59,24 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
             val conversationTitle =
-                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
+                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
+                    ?.toString()
                     .orEmpty()
 
-            val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
+            val text =
+                notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
             val bigText =
-                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
+                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()
+                    .orEmpty()
 
             val infoText =
-                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
+                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString()
+                    .orEmpty()
 
             val titleBig =
-                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
+                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString()
+                    .orEmpty()
 
             val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 try {
@@ -94,7 +99,8 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 return@execute
             }
 
-            val entityDeleted = searchDeletedNot(sbn.packageName, sbn.notification.`when`, title, text)
+            val entityDeleted =
+                searchDeletedNot(sbn.packageName, sbn.notification.`when`, title, text)
 
             if (entityDeleted != null) {
                 entityDeleted.isDeleted = true
@@ -167,19 +173,24 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
             val conversationTitle =
-                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
+                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
+                    ?.toString()
                     .orEmpty()
 
-            val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
+            val text =
+                notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
             val bigText =
-                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
+                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()
+                    .orEmpty()
 
             val infoText =
-                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
+                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString()
+                    .orEmpty()
 
             val titleBig =
-                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
+                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString()
+                    .orEmpty()
 
             val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 try {
