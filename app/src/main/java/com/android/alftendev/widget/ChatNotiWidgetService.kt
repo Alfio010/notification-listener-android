@@ -6,6 +6,6 @@ import com.android.alftendev.utils.DBUtils.getChatNotificationsForWidget
 
 class ChatNotiWidgetService : RemoteViewsService() {
     override fun onGetViewFactory(intent: Intent): RemoteViewsFactory {
-        return NotificationWidgetAdapter(this.applicationContext, getChatNotificationsForWidget())
+        return NotificationWidgetAdapter(this.applicationContext)
     }
 }

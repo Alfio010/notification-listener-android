@@ -6,29 +6,46 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.android.alftendev.R
 import com.android.alftendev.models.Notifications
+import com.android.alftendev.utils.CustomLog
+import com.android.alftendev.utils.DBUtils.lastNotificationWithLimit
 import com.android.alftendev.utils.DateUtils.dateFormatter
 import com.android.alftendev.utils.Utils.getIconFromDrawable
 import com.android.alftendev.utils.computables.AppIcon
+import java.util.concurrent.Executors
 
-class NotificationWidgetAdapter(
-    private val context: Context,
-    val notifications: List<Notifications>
-) :
+class NotificationWidgetAdapter(private val context: Context) :
     RemoteViewsService.RemoteViewsFactory {
+
     companion object {
         private const val MAX_LENGTH = 35
+        val LOGGER = CustomLog("noti-widget-provider")
     }
 
-    private val itemList = mutableListOf<Notifications>()
+    private val widgetExecutor = Executors.newSingleThreadExecutor()
 
-    override fun onCreate() {}
+    @Volatile
+    private var itemList: List<Notifications> = emptyList()
+
+    override fun onCreate() {
+    }
 
     override fun onDataSetChanged() {
-        itemList.clear()
-        itemList.addAll(notifications)
+        val future = widgetExecutor.submit<List<Notifications>> {
+            lastNotificationWithLimit()
+        }
+
+        try {
+            itemList = future.get()
+        } catch (e: Exception) {
+            LOGGER.log("Error while loading widget ${e.stackTraceToString()}")
+            itemList = emptyList()
+        }
     }
 
-    override fun onDestroy() {}
+    override fun onDestroy() {
+        itemList = emptyList()
+        widgetExecutor.shutdown()
+    }
 
     override fun getCount(): Int = itemList.size
 
@@ -51,9 +68,7 @@ class NotificationWidgetAdapter(
         }
 
         views.setTextViewText(R.id.item_text, title)
-
         views.setTextViewText(R.id.item_description, text)
-
         views.setTextViewText(R.id.noti_date, dateFormatter(notification.time))
 
         val icon = AppIcon.compute(notification.packageName.target.pkg)
@@ -74,7 +89,9 @@ class NotificationWidgetAdapter(
 
     override fun getViewTypeCount(): Int = 1
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemId(position: Int): Long {
+        return itemList.getOrNull(position)?.entityId ?: position.toLong()
+    }
 
     override fun hasStableIds(): Boolean = true
 }
