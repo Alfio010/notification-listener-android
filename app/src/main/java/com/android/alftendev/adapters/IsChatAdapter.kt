@@ -57,7 +57,7 @@ class IsChatAdapter(private val packageNames: List<PackageName>) :
                 DBUtils.getPackageName(packageName.pkg)
                     ?.let { viewHolder.swIsChat.isChecked = it.isChat }
 
-                MyApplication.executor.submit { notifyItemChanged(position) }
+                MyApplication.executor.execute { notifyItemChanged(position) }
             }
         }
 

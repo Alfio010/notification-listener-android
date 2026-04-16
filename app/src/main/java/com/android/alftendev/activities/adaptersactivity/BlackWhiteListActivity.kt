@@ -98,7 +98,7 @@ class BlackWhiteListActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.lvSettings)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        MyApplication.executor.submit {
+        MyApplication.executor.execute {
             refreshList(
                 DBUtils.allPackageName(),
                 blacklistMode
@@ -147,7 +147,7 @@ class BlackWhiteListActivity : AppCompatActivity() {
         adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
-                MyApplication.executor.submit {
+                MyApplication.executor.execute {
                     refreshList(
                         DBUtils.allPackageName(),
                         blacklistMode
@@ -162,7 +162,7 @@ class BlackWhiteListActivity : AppCompatActivity() {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                MyApplication.executor.submit {
+                MyApplication.executor.execute {
                     refreshList(
                         DBUtils.packageNameSearch(s.toString()),
                         blacklistMode
@@ -178,7 +178,7 @@ class BlackWhiteListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        MyApplication.executor.submit {
+        MyApplication.executor.execute {
             refreshList(DBUtils.allPackageName(), blacklistMode)
         }
     }

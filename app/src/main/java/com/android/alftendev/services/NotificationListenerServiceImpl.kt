@@ -18,8 +18,11 @@ import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.NotificationsUtils.sendNotification
+import java.util.concurrent.Executors
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
+    private val notiExecutor = Executors.newSingleThreadExecutor()
+
     companion object {
         val LOGGER = CustomLog("not-listener")
     }
@@ -47,90 +50,92 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        val lastNotifications = lastNotification(sbn.packageName)
+        notiExecutor.execute {
+            val lastNotifications = lastNotification(sbn.packageName)
 
-        val notificationExtras = sbn.notification.extras ?: return
+            val notificationExtras = sbn.notification.extras ?: return@execute
 
-        val title =
-            notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
+            val title =
+                notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
-        val conversationTitle =
-            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
-                .orEmpty()
+            val conversationTitle =
+                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
+                    .orEmpty()
 
-        val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
+            val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
-        val bigText =
-            notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
+            val bigText =
+                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
 
-        val infoText =
-            notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
+            val infoText =
+                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
 
-        val titleBig =
-            notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
+            val titleBig =
+                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
 
-        val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            try {
-                notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
-                    ?.toString().orEmpty()
-            } catch (e: ClassCastException) {
-                LOGGER.log("error casting: ${e.stackTraceToString()}")
+            val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                try {
+                    notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
+                        ?.toString().orEmpty()
+                } catch (e: ClassCastException) {
+                    LOGGER.log("error casting: ${e.stackTraceToString()}")
+                }
+            } else {
+                String()
             }
-        } else {
-            String()
-        }
 
-        if (searchOneNot(
-                sbn.packageName,
-                title,
-                sbn.notification.`when`,
-                text
-            ) != null
-        ) {
-            return
-        }
-
-        val entityDeleted = searchDeletedNot(sbn.packageName, sbn.notification.`when`, title, text)
-
-        if (entityDeleted != null) {
-            entityDeleted.isDeleted = true
-            MyApplication.notifications.put(entityDeleted)
-            sendNotification(this, entityDeleted.title, entityDeleted.text)
-            return
-        }
-
-        if (getPackageName(sbn.packageName) == null) {
-            MyApplication.packageNames.put(createPackageName(sbn.packageName))
-        }
-
-        val save = {
-            if (title.isNotEmpty() || text.isNotEmpty()) {
-                val notification = createNotification(
+            if (searchOneNot(
                     sbn.packageName,
                     title,
                     sbn.notification.`when`,
-                    text,
-                    bigText,
-                    conversationTitle,
-                    infoText,
-                    peopleList.toString(),
-                    titleBig
-                )
+                    text
+                ) != null
+            ) {
+                return@execute
+            }
 
-                if (notification != null) {
-                    LOGGER.log("NOTIFICATION: $notification")
+            val entityDeleted = searchDeletedNot(sbn.packageName, sbn.notification.`when`, title, text)
 
-                    MyApplication.notifications.put(notification)
+            if (entityDeleted != null) {
+                entityDeleted.isDeleted = true
+                MyApplication.notifications.put(entityDeleted)
+                sendNotification(this, entityDeleted.title, entityDeleted.text)
+                return@execute
+            }
+
+            if (getPackageName(sbn.packageName) == null) {
+                MyApplication.packageNames.put(createPackageName(sbn.packageName))
+            }
+
+            val save = {
+                if (title.isNotEmpty() || text.isNotEmpty()) {
+                    val notification = createNotification(
+                        sbn.packageName,
+                        title,
+                        sbn.notification.`when`,
+                        text,
+                        bigText,
+                        conversationTitle,
+                        infoText,
+                        peopleList.toString(),
+                        titleBig
+                    )
+
+                    if (notification != null) {
+                        LOGGER.log("NOTIFICATION: $notification")
+
+                        MyApplication.notifications.put(notification)
+                    }
                 }
             }
-        }
 
-        if (lastNotifications != null) {
-            if (lastNotifications.title != title || lastNotifications.text != text) {
+            if (lastNotifications != null) {
+                if (lastNotifications.title != title || lastNotifications.text != text) {
+                    save()
+                }
+            } else {
                 save()
             }
-        } else {
-            save()
         }
     }
 
@@ -155,64 +160,71 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             return
         }
 
-        val notificationExtras = sbn.notification?.extras ?: return
+        notiExecutor.execute {
+            val notificationExtras = sbn.notification?.extras ?: return@execute
 
-        val title =
-            notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
+            val title =
+                notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
 
-        val conversationTitle =
-            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
-                .orEmpty()
+            val conversationTitle =
+                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)?.toString()
+                    .orEmpty()
 
-        val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
+            val text = notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
 
-        val bigText =
-            notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
+            val bigText =
+                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString().orEmpty()
 
-        val infoText =
-            notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
+            val infoText =
+                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString().orEmpty()
 
-        val titleBig =
-            notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
+            val titleBig =
+                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString().orEmpty()
 
-        val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            try {
-                notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
-                    ?.toString().orEmpty()
-            } catch (e: ClassCastException) {
-                LOGGER.log("error casting: ${e.stackTraceToString()}")
-            }
-        } else {
-            String()
-        }
-
-        val entity =
-            searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
-
-        if (entity != null) {
-            return
-        }
-
-        if (title.isNotEmpty() || text.isNotEmpty()) {
-            val deletedNotification =
-                sbn.let {
-                    createNotificationDeleted(
-                        it.packageName,
-                        title,
-                        it.notification.`when`,
-                        text,
-                        bigText,
-                        conversationTitle,
-                        infoText,
-                        peopleList.toString(),
-                        titleBig
-                    )
+            val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                try {
+                    notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
+                        ?.toString().orEmpty()
+                } catch (e: ClassCastException) {
+                    LOGGER.log("error casting: ${e.stackTraceToString()}")
                 }
+            } else {
+                String()
+            }
 
-            if (deletedNotification != null) {
-                MyApplication.notifications.put(deletedNotification)
-                sendNotification(this, deletedNotification.title, deletedNotification.text)
+            val entity =
+                searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
+
+            if (entity != null) {
+                return@execute
+            }
+
+            if (title.isNotEmpty() || text.isNotEmpty()) {
+                val deletedNotification =
+                    sbn.let {
+                        createNotificationDeleted(
+                            it.packageName,
+                            title,
+                            it.notification.`when`,
+                            text,
+                            bigText,
+                            conversationTitle,
+                            infoText,
+                            peopleList.toString(),
+                            titleBig
+                        )
+                    }
+
+                if (deletedNotification != null) {
+                    MyApplication.notifications.put(deletedNotification)
+                    sendNotification(this, deletedNotification.title, deletedNotification.text)
+                }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notiExecutor.shutdown()
     }
 }

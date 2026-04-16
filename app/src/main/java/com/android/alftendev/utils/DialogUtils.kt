@@ -119,7 +119,7 @@ object DialogUtils {
                 loadingDialog = showLoadingDialog(context)
             }
 
-            MyApplication.executor.submit {
+            MyApplication.executor.execute {
                 val result = ImportExport.exportDbZipEncrypted(context, enteredPassword)
                 val zip = File(result.first)
 

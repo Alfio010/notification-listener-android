@@ -127,11 +127,11 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                MyApplication.executor.submit { refreshList(getNotificationsBySearch(s.toString())) }
+                MyApplication.executor.execute { refreshList(getNotificationsBySearch(s.toString())) }
             }
         })
 
-        MyApplication.executor.submit { refreshList(getNotifications()) }
+        MyApplication.executor.execute { refreshList(getNotifications()) }
 
         onBackPressedDispatcher.addCallback {
             finishAndRemoveTask()
@@ -240,7 +240,7 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        MyApplication.executor.submit { refreshList(getNotifications()) }
+        MyApplication.executor.execute { refreshList(getNotifications()) }
     }
 
     override fun onDestroy() {

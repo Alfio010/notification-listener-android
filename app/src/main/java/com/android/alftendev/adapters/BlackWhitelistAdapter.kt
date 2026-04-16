@@ -77,7 +77,7 @@ class BlackWhitelistAdapter(
                         ?.let { viewHolder.swIsBlackWhiteListed.isChecked = it.isWhiteList }
                 }
 
-                MyApplication.executor.submit { notifyItemChanged(position) }
+                MyApplication.executor.execute { notifyItemChanged(position) }
             }
         }
 

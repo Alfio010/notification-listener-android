@@ -50,12 +50,12 @@ class IsChatActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvIsChat)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
+        MyApplication.executor.execute { refreshList(DBUtils.allPackageNameFromTable()) }
 
         adapter.registerAdapterDataObserver(object : AdapterDataObserver() {
             override fun onChanged() {
                 super.onChanged()
-                MyApplication.executor.submit { refreshList(DBUtils.allPackageNameFromTable()) }
+                MyApplication.executor.execute { refreshList(DBUtils.allPackageNameFromTable()) }
             }
         })
 
@@ -65,7 +65,7 @@ class IsChatActivity : AppCompatActivity() {
                 Unit
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                MyApplication.executor.submit { refreshList(DBUtils.packageNameSearch(s.toString())) }
+                MyApplication.executor.execute { refreshList(DBUtils.packageNameSearch(s.toString())) }
             }
         })
 

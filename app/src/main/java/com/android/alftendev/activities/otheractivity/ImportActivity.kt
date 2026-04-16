@@ -61,7 +61,7 @@ class ImportActivity : AppCompatActivity() {
                                 loadingDialog = showLoadingDialog(this)
                             }
 
-                            MyApplication.executor.submit {
+                            MyApplication.executor.execute {
                                 val result = ImportExport.importZipDecryptAndPrintStreaming(
                                     zipFile,
                                     zipPassword

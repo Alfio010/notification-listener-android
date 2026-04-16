@@ -428,7 +428,7 @@ class SettingsActivity : AppCompatActivity() {
 
             if (exportDb != null) {
                 exportDb.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    MyApplication.executor.submit {
+                    MyApplication.executor.execute {
                         try {
                             activity?.runOnUiThread {
                                 askPasswordForZipDialog(requireContext(), activity)
