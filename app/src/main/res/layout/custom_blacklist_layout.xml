@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:text="@string/textview"
-                    android:textColor="@color/cyan_white"
+                    android:textColor="?android:textColor"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 

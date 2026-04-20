@@ -57,7 +57,7 @@
                         android:layout_weight="1"
                         android:paddingStart="3.5sp"
                         android:text="@string/textview"
-                        android:textColor="@color/cyan_white"
+                        android:textColor="?android:textColor"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
