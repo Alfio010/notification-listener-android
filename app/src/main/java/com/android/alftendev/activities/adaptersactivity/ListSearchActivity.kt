@@ -1,10 +1,7 @@
 package com.android.alftendev.activities.adaptersactivity
 
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
 import com.android.alftendev.MyApplication.Companion.defaultSwValue
-import com.android.alftendev.R
 import com.android.alftendev.activities.NotificationListViewerBaseActivity
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.utils.AuthUtils
@@ -15,11 +12,13 @@ import com.android.alftendev.utils.UiUtils
 import kotlin.properties.Delegates
 
 class ListSearchActivity : NotificationListViewerBaseActivity() {
+    private lateinit var appName: String
     private lateinit var pkgName: String
     private lateinit var text: String
     private var isDeleted by Delegates.notNull<Boolean>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        appName = intent.extras!!.getString("appName", "Error")
         pkgName = intent.extras!!.getString("pkgName", defaultSwValue)
         isDeleted = intent.extras!!.getBoolean("isDeleted", false)
         text = intent.extras!!.getString("text", "")
@@ -27,8 +26,9 @@ class ListSearchActivity : NotificationListViewerBaseActivity() {
         AuthUtils.askAuth(this)
 
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
+
+        setTitle(appName)
         super.onCreate(savedInstanceState)
-        findViewById<LinearLayout>(R.id.llNotiList).visibility = View.GONE
     }
 
     override fun getNotifications(): List<Notifications> {

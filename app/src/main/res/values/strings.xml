@@ -151,4 +151,6 @@
     <string name="password_invalid_alert">Invalid password (at least 8 characters and 1 number)</string>
     <string name="create_zip">Create ZIP</string>
     <string name="icon_licenses">Icon licenses</string>
+    <string name="all">All</string>
+    <string name="are_you_sure_you_want_to_delete_the_selected_items_they_cannot_be_recovered">Are you sure you want to delete the selected items? (%1$s) They cannot be recovered.</string>
 </resources>

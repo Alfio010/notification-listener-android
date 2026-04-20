@@ -118,4 +118,6 @@
     <string name="password_invalid_alert">Password non valida (almeno 8 caratteri e 1 numero)</string>
     <string name="create_zip">Crea ZIP</string>
     <string name="icon_licenses">Licenze icone</string>
+    <string name="all">Tutti</string>
+    <string name="are_you_sure_you_want_to_delete_the_selected_items_they_cannot_be_recovered">Sei sicuro di voler eliminare gli elementi selezionati? (%1$s) Non potranno essere recuperati.</string>
 </resources>

@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +30,7 @@ import com.android.alftendev.activities.home.SettingsActivity
 import com.android.alftendev.adapters.NotificationsAdapter
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.utils.AuthUtils.askAuth
+import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ALREADY_ASKED
 import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
@@ -37,10 +41,12 @@ import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
 
-abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
+abstract class NotificationListViewerBaseActivity : AppCompatActivity(),
+    NotificationsAdapter.OnSelectionChangeListener {
     open lateinit var recycleView: RecyclerView
     open lateinit var etSearch: EditText
     private lateinit var adapter: NotificationsAdapter
@@ -49,14 +55,20 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
     private lateinit var actionBarToggle: ActionBarDrawerToggle
     private lateinit var navView: NavigationView
 
+    private lateinit var llSelectionBar: LinearLayout
+    private lateinit var cbSelectAll: MaterialCheckBox
+    private lateinit var btnDeleteSelected: ImageButton
+
     abstract fun getNotifications(): List<Notifications>
     abstract fun getNotificationsBySearch(filter: String): List<Notifications>
 
     open fun refreshList(notifications: List<Notifications>) {
         runOnUiThread {
-            adapter = NotificationsAdapter(notifications, this)
+            adapter = NotificationsAdapter(notifications, this, this)
             recycleView.layoutManager = linearLayoutManager
             recycleView.adapter = adapter
+
+            onSelectionModeChange(false)
         }
     }
 
@@ -86,6 +98,48 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         etSearch = findViewById(R.id.etSearch)
         recycleView = findViewById(R.id.lvAll)
         linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+        llSelectionBar = findViewById(R.id.llSelectionBar)
+        cbSelectAll = findViewById(R.id.cbSelectAll)
+        btnDeleteSelected = findViewById(R.id.btnDeleteSelected)
+
+        cbSelectAll.setOnClickListener {
+            if (::adapter.isInitialized) {
+                if (cbSelectAll.isChecked) {
+                    adapter.selectAll()
+                } else {
+                    adapter.deselectAll()
+                }
+            }
+        }
+
+        btnDeleteSelected.setOnClickListener {
+            if (::adapter.isInitialized && adapter.selectedItemsIds.isNotEmpty()) {
+                val builderDelete = MaterialAlertDialogBuilder(this)
+                builderDelete.setTitle(getString(R.string.confirm_delete_noti_warning))
+                builderDelete.setMessage(
+                    getString(
+                        R.string.are_you_sure_you_want_to_delete_the_selected_items_they_cannot_be_recovered,
+                        adapter.selectedItemsIds.size.toString()
+                    )
+                )
+                builderDelete.setIcon(R.mipmap.ic_launcher)
+
+                builderDelete.setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                    val idsToDelete = adapter.selectedItemsIds.toList()
+
+                    MyApplication.executor.execute {
+                        DBUtils.deleteMultipleNotificationByIds(idsToDelete)
+
+                        refreshList(getNotifications())
+                    }
+                }
+
+                builderDelete.setNegativeButton(R.string.cancel) { _, _ -> }
+                builderDelete.setOnCancelListener { it.dismiss() }
+                builderDelete.create().show()
+            }
+        }
 
         if (javaClass.simpleName == "AllNotificationsActivity") {
             if (!getIsRecordNotificationsEnabled() && !getIsRecordNotificationsAlreadyAsked()) {
@@ -133,8 +187,12 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
 
         MyApplication.executor.execute { refreshList(getNotifications()) }
 
-        onBackPressedDispatcher.addCallback {
-            finishAndRemoveTask()
+        onBackPressedDispatcher.addCallback(this) {
+            if (::adapter.isInitialized && adapter.isSelectionMode) {
+                adapter.exitSelectionMode()
+            } else {
+                finishAndRemoveTask()
+            }
         }
 
         navView.setNavigationItemSelectedListener { menuItem ->
@@ -238,6 +296,27 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSelectionModeChange(isSelectionMode: Boolean) {
+        runOnUiThread {
+            if (isSelectionMode) {
+                llSelectionBar.visibility = View.VISIBLE
+                etSearch.visibility = View.GONE
+            } else {
+                llSelectionBar.visibility = View.GONE
+                etSearch.visibility = View.VISIBLE
+                cbSelectAll.isChecked = false
+            }
+        }
+    }
+
+    override fun onSelectionCountChange(count: Int) {
+        runOnUiThread {
+            if (::adapter.isInitialized) {
+                cbSelectAll.isChecked = count > 0 && count == adapter.itemCount
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         MyApplication.executor.execute { refreshList(getNotifications()) }
@@ -251,6 +330,12 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        /*
+        if (::adapter.isInitialized && adapter.isSelectionMode) {
+            adapter.exitSelectionMode()
+            return true
+        }
+        */
         drawerLayout.openDrawer(navView)
         return true
     }

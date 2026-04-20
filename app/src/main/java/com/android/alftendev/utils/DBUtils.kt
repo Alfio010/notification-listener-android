@@ -17,6 +17,8 @@ import io.objectbox.query.QueryBuilder
 import java.util.Date
 
 object DBUtils {
+    val LOGGER = CustomLog("noti-database-utils")
+
     fun searchDeletedNot(pkgName: String, date: Long, title: String, text: String): Notifications? {
         return notifications
             .query()
@@ -522,6 +524,15 @@ object DBUtils {
             .equal(Notifications_.entityId, id)
             .build()
             .remove()
+    }
+
+    fun deleteMultipleNotificationByIds(id: List<Long>) {
+        try {
+            notifications.removeByIds(id)
+        } catch (e: Exception) {
+            LOGGER.log("Error while deleting multiple notification by ids: ${e.stackTraceToString()}")
+        }
+
     }
 
     fun getInstalledPackageNamesFromList(packageName: List<PackageName>): MutableList<PackageName> {

@@ -1,23 +1,21 @@
 package com.android.alftendev.widget
 
 import android.content.Context
-import android.graphics.drawable.Icon
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.android.alftendev.R
 import com.android.alftendev.models.Notifications
+import com.android.alftendev.models.getParsedNoti
 import com.android.alftendev.utils.CustomLog
 import com.android.alftendev.utils.DBUtils.lastNotificationWithLimit
 import com.android.alftendev.utils.DateUtils.dateFormatter
-import com.android.alftendev.utils.Utils.getIconFromDrawable
-import com.android.alftendev.utils.computables.AppIcon
 import java.util.concurrent.Executors
 
 class NotificationWidgetAdapter(private val context: Context) :
     RemoteViewsService.RemoteViewsFactory {
 
     companion object {
-        private const val MAX_LENGTH = 35
+        const val MAX_LENGTH = 35
         val LOGGER = CustomLog("noti-widget-provider")
     }
 
@@ -53,34 +51,18 @@ class NotificationWidgetAdapter(private val context: Context) :
         val notification = itemList[position]
         val views = RemoteViews(context.packageName, R.layout.widget_list_item)
 
-        val title = if (notification.title.trim() != "null") {
-            notification.title
-        } else {
-            context.getString(R.string.null_value)
-        }
+        val parsedNoti = getParsedNoti(
+            title = notification.title,
+            text = notification.text,
+            packageName = notification.packageName.target.pkg,
+            context
+        )
 
-        val text = if (notification.text.length > MAX_LENGTH) {
-            notification.text.subSequence(0, MAX_LENGTH).toString() + "..."
-        } else if (notification.text.trim() == "null") {
-            context.getString(R.string.null_value)
-        } else {
-            notification.text
-        }
-
-        views.setTextViewText(R.id.item_text, title)
-        views.setTextViewText(R.id.item_description, text)
+        views.setTextViewText(R.id.item_text, parsedNoti.title)
+        views.setTextViewText(R.id.item_description, parsedNoti.text)
         views.setTextViewText(R.id.noti_date, dateFormatter(notification.time))
 
-        val icon = AppIcon.compute(notification.packageName.target.pkg)
-
-        if (icon != null) {
-            views.setImageViewIcon(R.id.item_image, getIconFromDrawable(icon))
-        } else {
-            views.setImageViewIcon(
-                R.id.item_image,
-                Icon.createWithResource(context, R.drawable.baseline_android_24)
-            )
-        }
+        views.setImageViewIcon(R.id.item_image, parsedNoti.icon)
 
         return views
     }

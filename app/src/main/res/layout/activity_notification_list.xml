@@ -37,6 +37,35 @@
                 android:minHeight="52sp"
                 tools:ignore="NestedWeights" />
 
+            <LinearLayout
+                android:id="@+id/llSelectionBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/cbSelectAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/btnDeleteSelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/cancel"
+                    android:padding="12dp"
+                    android:src="@drawable/baseline_delete_24" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <FrameLayout
@@ -61,4 +90,5 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_list" />
+
 </androidx.drawerlayout.widget.DrawerLayout>
