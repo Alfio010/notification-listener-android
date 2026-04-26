@@ -69,7 +69,7 @@ fun MyApp(messages: List<Notifications>, chatTitle: String, pkgName: String) {
     val painterIcon = if (icon != null) {
         rememberDrawablePainter(icon)
     } else {
-        painterResource(id = R.mipmap.ic_launcher)
+        painterResource(id = R.mipmap.ic_launcher_foreground)
     }
 
     Scaffold(
