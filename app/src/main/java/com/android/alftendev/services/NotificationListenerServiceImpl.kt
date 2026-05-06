@@ -2,6 +2,7 @@ package com.android.alftendev.services
 
 import android.app.Notification
 import android.os.Build
+import android.os.Bundle
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.MyApplication
@@ -41,52 +42,25 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
 
             val notificationExtras = safeSbn.notification.extras ?: return@execute
 
-            val title =
-                notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
-
-            val conversationTitle =
-                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
-                    ?.toString()
-                    .orEmpty()
-
-            val text =
-                notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
-
-            val bigText =
-                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()
-                    .orEmpty()
-
-            val infoText =
-                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString()
-                    .orEmpty()
-
-            val titleBig =
-                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString()
-                    .orEmpty()
-
-            val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                try {
-                    notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
-                        ?.toString().orEmpty()
-                } catch (e: ClassCastException) {
-                    LOGGER.log("error casting: ${e.stackTraceToString()}")
-                }
-            } else {
-                String()
-            }
+            val notificationData = getNotificationFromExtras(notificationExtras)
 
             if (searchOneNot(
                     safeSbn.packageName,
-                    title,
+                    notificationData.title,
                     safeSbn.notification.`when`,
-                    text
+                    notificationData.text
                 ) != null
             ) {
                 return@execute
             }
 
             val entityDeleted =
-                searchDeletedNot(safeSbn.packageName, safeSbn.notification.`when`, title, text)
+                searchDeletedNot(
+                    safeSbn.packageName,
+                    safeSbn.notification.`when`,
+                    notificationData.title,
+                    notificationData.text
+                )
 
             if (entityDeleted != null) {
                 entityDeleted.isDeleted = true
@@ -100,17 +74,17 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             val save = {
-                if (title.isNotEmpty() || text.isNotEmpty()) {
+                if (notificationData.title.isNotEmpty() || notificationData.text.isNotEmpty()) {
                     val notification = createNotification(
                         safeSbn.packageName,
-                        title,
+                        notificationData.title,
                         safeSbn.notification.`when`,
-                        text,
-                        bigText,
-                        conversationTitle,
-                        infoText,
-                        peopleList.toString(),
-                        titleBig
+                        notificationData.text,
+                        notificationData.bigText,
+                        notificationData.conversationTitle,
+                        notificationData.infoText,
+                        notificationData.peopleList,
+                        notificationData.titleBig
                     )
 
                     if (notification != null) {
@@ -122,7 +96,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             if (lastNotifications != null) {
-                if (lastNotifications.title != title || lastNotifications.text != text) {
+                if (lastNotifications.title != notificationData.title || lastNotifications.text != notificationData.text) {
                     save()
                 }
             } else {
@@ -141,60 +115,33 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         notiExecutor.execute {
             val notificationExtras = safeSbn.notification?.extras ?: return@execute
 
-            val title =
-                notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
-
-            val conversationTitle =
-                notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
-                    ?.toString()
-                    .orEmpty()
-
-            val text =
-                notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
-
-            val bigText =
-                notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()
-                    .orEmpty()
-
-            val infoText =
-                notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString()
-                    .orEmpty()
-
-            val titleBig =
-                notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString()
-                    .orEmpty()
-
-            val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                try {
-                    notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
-                        ?.toString().orEmpty()
-                } catch (e: ClassCastException) {
-                    LOGGER.log("error casting: ${e.stackTraceToString()}")
-                }
-            } else {
-                String()
-            }
+            val notificationData = getNotificationFromExtras(notificationExtras)
 
             val entity =
-                searchOneNot(safeSbn.packageName, title, safeSbn.notification.`when`, text)
+                searchOneNot(
+                    safeSbn.packageName,
+                    notificationData.title,
+                    safeSbn.notification.`when`,
+                    notificationData.text
+                )
 
             if (entity != null) {
                 return@execute
             }
 
-            if (title.isNotEmpty() || text.isNotEmpty()) {
+            if (notificationData.title.isNotEmpty() || notificationData.text.isNotEmpty()) {
                 val deletedNotification =
                     safeSbn.let {
                         createNotificationDeleted(
                             it.packageName,
-                            title,
+                            notificationData.title,
                             it.notification.`when`,
-                            text,
-                            bigText,
-                            conversationTitle,
-                            infoText,
-                            peopleList.toString(),
-                            titleBig
+                            notificationData.text,
+                            notificationData.bigText,
+                            notificationData.conversationTitle,
+                            notificationData.infoText,
+                            notificationData.peopleList,
+                            notificationData.titleBig
                         )
                     }
 
@@ -218,5 +165,61 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         if (shouldDropByPackage(sbn.packageName)) return true
         if (shouldDropByDefaultBlacklist(sbn)) return true
         return false
+    }
+
+    private data class NotificationData(
+        val title: String,
+        val text: String,
+        val bigText: String,
+        val conversationTitle: String,
+        val infoText: String,
+        val peopleList: String,
+        val titleBig: String
+    )
+
+    private fun getNotificationFromExtras(notificationExtras: Bundle): NotificationData {
+        val title =
+            notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
+
+        val conversationTitle =
+            notificationExtras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE)
+                ?.toString()
+                .orEmpty()
+
+        val text =
+            notificationExtras.getCharSequence(Notification.EXTRA_TEXT)?.toString().orEmpty()
+
+        val bigText =
+            notificationExtras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString()
+                .orEmpty()
+
+        val infoText =
+            notificationExtras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString()
+                .orEmpty()
+
+        val titleBig =
+            notificationExtras.getCharSequence(Notification.EXTRA_TITLE_BIG)?.toString()
+                .orEmpty()
+
+        val peopleList = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            try {
+                notificationExtras.getCharSequenceArrayList(Notification.EXTRA_PEOPLE_LIST)
+                    ?.toString().orEmpty()
+            } catch (e: ClassCastException) {
+                LOGGER.log("error casting: ${e.stackTraceToString()}")
+            }
+        } else {
+            String()
+        }
+
+        return NotificationData(
+            title = title,
+            text = text,
+            bigText = bigText,
+            conversationTitle = conversationTitle,
+            infoText = infoText,
+            peopleList = peopleList as String,
+            titleBig = titleBig
+        )
     }
 }
