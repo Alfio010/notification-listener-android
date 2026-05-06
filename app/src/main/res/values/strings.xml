@@ -143,7 +143,7 @@
     <string name="whitelist_info">All activated whitelisted apps will be included from the notification listener</string>
     <string name="reset_whitelist" translatable="false">Reset whitelist</string>
     <string name="whitelist" translatable="false">Whitelist</string>
-    <string name="installed">Installed</string>
+    <string name="installed">Only installed</string>
     <string name="select_all">Select All</string>
     <string name="deselect_all">Deselect All</string>
     <string name="zip_file_password" translatable="false">ZIP File Password</string>

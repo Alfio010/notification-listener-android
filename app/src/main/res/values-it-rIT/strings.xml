@@ -111,7 +111,7 @@
     <string name="open_whitelist">Apri whitelist</string>
     <string name="whitelist_info">Tutte le app attivate presenti nella whitelist saranno incluse dal listener delle notifiche.</string>
     <string name="whitelist_reset_confirm">Sei sicuro di voler resettare la whitelist?</string>
-    <string name="installed">Installate</string>
+    <string name="installed">Solo installate</string>
     <string name="select_all">Seleziona Tutti</string>
     <string name="deselect_all">Deseleziona Tutti</string>
     <string name="enter_password_encrypt_zip_or_leave_empty">Inserisci una password per crittografare il file ZIP. Se lasci questo campo vuoto, verrà generata una password casuale.</string>
