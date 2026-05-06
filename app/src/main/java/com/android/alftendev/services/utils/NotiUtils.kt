@@ -40,11 +40,7 @@ object NotiUtils {
         return false
     }
 
-    fun isAutoBlacklistedNotification(sbn: StatusBarNotification?): Boolean {
-        if (sbn == null) {
-            return true
-        }
-
+    fun isAutoBlacklistedNotification(sbn: StatusBarNotification): Boolean {
         if (sbn.packageName.startsWith("com.whatsapp") && sbn.key!!.contains("null")) {
             return true
         }
