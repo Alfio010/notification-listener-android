@@ -30,30 +30,16 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         super.onNotificationPosted(sbn)
 
-        if (sbn == null) {
+        if (shouldIgnoreNotification(sbn)) {
             return
         }
 
-        if (!MySharedPref.getIsRecordNotificationsEnabled()) {
-            return
-        }
-
-        if (isAutoBlacklistedNotification(sbn)) {
-            return
-        }
-
-        if (shouldDropByPackage(sbn.packageName)) {
-            return
-        }
-
-        if (shouldDropByDefaultBlacklist(sbn)) {
-            return
-        }
+        val safeSbn = sbn!!
 
         notiExecutor.execute {
-            val lastNotifications = lastNotification(sbn.packageName)
+            val lastNotifications = lastNotification(safeSbn.packageName)
 
-            val notificationExtras = sbn.notification.extras ?: return@execute
+            val notificationExtras = safeSbn.notification.extras ?: return@execute
 
             val title =
                 notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
@@ -90,9 +76,9 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             if (searchOneNot(
-                    sbn.packageName,
+                    safeSbn.packageName,
                     title,
-                    sbn.notification.`when`,
+                    safeSbn.notification.`when`,
                     text
                 ) != null
             ) {
@@ -100,7 +86,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             val entityDeleted =
-                searchDeletedNot(sbn.packageName, sbn.notification.`when`, title, text)
+                searchDeletedNot(safeSbn.packageName, safeSbn.notification.`when`, title, text)
 
             if (entityDeleted != null) {
                 entityDeleted.isDeleted = true
@@ -109,16 +95,16 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 return@execute
             }
 
-            if (getPackageName(sbn.packageName) == null) {
-                MyApplication.packageNames.put(createPackageName(sbn.packageName))
+            if (getPackageName(safeSbn.packageName) == null) {
+                MyApplication.packageNames.put(createPackageName(safeSbn.packageName))
             }
 
             val save = {
                 if (title.isNotEmpty() || text.isNotEmpty()) {
                     val notification = createNotification(
-                        sbn.packageName,
+                        safeSbn.packageName,
                         title,
-                        sbn.notification.`when`,
+                        safeSbn.notification.`when`,
                         text,
                         bigText,
                         conversationTitle,
@@ -128,7 +114,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                     )
 
                     if (notification != null) {
-                        LOGGER.log("NOTIFICATION: $notification")
+                        LOGGER.log("SAVED NOTIFICATION: $notification")
 
                         MyApplication.notifications.put(notification)
                     }
@@ -146,28 +132,14 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {
-        if (sbn == null) {
+        if (shouldIgnoreNotification(sbn)) {
             return
         }
 
-        if (!MySharedPref.getIsRecordNotificationsEnabled()) {
-            return
-        }
-
-        if (isAutoBlacklistedNotification(sbn)) {
-            return
-        }
-
-        if (shouldDropByPackage(sbn.packageName)) {
-            return
-        }
-
-        if (shouldDropByDefaultBlacklist(sbn)) {
-            return
-        }
+        val safeSbn = sbn!!
 
         notiExecutor.execute {
-            val notificationExtras = sbn.notification?.extras ?: return@execute
+            val notificationExtras = safeSbn.notification?.extras ?: return@execute
 
             val title =
                 notificationExtras.getCharSequence(Notification.EXTRA_TITLE)?.toString().orEmpty()
@@ -204,7 +176,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             val entity =
-                searchOneNot(sbn.packageName, title, sbn.notification.`when`, text)
+                searchOneNot(safeSbn.packageName, title, safeSbn.notification.`when`, text)
 
             if (entity != null) {
                 return@execute
@@ -212,7 +184,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
 
             if (title.isNotEmpty() || text.isNotEmpty()) {
                 val deletedNotification =
-                    sbn.let {
+                    safeSbn.let {
                         createNotificationDeleted(
                             it.packageName,
                             title,
@@ -237,5 +209,14 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
     override fun onDestroy() {
         super.onDestroy()
         notiExecutor.shutdown()
+    }
+
+    private fun shouldIgnoreNotification(sbn: StatusBarNotification?): Boolean {
+        if (sbn == null) return true
+        if (!MySharedPref.getIsRecordNotificationsEnabled()) return true
+        if (isAutoBlacklistedNotification(sbn)) return true
+        if (shouldDropByPackage(sbn.packageName)) return true
+        if (shouldDropByDefaultBlacklist(sbn)) return true
+        return false
     }
 }
