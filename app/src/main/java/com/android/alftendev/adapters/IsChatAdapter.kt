@@ -17,21 +17,14 @@ class IsChatAdapter(private val packageNames: List<PackageName>) :
     RecyclerView.Adapter<IsChatAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvPackageName: MaterialTextView
-        val swIsChat: SwitchCompat
-        val ivPackage: ImageView
-
-        init {
-            tvPackageName = view.findViewById(R.id.tvIsChatPkgName)
-            swIsChat = view.findViewById(R.id.swIsChat)
-            ivPackage = view.findViewById(R.id.ivIsChat)
-        }
+        val tvPackageName: MaterialTextView = view.findViewById(R.id.tvIsChatPkgName)
+        val swIsChat: SwitchCompat = view.findViewById(R.id.swIsChat)
+        val ivPackage: ImageView = view.findViewById(R.id.ivIsChat)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.custom_is_chat, viewGroup, false)
-
         return ViewHolder(view)
     }
 
@@ -45,24 +38,22 @@ class IsChatAdapter(private val packageNames: List<PackageName>) :
         }
 
         viewHolder.swIsChat.setOnCheckedChangeListener(null)
-
         viewHolder.swIsChat.isChecked = packageName.isChat
 
-        viewHolder.swIsChat.setOnCheckedChangeListener { _, isChecked ->
-            val entity = DBUtils.getPackageName(packageName.pkg)
-            if (entity != null) {
+        viewHolder.swIsChat.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (!buttonView.isPressed) return@setOnCheckedChangeListener
+
+            packageName.isChat = isChecked
+
+            MyApplication.executor.execute {
+                val entity = DBUtils.getPackageName(packageName.pkg) ?: packageName
                 entity.isChat = isChecked
+
                 MyApplication.packageNames.put(entity)
-
-                DBUtils.getPackageName(packageName.pkg)
-                    ?.let { viewHolder.swIsChat.isChecked = it.isChat }
-
-                MyApplication.executor.execute { notifyItemChanged(position) }
             }
         }
 
         val icon = AppIcon.compute(packageName.pkg)
-
         if (icon != null) {
             viewHolder.ivPackage.setImageDrawable(icon)
         } else {

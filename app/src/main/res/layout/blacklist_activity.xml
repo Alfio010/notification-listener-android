@@ -25,7 +25,7 @@
             android:hint="@string/search"
             android:inputType="textPersonName"
             android:minHeight="52sp"
-            android:textColorHint="@color/text_color_white"/>
+            android:textColorHint="@color/text_color_white" />
 
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/swShowOnlyInstalledApps"
@@ -34,7 +34,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/installed"
-            android:textColor="@color/text_color_white"/>
+            android:textColor="@color/text_color_white" />
 
         <ImageButton
             android:id="@+id/bBlackWhitelistSettings"
