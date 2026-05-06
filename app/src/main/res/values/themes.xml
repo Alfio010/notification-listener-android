@@ -11,7 +11,7 @@
         <item name="colorOnSecondary">@color/blue_dark</item>
 
         <item name="cardBackgroundColor">@color/background_light_cardview</item>
-        <item name="android:textColor">@color/text_color_light_mode</item>
+        <item name="android:textColor">@color/text_color_black</item>
 
         <item name="backgroundColor">@color/background</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
@@ -28,7 +28,7 @@
         <item name="colorOnSecondary">@color/cyan_light</item>
 
         <item name="cardBackgroundColor">@color/background_light_cardview</item>
-        <item name="android:textColor">@color/text_color_light_mode</item>
+        <item name="android:textColor">@color/text_color_black</item>
 
         <item name="backgroundColor">@color/background</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
@@ -45,7 +45,7 @@
         <item name="colorOnSecondary">@color/cyan_light</item>
 
         <item name="cardBackgroundColor">@color/background_dark_cardview</item>
-        <item name="android:textColor">@color/text_color_dark_mode</item>
+        <item name="android:textColor">@color/text_color_white</item>
 
         <item name="backgroundColor">@color/background_dark</item>
         <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>

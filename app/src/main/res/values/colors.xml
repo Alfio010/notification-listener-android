@@ -17,6 +17,6 @@
     <color name="background_dark_cardview">#424242</color>
     <color name="background_light_cardview">#F5F5F5</color>
 
-    <color name="text_color_light_mode">#212121</color>
-    <color name="text_color_dark_mode">#FFFFFF</color>
+    <color name="text_color_black">#212121</color>
+    <color name="text_color_white">#FFFFFF</color>
 </resources>

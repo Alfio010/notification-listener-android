@@ -24,7 +24,7 @@ fun MyTheme(
     val lightColorScheme = lightColorScheme(
         primary = colorResource(id = R.color.blue_dark),
         onPrimary = Color.White,
-        tertiary = colorResource(id = R.color.text_color_light_mode),
+        tertiary = colorResource(id = R.color.text_color_black),
         primaryContainer = colorResource(id = R.color.top_bar_background),
         secondary = colorResource(id = R.color.blue),
         onSecondary = colorResource(id = R.color.cyan_light),

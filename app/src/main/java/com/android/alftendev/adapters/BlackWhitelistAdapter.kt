@@ -1,5 +1,7 @@
 package com.android.alftendev.adapters
 
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,26 +22,18 @@ import com.google.android.material.textview.MaterialTextView
 class BlackWhitelistAdapter(
     private val packageNames: List<PackageName>,
     private val blacklistMode: Boolean
-) :
-    RecyclerView.Adapter<BlackWhitelistAdapter.ViewHolder>() {
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvNamePackage: MaterialTextView
-        val swIsBlackWhiteListed: SwitchCompat
-        val ivBlackWhitelist: ImageView
-        val llCustomBlacklistCard: LinearLayout
+) : RecyclerView.Adapter<BlackWhitelistAdapter.ViewHolder>() {
 
-        init {
-            tvNamePackage = view.findViewById(R.id.tvPackageName)
-            swIsBlackWhiteListed = view.findViewById(R.id.swIsBlackListed)
-            ivBlackWhitelist = view.findViewById(R.id.ivBlacklist)
-            llCustomBlacklistCard = view.findViewById(R.id.llCustomBlacklistCard)
-        }
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val tvNamePackage: MaterialTextView = view.findViewById(R.id.tvPackageName)
+        val swIsBlackWhiteListed: SwitchCompat = view.findViewById(R.id.swIsBlackListed)
+        val ivBlackWhitelist: ImageView = view.findViewById(R.id.ivBlacklist)
+        val llCustomBlacklistCard: LinearLayout = view.findViewById(R.id.llCustomBlacklistCard)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.custom_blacklist_layout, viewGroup, false)
-
         return ViewHolder(view)
     }
 
@@ -60,29 +54,29 @@ class BlackWhitelistAdapter(
             packageName.isWhiteList
         }
 
-        viewHolder.swIsBlackWhiteListed.setOnCheckedChangeListener { _, isChecked ->
-            val entity = DBUtils.getPackageName(packageName.pkg)
-            if (entity != null) {
+        viewHolder.swIsBlackWhiteListed.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (!buttonView.isPressed) return@setOnCheckedChangeListener
+
+            if (blacklistMode) {
+                packageName.isBlackList = isChecked
+            } else {
+                packageName.isWhiteList = isChecked
+            }
+
+            MyApplication.executor.execute {
+                val entity = DBUtils.getPackageName(packageName.pkg) ?: packageName
+
                 if (blacklistMode) {
                     entity.isBlackList = isChecked
-                    MyApplication.packageNames.put(entity)
-
-                    DBUtils.getPackageName(packageName.pkg)
-                        ?.let { viewHolder.swIsBlackWhiteListed.isChecked = it.isBlackList }
                 } else {
                     entity.isWhiteList = isChecked
-                    MyApplication.packageNames.put(entity)
-
-                    DBUtils.getPackageName(packageName.pkg)
-                        ?.let { viewHolder.swIsBlackWhiteListed.isChecked = it.isWhiteList }
                 }
 
-                MyApplication.executor.execute { notifyItemChanged(position) }
+                MyApplication.packageNames.put(entity)
             }
         }
 
         val icon = AppIcon.compute(packageName.pkg)
-
         if (icon != null) {
             viewHolder.ivBlackWhitelist.setImageDrawable(icon)
         } else {
@@ -90,42 +84,44 @@ class BlackWhitelistAdapter(
         }
 
         val showSettingDialog = {
-            val customAlertDialogView = LayoutInflater.from(viewHolder.itemView.context)
+            val context = viewHolder.itemView.context
+            val customAlertDialogView = LayoutInflater.from(context)
                 .inflate(R.layout.custom_packagecard_dialog, null, false)
 
             val chatSwitch =
                 customAlertDialogView.findViewById<MaterialSwitch>(R.id.packageDialogIsChat)
 
-            val entity = DBUtils.getPackageName(packageName.pkg)
+            MyApplication.executor.execute {
+                val entity = DBUtils.getPackageName(packageName.pkg) ?: packageName
 
-            if (entity != null) {
-                chatSwitch.isChecked = entity.isChat
-            }
+                // Main thread
+                Handler(Looper.getMainLooper()).post {
+                    chatSwitch.isChecked = entity.isChat
 
-            chatSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (entity != null) {
-                    entity.isChat = isChecked
-                    MyApplication.packageNames.put(entity)
+                    chatSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+                        if (!buttonView.isPressed) return@setOnCheckedChangeListener
+
+                        packageName.isChat = isChecked
+                        entity.isChat = isChecked
+
+                        MyApplication.executor.execute {
+                            MyApplication.packageNames.put(entity)
+                        }
+                    }
                 }
             }
 
-            val builder = MaterialAlertDialogBuilder(viewHolder.itemView.context)
-            builder.setTitle(viewHolder.itemView.context.getString(R.string.settings))
-            builder.setView(customAlertDialogView)
-            builder.setIcon(R.mipmap.ic_launcher)
-            builder.setNeutralButton(R.string.back) { _, _ -> }
-            builder.setOnCancelListener { it.dismiss() }
-            builder.create()
-            builder.show()
+            MaterialAlertDialogBuilder(context)
+                .setTitle(context.getString(R.string.settings))
+                .setView(customAlertDialogView)
+                .setIcon(R.mipmap.ic_launcher)
+                .setNeutralButton(R.string.back) { _, _ -> }
+                .setOnCancelListener { it.dismiss() }
+                .show()
         }
 
-        viewHolder.llCustomBlacklistCard.setOnClickListener {
-            showSettingDialog()
-        }
-
-        viewHolder.ivBlackWhitelist.setOnClickListener {
-            showSettingDialog()
-        }
+        viewHolder.llCustomBlacklistCard.setOnClickListener { showSettingDialog() }
+        viewHolder.ivBlackWhitelist.setOnClickListener { showSettingDialog() }
     }
 
     override fun getItemCount() = packageNames.size

@@ -22,7 +22,7 @@
         android:title="@string/graph" />
     <item
         android:id="@+id/navAdvancedSearch"
-        android:icon="@drawable/baseline_delete_outline_24"
+        android:icon="@drawable/baseline_manage_search_24"
         android:title="@string/advanced_search" />
     <item
         android:id="@+id/navSettings"
