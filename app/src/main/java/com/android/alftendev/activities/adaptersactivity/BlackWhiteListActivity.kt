@@ -21,6 +21,7 @@ import com.android.alftendev.utils.DBUtils.getInstalledPackageNamesFromList
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
+import com.android.alftendev.utils.computables.PackageSettingsCache
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
@@ -48,7 +49,7 @@ class BlackWhiteListActivity : AppCompatActivity() {
     }
 
     private fun selectOrDeselectAll(installedSwitchChecked: Boolean, select: Boolean) {
-        runOnUiThread {
+        MyApplication.executor.execute {
             val allPackages = if (installedSwitchChecked) {
                 getInstalledPackageNamesFromList(DBUtils.allPackageName())
             } else {
@@ -63,10 +64,16 @@ class BlackWhiteListActivity : AppCompatActivity() {
                 MyApplication.packageNames.put(allPackages)
             }
 
-            refreshList(
-                DBUtils.allPackageName(),
-                blacklistMode
-            )
+            PackageSettingsCache.initCache()
+
+            val updatedList = DBUtils.allPackageName()
+
+            runOnUiThread {
+                refreshList(
+                    updatedList,
+                    blacklistMode
+                )
+            }
         }
     }
 

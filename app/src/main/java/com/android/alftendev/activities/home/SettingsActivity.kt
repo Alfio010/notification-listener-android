@@ -38,6 +38,7 @@ import com.android.alftendev.utils.UiUtils
 import com.android.alftendev.utils.UiUtils.setTheme
 import com.android.alftendev.utils.UiUtils.uiDefaultSettings
 import com.android.alftendev.utils.Utils
+import com.android.alftendev.utils.computables.PackageSettingsCache
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.system.exitProcess
 
@@ -256,7 +257,7 @@ class SettingsActivity : AppCompatActivity() {
             val openBlacklist = findPreference<Preference>("open_blacklist")
 
             if (openBlacklist != null) {
-                if (MySharedPref.isBlacklistEnabled()) {
+                if (MySharedPref.isDefaultModeBlacklistEnabled()) {
                     openBlacklist.title = getString(R.string.open_blacklist)
                     openBlacklist.summary = getString(R.string.blacklist_info)
                 } else {
@@ -269,7 +270,7 @@ class SettingsActivity : AppCompatActivity() {
                         requireContext(),
                         BlackWhiteListActivity::class.java
                     ).setAction(Intent.ACTION_MAIN)
-                    intent.putExtra("blacklistMode", MySharedPref.isBlacklistEnabled())
+                    intent.putExtra("blacklistMode", MySharedPref.isDefaultModeBlacklistEnabled())
                     startActivity(intent)
                     true
                 }
@@ -279,7 +280,7 @@ class SettingsActivity : AppCompatActivity() {
                 findPreference<SwitchPreferenceCompat>(IS_BLACKLIST_ENABLED)
 
             if (isBlacklistEnabled != null) {
-                isBlacklistEnabled.isChecked = MySharedPref.isBlacklistEnabled()
+                isBlacklistEnabled.isChecked = MySharedPref.isDefaultModeBlacklistEnabled()
                 if (isBlacklistEnabled.isChecked) {
                     isBlacklistEnabled.title = getString(R.string.blacklist_mode)
                 } else {
@@ -300,7 +301,7 @@ class SettingsActivity : AppCompatActivity() {
                             isBlacklistEnabled.title = getString(R.string.whitelist_mode)
                         }
 
-                        if (MySharedPref.isBlacklistEnabled()) {
+                        if (MySharedPref.isDefaultModeBlacklistEnabled()) {
                             openBlacklist?.title = getString(R.string.open_blacklist)
                             openBlacklist?.summary = getString(R.string.blacklist_info)
                         } else {
@@ -321,9 +322,13 @@ class SettingsActivity : AppCompatActivity() {
                         getString(R.string.yes)
                     ) { _, _ ->
 
-                        MyApplication.packageNames.all.forEach {
-                            it.isBlackList = false
-                            MyApplication.packageNames.put(it)
+                        MyApplication.executor.execute {
+                            MyApplication.packageNames.all.forEach {
+                                it.isBlackList = false
+                                MyApplication.packageNames.put(it)
+                            }
+
+                            PackageSettingsCache.initCache()
                         }
 
                     }
@@ -345,9 +350,13 @@ class SettingsActivity : AppCompatActivity() {
                         getString(R.string.yes)
                     ) { _, _ ->
 
-                        MyApplication.packageNames.all.forEach {
-                            it.isWhiteList = false
-                            MyApplication.packageNames.put(it)
+                        MyApplication.executor.execute {
+                            MyApplication.packageNames.all.forEach {
+                                it.isWhiteList = false
+                                MyApplication.packageNames.put(it)
+                            }
+
+                            PackageSettingsCache.initCache()
                         }
 
                     }

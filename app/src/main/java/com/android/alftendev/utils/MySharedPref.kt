@@ -38,7 +38,7 @@ object MySharedPref {
         return MyApplication.sharedPref.getBoolean(BLOCK_SCREENSHOT, false)
     }
 
-    fun isBlacklistEnabled(): Boolean {
+    fun isDefaultModeBlacklistEnabled(): Boolean {
         return MyApplication.sharedPref.getBoolean(IS_BLACKLIST_ENABLED, true)
     }
 }

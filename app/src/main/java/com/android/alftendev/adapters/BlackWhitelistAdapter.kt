@@ -14,6 +14,7 @@ import com.android.alftendev.R
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.computables.AppIcon
+import com.android.alftendev.utils.computables.PackageSettingsCache
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.google.android.material.textview.MaterialTextView
@@ -73,6 +74,11 @@ class BlackWhitelistAdapter(
                 }
 
                 MyApplication.packageNames.put(entity)
+                PackageSettingsCache.updatePackage(
+                    entity.pkg,
+                    entity.isBlackList,
+                    entity.isWhiteList
+                )
             }
         }
 

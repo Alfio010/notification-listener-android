@@ -36,3 +36,8 @@ data class PackageName(
         return json
     }
 }
+
+data class PackageSettings(
+    val isBlackList: Boolean,
+    val isWhiteList: Boolean
+)

@@ -4,23 +4,21 @@ import android.app.Notification
 import android.service.notification.StatusBarNotification
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.utils.DBUtils.createBlackListPackageName
-import com.android.alftendev.utils.DBUtils.getPackageName
 import com.android.alftendev.utils.MySharedPref
-import com.android.alftendev.utils.MySharedPref.isBlacklistEnabled
+import com.android.alftendev.utils.MySharedPref.isDefaultModeBlacklistEnabled
+import com.android.alftendev.utils.computables.PackageSettingsCache
 
 object NotiUtils {
     fun shouldDropByPackage(pkg: String): Boolean {
-        val packageName = getPackageName(pkg)
+        val packageNameSetting = PackageSettingsCache.packagesCache[pkg] ?: return false
 
-        if (packageName != null) {
-            if (isBlacklistEnabled()) {
-                if (packageName.isBlackList) {
-                    return true
-                }
-            } else {
-                if (!packageName.isWhiteList) {
-                    return true
-                }
+        if (isDefaultModeBlacklistEnabled()) {
+            if (packageNameSetting.isBlackList) {
+                return true
+            }
+        } else {
+            if (!packageNameSetting.isWhiteList) {
+                return true
             }
         }
 
