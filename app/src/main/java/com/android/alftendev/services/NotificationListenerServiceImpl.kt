@@ -60,7 +60,11 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 return@execute
             }
 
-            val currentNotiData = LastNotiData(notificationData.title, notificationData.text, safeSbn.notification.`when`)
+            val currentNotiData = LastNotiData(
+                notificationData.title,
+                notificationData.text,
+                safeSbn.notification.`when`
+            )
 
             val lastNotification = recentNotificationsCache[safeSbn.packageName]
 
@@ -69,7 +73,8 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             }
 
             if (lastNotification != null) {
-                val isSameContent = currentNotiData.title == lastNotification.title && currentNotiData.text == lastNotification.text
+                val isSameContent =
+                    currentNotiData.title == lastNotification.title && currentNotiData.text == lastNotification.text
 
                 if (isSameContent && currentNotiData.date - lastNotification.date <= DUPLICATE_NOTIFICATION_TIME_WINDOW_MS) {
                     return@execute
