@@ -22,7 +22,7 @@ import com.android.alftendev.utils.NotificationsUtils.sendNotification
 import java.util.concurrent.Executors
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
-    private data class LastNotiData(val title: String, val text: String)
+    private data class LastNotiData(val title: String, val text: String, val date: Long)
 
     private data class NotificationData(
         val title: String,
@@ -51,20 +51,28 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         val safeSbn = sbn!!
 
         notiExecutor.execute {
-            val lastNotifications = recentNotificationsCache[safeSbn.packageName]
-
             val notificationExtras = safeSbn.notification.extras ?: return@execute
 
             val notificationData = getNotificationFromExtras(notificationExtras)
 
-            if (searchOneNot(
-                    safeSbn.packageName,
-                    notificationData.title,
-                    safeSbn.notification.`when`,
-                    notificationData.text
-                ) != null
-            ) {
+            if (notificationData.title.isEmpty() && notificationData.text.isEmpty()) {
                 return@execute
+            }
+
+            val currentNotiData = LastNotiData(notificationData.title, notificationData.text, safeSbn.notification.`when`)
+
+            val lastNotification = recentNotificationsCache[safeSbn.packageName]
+
+            if (lastNotification == currentNotiData) {
+                return@execute
+            }
+
+            if (lastNotification != null) {
+                val isSameContent = currentNotiData.title == lastNotification.title && currentNotiData.text == lastNotification.text
+
+                if (isSameContent && currentNotiData.date - lastNotification.date <= 30 * 1000) {
+                    return@execute
+                }
             }
 
             val entityDeleted =
@@ -86,39 +94,27 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
                 MyApplication.packageNames.put(createPackageName(safeSbn.packageName))
             }
 
-            val save = {
-                if (notificationData.title.isNotEmpty() || notificationData.text.isNotEmpty()) {
-                    val notification = createNotification(
-                        safeSbn.packageName,
-                        notificationData.title,
-                        safeSbn.notification.`when`,
-                        notificationData.text,
-                        notificationData.bigText,
-                        notificationData.conversationTitle,
-                        notificationData.infoText,
-                        notificationData.peopleList,
-                        notificationData.titleBig
-                    )
+            val notification = createNotification(
+                safeSbn.packageName,
+                notificationData.title,
+                safeSbn.notification.`when`,
+                notificationData.text,
+                notificationData.bigText,
+                notificationData.conversationTitle,
+                notificationData.infoText,
+                notificationData.peopleList,
+                notificationData.titleBig
+            )
 
-                    if (notification != null) {
-                        LOGGER.log("SAVED NOTIFICATION: $notification")
+            if (notification != null) {
+                LOGGER.log("SAVED NOTIFICATION: $notification")
 
-                        MyApplication.notifications.put(notification)
-                    }
-                }
-            }
-
-            if (lastNotifications != null) {
-                if (lastNotifications.title != notificationData.title || lastNotifications.text != notificationData.text) {
-                    save()
-                }
-            } else {
-                save()
+                MyApplication.notifications.put(notification)
             }
 
             recentNotificationsCache.put(
                 safeSbn.packageName,
-                LastNotiData(notificationData.title, notificationData.text)
+                currentNotiData
             )
         }
     }
