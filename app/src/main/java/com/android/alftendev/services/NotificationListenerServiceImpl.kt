@@ -39,6 +39,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
 
     companion object {
         val LOGGER = CustomLog("not-listener")
+        private const val DUPLICATE_NOTIFICATION_TIME_WINDOW_MS = 30 * 1000L
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
@@ -70,7 +71,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             if (lastNotification != null) {
                 val isSameContent = currentNotiData.title == lastNotification.title && currentNotiData.text == lastNotification.text
 
-                if (isSameContent && currentNotiData.date - lastNotification.date <= 30 * 1000) {
+                if (isSameContent && currentNotiData.date - lastNotification.date <= DUPLICATE_NOTIFICATION_TIME_WINDOW_MS) {
                     return@execute
                 }
             }
