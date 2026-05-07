@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.alftendev.R
@@ -58,35 +59,35 @@ fun CustomAlertDialog(
             text = {
                 SelectionContainer {
                     Column {
-                        Text(text = "${LocalContext.current.getString(R.string.text)} ${notification.text}")
+                        Text(text = "${stringResource(id = R.string.text)} ${notification.text}")
                         Spacer(modifier = Modifier.height(8.dp))
 
                         if (!notification.titleBig.isNullOrBlank()) {
-                            Text(text = "${LocalContext.current.getString(R.string.titleBig)} ${notification.titleBig}")
+                            Text(text = "${stringResource(id = R.string.titleBig)} ${notification.titleBig}")
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         if (!notification.conversationTitle.isNullOrBlank()) {
-                            Text(text = "${LocalContext.current.getString(R.string.conversationTitle)} ${notification.conversationTitle}")
+                            Text(text = "${stringResource(id = R.string.conversationTitle)} ${notification.conversationTitle}")
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         if (!notification.bigText.isNullOrBlank()) {
-                            Text(text = "${LocalContext.current.getString(R.string.textBig)} ${notification.bigText!!.trim()}")
+                            Text(text = "${stringResource(id = R.string.textBig)} ${notification.bigText!!.trim()}")
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         if (!notification.infoText.isNullOrBlank()) {
-                            Text(text = "${LocalContext.current.getString(R.string.infoText)} ${notification.infoText}")
+                            Text(text = "${stringResource(id = R.string.infoText)} ${notification.infoText}")
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
                         if (!notification.peopleList.isNullOrBlank()) {
-                            Text(text = "${LocalContext.current.getString(R.string.peopleList)} ${notification.peopleList}")
+                            Text(text = "${stringResource(id = R.string.peopleList)} ${notification.peopleList}")
                             Spacer(modifier = Modifier.height(8.dp))
                         }
 
-                        Text(text = "${LocalContext.current.getString(R.string.isDeleted)} ${notification.isDeleted}")
+                        Text(text = "${stringResource(id = R.string.isDeleted)} ${notification.isDeleted}")
                         Spacer(modifier = Modifier.height(8.dp))
                     }
                 }
