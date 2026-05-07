@@ -2,6 +2,7 @@ package com.android.alftendev.utils.computables
 
 import com.android.alftendev.MyApplication.Companion.packageNames
 import com.android.alftendev.models.PackageSettings
+import com.android.alftendev.utils.DBUtils.getPackageName
 import java.util.concurrent.ConcurrentHashMap
 
 object PackageSettingsCache {
@@ -27,5 +28,13 @@ object PackageSettingsCache {
         } else {
             packagesCache[pkg] = PackageSettings(isBlackList, isWhiteList)
         }
+    }
+
+    fun packageNameExists(packageName: String): Boolean {
+        if (packagesCache[packageName] != null) {
+            return true
+        }
+
+        return getPackageName(packageName) != null
     }
 }
