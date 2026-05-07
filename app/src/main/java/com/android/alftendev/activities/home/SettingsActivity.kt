@@ -22,6 +22,7 @@ import com.android.alftendev.activities.otheractivity.ImportActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.AuthUtils.isBiometricAuthAvailable
 import com.android.alftendev.utils.DBUtils
+import com.android.alftendev.utils.DBUtils.addAllInstalledPackageNames
 import com.android.alftendev.utils.DialogUtils.askPasswordForZipDialog
 import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
@@ -159,6 +160,29 @@ class SettingsActivity : AppCompatActivity() {
                     builder.show()
                     true
                 }
+            }
+
+            val autodetectInstalledApps = findPreference<Preference>("autodetect_installed_apps")
+
+            if (autodetectInstalledApps != null) {
+                autodetectInstalledApps.onPreferenceClickListener =
+                    Preference.OnPreferenceClickListener {
+                        val builder = MaterialAlertDialogBuilder(requireContext())
+                        builder.setTitle(getString(R.string.autodetect))
+                        builder.setMessage(getString(R.string.do_you_want_to_automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist))
+                        builder.setPositiveButton(
+                            getString(R.string.yes)
+                        ) { _, _ ->
+                            MyApplication.executor.execute {
+                                addAllInstalledPackageNames()
+                            }
+                        }
+                        builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                        builder.setOnCancelListener { it.dismiss() }
+                        builder.create()
+                        builder.show()
+                        true
+                    }
             }
 
             val blackListAuto =

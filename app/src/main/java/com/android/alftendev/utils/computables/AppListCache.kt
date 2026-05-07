@@ -15,4 +15,11 @@ object AppListCache {
         }
         return cachedApps!!
     }
+
+    fun getInstalledUserApps(): List<ApplicationInfo> {
+        val allApps = getInstalledApps()
+        return allApps.filter {
+            (it.flags and ApplicationInfo.FLAG_SYSTEM) == 0
+        }
+    }
 }

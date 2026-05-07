@@ -26,6 +26,14 @@
         </Preference>
 
     </PreferenceCategory>
+    <PreferenceCategory app:title="@string/app_list">
+        <Preference
+            app:key="autodetect_installed_apps"
+            app:summary="@string/automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist"
+            app:title="@string/autodetect">
+
+        </Preference>
+    </PreferenceCategory>
     <PreferenceCategory app:title="@string/blacklist">
 
         <SwitchPreferenceCompat

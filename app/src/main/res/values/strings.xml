@@ -153,4 +153,8 @@
     <string name="icon_licenses">Icon licenses</string>
     <string name="all">All</string>
     <string name="are_you_sure_you_want_to_delete_the_selected_items_they_cannot_be_recovered">Are you sure you want to delete the selected items? (%1$s) They cannot be recovered.</string>
+    <string name="app_list" translatable="false">App list</string>
+    <string name="autodetect" translatable="false">Autodetect</string>
+    <string name="automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Automatically find your installed apps so you can manage them in the blacklist and whitelist.</string>
+    <string name="do_you_want_to_automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Do you want to automatically find your installed apps so you can manage them in the blacklist and whitelist?</string>
 </resources>

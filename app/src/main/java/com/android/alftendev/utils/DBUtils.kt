@@ -12,6 +12,7 @@ import com.android.alftendev.models.Notifications_
 import com.android.alftendev.models.PackageName
 import com.android.alftendev.models.PackageName_
 import com.android.alftendev.utils.Utils.isAppInstalled
+import com.android.alftendev.utils.computables.AppListCache.getInstalledUserApps
 import io.objectbox.query.LazyList
 import io.objectbox.query.QueryBuilder
 import java.util.Date
@@ -335,6 +336,15 @@ object DBUtils {
             Utils.getAppNameFromPackageName(pkgName),
             pkgName
         )
+    }
+
+    fun addAllInstalledPackageNames() {
+        val packageNames = getInstalledUserApps()
+        packageNames.forEach {
+            if (getPackageName(it.packageName) == null) {
+                MyApplication.packageNames.put(createPackageName(it.packageName))
+            }
+        }
     }
 
     fun createPackageNameFromJson(

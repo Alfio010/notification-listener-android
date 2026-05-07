@@ -120,4 +120,6 @@
     <string name="icon_licenses">Licenze icone</string>
     <string name="all">Tutti</string>
     <string name="are_you_sure_you_want_to_delete_the_selected_items_they_cannot_be_recovered">Sei sicuro di voler eliminare gli elementi selezionati? (%1$s) Non potranno essere recuperati.</string>
+    <string name="automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Trova automaticamente le tue app per gestirle nella blacklist e whitelist.</string>
+    <string name="do_you_want_to_automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Vuoi trovare automaticamente le tue app installate per gestirle nella blacklist e whitelist?</string>
 </resources>
