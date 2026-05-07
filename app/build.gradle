@@ -28,7 +28,7 @@ android {
         targetSdk 36
         versionCode 48
         versionName "2.7.0"
-        // git tag v2.6.1 -> git push --follow-tags origin tag v2.6.1
+        // git commit -> git tag v2.6.1 -> git push --follow-tags origin tag v2.6.1
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 ///////
