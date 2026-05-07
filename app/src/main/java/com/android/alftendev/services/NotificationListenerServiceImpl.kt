@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.collection.LruCache
 import com.android.alftendev.MyApplication
 import com.android.alftendev.services.utils.NotiUtils.isAutoBlacklistedNotification
 import com.android.alftendev.services.utils.NotiUtils.shouldDropByDefaultBlacklist
@@ -14,7 +15,6 @@ import com.android.alftendev.utils.DBUtils.createNotification
 import com.android.alftendev.utils.DBUtils.createNotificationDeleted
 import com.android.alftendev.utils.DBUtils.createPackageName
 import com.android.alftendev.utils.DBUtils.getPackageName
-import com.android.alftendev.utils.DBUtils.lastNotification
 import com.android.alftendev.utils.DBUtils.searchDeletedNot
 import com.android.alftendev.utils.DBUtils.searchOneNot
 import com.android.alftendev.utils.MySharedPref
@@ -22,7 +22,20 @@ import com.android.alftendev.utils.NotificationsUtils.sendNotification
 import java.util.concurrent.Executors
 
 class NotificationListenerServiceImpl : NotificationListenerService() {
+    private data class LastNotiData(val title: String, val text: String)
+
+    private data class NotificationData(
+        val title: String,
+        val text: String,
+        val bigText: String,
+        val conversationTitle: String,
+        val infoText: String,
+        val peopleList: String,
+        val titleBig: String
+    )
+
     private val notiExecutor = Executors.newSingleThreadExecutor()
+    private val recentNotificationsCache = LruCache<String, LastNotiData>(30)
 
     companion object {
         val LOGGER = CustomLog("not-listener")
@@ -38,7 +51,7 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         val safeSbn = sbn!!
 
         notiExecutor.execute {
-            val lastNotifications = lastNotification(safeSbn.packageName)
+            val lastNotifications = recentNotificationsCache[safeSbn.packageName]
 
             val notificationExtras = safeSbn.notification.extras ?: return@execute
 
@@ -102,6 +115,11 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
             } else {
                 save()
             }
+
+            recentNotificationsCache.put(
+                safeSbn.packageName,
+                LastNotiData(notificationData.title, notificationData.text)
+            )
         }
     }
 
@@ -166,16 +184,6 @@ class NotificationListenerServiceImpl : NotificationListenerService() {
         if (shouldDropByDefaultBlacklist(sbn)) return true
         return false
     }
-
-    private data class NotificationData(
-        val title: String,
-        val text: String,
-        val bigText: String,
-        val conversationTitle: String,
-        val infoText: String,
-        val peopleList: String,
-        val titleBig: String
-    )
 
     private fun getNotificationFromExtras(notificationExtras: Bundle): NotificationData {
         val title =
