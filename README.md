@@ -1,4 +1,4 @@
-﻿# Notification Recovery
+﻿# Notifications Recovery
 
  ![primo_piano.png](img/primo_piano.png)
 
