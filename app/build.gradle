@@ -83,10 +83,10 @@ android {
 
 dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.core:core-ktx:1.17.0'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'com.google.android.material:material:1.13.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0'
+    implementation 'androidx.core:core-ktx:1.19.0'
+    implementation 'androidx.appcompat:appcompat:1.8.0'
+    implementation 'com.google.android.material:material:1.14.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.11.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
@@ -103,7 +103,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
 
     implementation 'net.lingala.zip4j:zip4j:2.11.5'
-    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.7.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.8.0"
     implementation "androidx.palette:palette-ktx:1.0.0"
 
     implementation 'androidx.activity:activity-compose:1.13.0'
