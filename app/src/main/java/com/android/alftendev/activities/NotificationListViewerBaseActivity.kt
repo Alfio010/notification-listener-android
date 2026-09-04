@@ -68,7 +68,11 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity(),
             //recycleView.adapter = adapter
 
             if (!::adapter.isInitialized) {
-                adapter = NotificationsAdapter(notifications, this@NotificationListViewerBaseActivity, this@NotificationListViewerBaseActivity)
+                adapter = NotificationsAdapter(
+                    notifications,
+                    this@NotificationListViewerBaseActivity,
+                    this@NotificationListViewerBaseActivity
+                )
                 recycleView.adapter = adapter
             } else {
                 adapter.updateData(notifications)
@@ -195,6 +199,10 @@ abstract class NotificationListViewerBaseActivity : AppCompatActivity(),
         //MyApplication.executor.execute { refreshList(getNotifications()) }
 
         onBackPressedDispatcher.addCallback(this) {
+            if (javaClass.simpleName == "AllNotificationsActivity") {
+                moveTaskToBack(true)
+            }
+
             if (::adapter.isInitialized && adapter.isSelectionMode) {
                 adapter.exitSelectionMode()
             } else {

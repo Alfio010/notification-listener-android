@@ -24,6 +24,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bReAuth: MaterialButton
     private lateinit var bContinue: MaterialButton
 
+    companion object {
+        private fun launchAllNotificationIntent(context: AppCompatActivity) {
+            val intent = Intent(context, AllNotificationsActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            context.startActivity(intent)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(UiUtils.themeValueToTheme(this, MySharedPref.getThemeOptions()))
         super.onCreate(savedInstanceState)
@@ -36,18 +44,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (!haveToAskAuth()) {
-            val intent = Intent(this, AllNotificationsActivity::class.java)
-            startActivity(intent)
-            finish()
+            launchAllNotificationIntent(this)
         }
 
         bReAuth = findViewById(R.id.bReAuth)
         bContinue = findViewById(R.id.bContinue)
 
         bContinue.setOnClickListener {
-            val intent = Intent(this, AllNotificationsActivity::class.java)
-            startActivity(intent)
-            finish()
+            launchAllNotificationIntent(this)
         }
 
         initializeBiometricAuth()
@@ -88,9 +92,7 @@ class MainActivity : AppCompatActivity() {
                         runOnUiThread {
                             showToast(getString(R.string.authSuccess), this@MainActivity)
                         }
-                        val intent = Intent(this@MainActivity, AllNotificationsActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        launchAllNotificationIntent(this@MainActivity)
                     }
 
                     override fun onAuthenticationFailed() {
