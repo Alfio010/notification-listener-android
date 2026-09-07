@@ -22,7 +22,7 @@ android {
     compileSdk 37
 
     defaultConfig {
-        resourceConfigurations += ['en', 'it-rIT']
+        resourceConfigurations += ['en', 'it']
         applicationId "com.alftendev.notlistener"
         minSdk 24
         targetSdk 37
@@ -93,7 +93,7 @@ dependencies {
 
     implementation "androidx.biometric:biometric-ktx:1.4.0-alpha02"
 
-    implementation 'io.objectbox:objectbox-android:5.0.1'
+    implementation 'io.objectbox:objectbox-android:5.4.2'
     implementation 'org.apache.commons:commons-lang3:3.20.0'
 
     // .\gradlew licenseReleaseReport
@@ -102,7 +102,7 @@ dependencies {
     implementation 'androidx.activity:activity-ktx:1.13.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.2'
 
-    implementation 'net.lingala.zip4j:zip4j:2.11.5'
+    implementation 'net.lingala.zip4j:zip4j:2.11.6'
     implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.8.0"
     implementation "androidx.palette:palette-ktx:1.0.0"
 
