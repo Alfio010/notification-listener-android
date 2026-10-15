@@ -547,6 +547,14 @@ object DBUtils {
 
     }
 
+    fun deleteNotificationsOlderThan(thresholdTime: Date) {
+        notifications
+            .query()
+            .less(Notifications_.time, thresholdTime)
+            .build()
+            .remove()
+    }
+
     fun getInstalledPackageNamesFromList(packageName: List<PackageName>): MutableList<PackageName> {
         return packageName.toMutableList().apply {
             removeAll {

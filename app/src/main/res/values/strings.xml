@@ -157,4 +157,10 @@
     <string name="autodetect" translatable="false">Autodetect</string>
     <string name="automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Automatically find your installed apps so you can manage them in the blacklist and whitelist.</string>
     <string name="do_you_want_to_automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Do you want to automatically find your installed apps so you can manage them in the blacklist and whitelist?</string>
+    <string name="inserisci_un_numero_valido_maggiore_di_0">Please enter a valid number greater than 0</string>
+    <string name="elimina_notifiche_pi_vecchie_di_tot_giorni">Delete notifications older than (days)</string>
+    <string name="frequenza_di_pulizia_in_giorni">Cleanup frequency (days)</string>
+    <string name="eliminazione_automatica">Auto-delete</string>
+    <string name="elimina_automaticamente_le_notifiche_pi_vecchie_per_risparmiare_spazio_il_valore_0_in_uno_dei_due_campi">Automatically delete old notifications to save space</string>
+    <string name="impostazioni_eliminazione_automatica">Auto-delete settings</string>
 </resources>
