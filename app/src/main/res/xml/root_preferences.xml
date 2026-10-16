@@ -27,6 +27,9 @@
 
     </PreferenceCategory>
     <PreferenceCategory app:title="@string/impostazioni_eliminazione_automatica">
+        <Preference
+            app:key="autoDeleteNotiPreferenceStatus"
+            app:title="@string/loading" />
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:key="isDeleteNotiDaysIntervalEnabled"

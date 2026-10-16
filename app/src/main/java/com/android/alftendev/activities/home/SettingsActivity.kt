@@ -14,7 +14,6 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import androidx.work.WorkManager
 import com.android.alftendev.BuildConfig
 import com.android.alftendev.MyApplication
 import com.android.alftendev.MyApplication.Companion.sharedPrefName
@@ -22,9 +21,11 @@ import com.android.alftendev.R
 import com.android.alftendev.activities.adaptersactivity.BlackWhiteListActivity
 import com.android.alftendev.activities.adaptersactivity.IsChatActivity
 import com.android.alftendev.activities.otheractivity.ImportActivity
-import com.android.alftendev.utils.AUTO_DELETE_NOTI_WORKER
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.AuthUtils.isBiometricAuthAvailable
+import com.android.alftendev.utils.CleanupDbWorker.Companion.cancelCleanupDbWorker
+import com.android.alftendev.utils.CleanupDbWorker.Companion.getWorkerStatusAsync
+import com.android.alftendev.utils.CleanupDbWorker.Companion.initializeCleanupDbWorker
 import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.DBUtils.addAllInstalledPackageNames
 import com.android.alftendev.utils.DialogUtils.askPasswordForZipDialog
@@ -171,6 +172,18 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
+            val autoDeleteNotiStatus = findPreference<Preference>("autoDeleteNotiPreferenceStatus")
+
+            fun updateNotiStatus() {
+                if (autoDeleteNotiStatus != null) {
+                    getWorkerStatusAsync(requireContext()) { status ->
+                        autoDeleteNotiStatus.title = status
+                    }
+                }
+            }
+
+            updateNotiStatus()
+
             val autoDeleteNoti =
                 findPreference<SwitchPreferenceCompat>(IS_AUTO_DELETE_NOTI_ENABLED)
 
@@ -191,8 +204,7 @@ class SettingsActivity : AppCompatActivity() {
                         }
 
                         if (!active) {
-                            WorkManager.getInstance(requireContext())
-                                .cancelUniqueWork(AUTO_DELETE_NOTI_WORKER)
+                            cancelCleanupDbWorker(requireContext())
                         }
 
                         val sharedPref =
@@ -200,6 +212,10 @@ class SettingsActivity : AppCompatActivity() {
                         sharedPref.edit(commit = true) {
                             putBoolean(IS_AUTO_DELETE_NOTI_ENABLED, active)
                         }
+
+                        initializeCleanupDbWorker(requireContext())
+
+                        updateNotiStatus()
                         true
                     }
             }
@@ -208,7 +224,8 @@ class SettingsActivity : AppCompatActivity() {
                 findPreference<EditTextPreference>(DELETE_NOTI_DAYS_INTERVAL)
 
             if (autoDeleteNotiDaysIntervalPreference != null) {
-                autoDeleteNotiDaysIntervalPreference.summary = deleteNotiDaysInterval().toString()
+                val currentDaysInterval = deleteNotiDaysInterval()
+                autoDeleteNotiDaysIntervalPreference.summary = currentDaysInterval.toString()
                 autoDeleteNotiDaysIntervalPreference.onPreferenceChangeListener =
                     Preference.OnPreferenceChangeListener { _, newValue ->
                         val stringValue = newValue as? String ?: ""
@@ -225,14 +242,22 @@ class SettingsActivity : AppCompatActivity() {
                             return@OnPreferenceChangeListener false
                         }
 
+                        val hasChanged = currentDaysInterval != days
+
                         val sharedPref =
                             requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
                         sharedPref.edit(commit = true) {
                             putInt(DELETE_NOTI_DAYS_INTERVAL, days)
                         }
 
+                        if (hasChanged) {
+                            initializeCleanupDbWorker(requireContext(), forceUpdate = true)
+                        }
+
                         autoDeleteNotiDaysIntervalPreference.summary =
                             deleteNotiDaysInterval().toString()
+
+                        updateNotiStatus()
                         true
                     }
             }

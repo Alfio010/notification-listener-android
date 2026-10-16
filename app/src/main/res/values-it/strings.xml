@@ -128,4 +128,10 @@
     <string name="eliminazione_automatica">Eliminazione automatica</string>
     <string name="elimina_automaticamente_le_notifiche_pi_vecchie_per_risparmiare_spazio_il_valore_0_in_uno_dei_due_campi">Elimina automaticamente le notifiche più vecchie per risparmiare spazio</string>
     <string name="impostazioni_eliminazione_automatica">Impostazioni eliminazione automatica</string>
+    <string name="state_x">Stato: %1$s</string>
+    <string name="non_programmato">Non programmato</string>
+    <string name="in_esecuzione">In esecuzione…</string>
+    <string name="attivo">Attivo</string>
+    <string name="disattivato">Disattivato</string>
+    <string name="non_attivo">Non attivo</string>
 </resources>

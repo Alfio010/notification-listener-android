@@ -163,4 +163,10 @@
     <string name="eliminazione_automatica">Auto-delete</string>
     <string name="elimina_automaticamente_le_notifiche_pi_vecchie_per_risparmiare_spazio_il_valore_0_in_uno_dei_due_campi">Automatically delete old notifications to save space</string>
     <string name="impostazioni_eliminazione_automatica">Auto-delete settings</string>
+    <string name="state_x">State: %1$s</string>
+    <string name="non_programmato">Not scheduled</string>
+    <string name="in_esecuzione">Running…</string>
+    <string name="attivo">Active</string>
+    <string name="disattivato">Disabled</string>
+    <string name="non_attivo">Inactive</string>
 </resources>
