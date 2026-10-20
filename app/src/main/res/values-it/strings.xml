@@ -122,4 +122,16 @@
     <string name="are_you_sure_you_want_to_delete_the_selected_items_they_cannot_be_recovered">Sei sicuro di voler eliminare gli elementi selezionati? (%1$s) Non potranno essere recuperati.</string>
     <string name="automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Trova automaticamente le tue app per gestirle nella blacklist e whitelist.</string>
     <string name="do_you_want_to_automatically_find_your_apps_so_you_can_manage_them_in_the_blacklist_and_whitelist">Vuoi trovare automaticamente le tue app installate per gestirle nella blacklist e whitelist?</string>
+    <string name="inserisci_un_numero_valido_maggiore_di_0">Inserisci un numero valido maggiore di 0</string>
+    <string name="elimina_notifiche_pi_vecchie_di_tot_giorni">Elimina notifiche più vecchie di tot giorni</string>
+    <string name="frequenza_di_pulizia_in_giorni">Frequenza di pulizia in giorni</string>
+    <string name="eliminazione_automatica">Eliminazione automatica</string>
+    <string name="elimina_automaticamente_le_notifiche_pi_vecchie_per_risparmiare_spazio_il_valore_0_in_uno_dei_due_campi">Elimina automaticamente le notifiche più vecchie per risparmiare spazio</string>
+    <string name="impostazioni_eliminazione_automatica">Impostazioni eliminazione automatica</string>
+    <string name="state_x">Stato: %1$s</string>
+    <string name="non_programmato">Non programmato</string>
+    <string name="in_esecuzione">In esecuzione…</string>
+    <string name="attivo">Attivo</string>
+    <string name="disattivato">Disattivato</string>
+    <string name="non_attivo">Non attivo</string>
 </resources>

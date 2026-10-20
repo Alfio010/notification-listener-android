@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import com.android.alftendev.models.Notifications
 import com.android.alftendev.models.PackageName
+import com.android.alftendev.utils.CleanupDbWorker.Companion.initializeCleanupDbWorker
 import com.android.alftendev.utils.DatabaseFactory
 import com.android.alftendev.utils.MyActivityLifecycleCallbacks
 import com.android.alftendev.utils.computables.PackageSettingsCache.initCache
@@ -52,5 +53,7 @@ class MyApplication : Application() {
         executor.execute { initCache() }
 
         registerActivityLifecycleCallbacks(MyActivityLifecycleCallbacks())
+
+        initializeCleanupDbWorker(this)
     }
 }

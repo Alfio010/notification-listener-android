@@ -13,6 +13,9 @@ object MySharedPref {
     const val RECORD_NOTIFICATIONS_ALREADY_ASKED = "isRecordNotificationAlreadyAsked"
     const val BLOCK_SCREENSHOT = "areScreenshotBlocked"
     const val IS_BLACKLIST_ENABLED = "isBlacklistEnabled"
+    const val IS_AUTO_DELETE_NOTI_ENABLED = "isDeleteNotiDaysIntervalEnabled"
+    const val DELETE_NOTI_DAYS_INTERVAL = "deleteNotiDaysInterval"
+    const val DELETE_NOTI_OLDER_THAN_DAYS = "deleteNotiOlderThanDays"
 
     fun getAutoBlacklistOn(): Boolean {
         return MyApplication.sharedPref.getBoolean(AUTO_BLACKLIST_ENABLED_STRING, true)
@@ -40,5 +43,17 @@ object MySharedPref {
 
     fun isDefaultModeBlacklistEnabled(): Boolean {
         return MyApplication.sharedPref.getBoolean(IS_BLACKLIST_ENABLED, true)
+    }
+
+    fun isAutoDeleteNotiEnabled(): Boolean {
+        return MyApplication.sharedPref.getBoolean(IS_AUTO_DELETE_NOTI_ENABLED, false)
+    }
+
+    fun deleteNotiDaysInterval(): Int {
+        return MyApplication.sharedPref.getInt(DELETE_NOTI_DAYS_INTERVAL, 0)
+    }
+
+    fun deleteNotiOlderThanDays(): Int {
+        return MyApplication.sharedPref.getInt(DELETE_NOTI_OLDER_THAN_DAYS, 0)
     }
 }

@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -21,6 +23,9 @@ import com.android.alftendev.activities.adaptersactivity.IsChatActivity
 import com.android.alftendev.activities.otheractivity.ImportActivity
 import com.android.alftendev.utils.AuthUtils.askAuth
 import com.android.alftendev.utils.AuthUtils.isBiometricAuthAvailable
+import com.android.alftendev.utils.CleanupDbWorker.Companion.cancelCleanupDbWorker
+import com.android.alftendev.utils.CleanupDbWorker.Companion.getWorkerStatusAsync
+import com.android.alftendev.utils.CleanupDbWorker.Companion.initializeCleanupDbWorker
 import com.android.alftendev.utils.DBUtils
 import com.android.alftendev.utils.DBUtils.addAllInstalledPackageNames
 import com.android.alftendev.utils.DialogUtils.askPasswordForZipDialog
@@ -28,10 +33,15 @@ import com.android.alftendev.utils.MySharedPref
 import com.android.alftendev.utils.MySharedPref.AUTH_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.AUTO_BLACKLIST_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.BLOCK_SCREENSHOT
+import com.android.alftendev.utils.MySharedPref.DELETE_NOTI_DAYS_INTERVAL
+import com.android.alftendev.utils.MySharedPref.DELETE_NOTI_OLDER_THAN_DAYS
+import com.android.alftendev.utils.MySharedPref.IS_AUTO_DELETE_NOTI_ENABLED
 import com.android.alftendev.utils.MySharedPref.IS_BLACKLIST_ENABLED
 import com.android.alftendev.utils.MySharedPref.NOTIFICATION_ENABLED_STRING
 import com.android.alftendev.utils.MySharedPref.RECORD_NOTIFICATIONS_ENABLED
 import com.android.alftendev.utils.MySharedPref.THEME_OPTIONS_ENABLED
+import com.android.alftendev.utils.MySharedPref.deleteNotiDaysInterval
+import com.android.alftendev.utils.MySharedPref.deleteNotiOlderThanDays
 import com.android.alftendev.utils.PermissionUtils.checkPostNotificationPermission
 import com.android.alftendev.utils.PermissionUtils.isNotificationPostPermissionEnabled
 import com.android.alftendev.utils.PermissionUtils.isNotificationServiceEnabled
@@ -160,6 +170,128 @@ class SettingsActivity : AppCompatActivity() {
                     builder.show()
                     true
                 }
+            }
+
+            val autoDeleteNotiStatus = findPreference<Preference>("autoDeleteNotiPreferenceStatus")
+
+            fun updateNotiStatus() {
+                if (autoDeleteNotiStatus != null) {
+                    getWorkerStatusAsync(requireContext()) { status ->
+                        autoDeleteNotiStatus.title = status
+                    }
+                }
+            }
+
+            updateNotiStatus()
+
+            val autoDeleteNoti =
+                findPreference<SwitchPreferenceCompat>(IS_AUTO_DELETE_NOTI_ENABLED)
+
+            if (autoDeleteNoti != null) {
+                autoDeleteNoti.isChecked = MySharedPref.isAutoDeleteNotiEnabled()
+                autoDeleteNoti.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val active = newValue as Boolean
+
+                        if (active && (deleteNotiDaysInterval() <= 0 || deleteNotiOlderThanDays() <= 0)) {
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.inserisci_un_numero_valido_maggiore_di_0),
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            return@OnPreferenceChangeListener false
+                        }
+
+                        if (!active) {
+                            cancelCleanupDbWorker(requireContext())
+                        }
+
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit(commit = true) {
+                            putBoolean(IS_AUTO_DELETE_NOTI_ENABLED, active)
+                        }
+
+                        initializeCleanupDbWorker(requireContext())
+
+                        updateNotiStatus()
+                        true
+                    }
+            }
+
+            val autoDeleteNotiDaysIntervalPreference =
+                findPreference<EditTextPreference>(DELETE_NOTI_DAYS_INTERVAL)
+
+            if (autoDeleteNotiDaysIntervalPreference != null) {
+                val currentDaysInterval = deleteNotiDaysInterval()
+                autoDeleteNotiDaysIntervalPreference.summary = currentDaysInterval.toString()
+                autoDeleteNotiDaysIntervalPreference.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val stringValue = newValue as? String ?: ""
+                        val days = stringValue.toIntOrNull()
+
+                        if (days == null || days <= 0) {
+
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.inserisci_un_numero_valido_maggiore_di_0),
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            return@OnPreferenceChangeListener false
+                        }
+
+                        val hasChanged = currentDaysInterval != days
+
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit(commit = true) {
+                            putInt(DELETE_NOTI_DAYS_INTERVAL, days)
+                        }
+
+                        if (hasChanged) {
+                            initializeCleanupDbWorker(requireContext(), forceUpdate = true)
+                        }
+
+                        autoDeleteNotiDaysIntervalPreference.summary =
+                            deleteNotiDaysInterval().toString()
+
+                        updateNotiStatus()
+                        true
+                    }
+            }
+
+            val autoDeleteNotiOlderThanDays =
+                findPreference<EditTextPreference>(DELETE_NOTI_OLDER_THAN_DAYS)
+
+            if (autoDeleteNotiOlderThanDays != null) {
+                autoDeleteNotiOlderThanDays.summary = deleteNotiOlderThanDays().toString()
+                autoDeleteNotiOlderThanDays.onPreferenceChangeListener =
+                    Preference.OnPreferenceChangeListener { _, newValue ->
+                        val stringValue = newValue as? String ?: ""
+                        val days = stringValue.toIntOrNull()
+
+                        if (days == null || days <= 0) {
+
+                            Toast.makeText(
+                                requireContext(),
+                                getString(R.string.inserisci_un_numero_valido_maggiore_di_0),
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            return@OnPreferenceChangeListener false
+                        }
+
+                        val sharedPref =
+                            requireContext().getSharedPreferences(sharedPrefName, MODE_PRIVATE)
+                        sharedPref.edit(commit = true) {
+                            putInt(DELETE_NOTI_OLDER_THAN_DAYS, days)
+                        }
+
+                        autoDeleteNotiOlderThanDays.summary = deleteNotiOlderThanDays().toString()
+                        true
+                    }
             }
 
             val autodetectInstalledApps = findPreference<Preference>("autodetect_installed_apps")
